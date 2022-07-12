@@ -3,7 +3,7 @@ import 'package:provider/provider.dart';
 
 import '../../constants/constants.dart';
 import '../../constants/screen_size.dart';
-import '../../provider/add_task_provider.dart';
+import '../../provider/task_provider.dart';
 
 class InputMainInfo extends StatelessWidget {
   const InputMainInfo({
@@ -12,7 +12,7 @@ class InputMainInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var taskProvider = Provider.of<AddTaskProvider>(context);
+    var taskProvider = Provider.of<TaskProvider>(context);
     var size = MediaQuery.of(context).size;
     return Row(
       children: [
@@ -27,7 +27,7 @@ class InputMainInfo extends StatelessWidget {
               height: SMALLGAP,
             ),
             Container(
-              width: size.width / 3,
+              width: size.width /4,
               child: TextFormField(
                 cursorColor: AppColors.lightPrimary,
                 controller: taskProvider.codeTextController,
@@ -49,6 +49,10 @@ class InputMainInfo extends StatelessWidget {
                   } else if (!RegExp(r'^(?:[A-Z]{1})(?:[0-9]{5})$')
                       .hasMatch(text)) {
                     return '형식에 맞지않습니다.';
+                  } else if (taskProvider.locList
+                      .where((element) => element.locationId == text)
+                      .isNotEmpty) {
+                    return '이미 등록된 코드입니다.';
                   }
                 },
               ),
@@ -70,7 +74,8 @@ class InputMainInfo extends StatelessWidget {
             ),
             Container(
               width: size.width / 3,
-              child: const TextField(
+              child: TextFormField(
+                controller: taskProvider.nameTextController,
                 cursorColor: AppColors.lightPrimary,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
@@ -82,6 +87,15 @@ class InputMainInfo extends StatelessWidget {
                   ),
                   focusColor: AppColors.lightPrimary,
                 ),
+                validator: (text) {
+                  if (text == null || text.isEmpty) {
+                    return '매장명을 입력해주세요.';
+                  }  else if (taskProvider.locList
+                      .where((element) => element.locationName == text)
+                      .isNotEmpty) {
+                    return '이미 등록된 매장입니다.';
+                  }
+                },
               ),
             ),
           ],

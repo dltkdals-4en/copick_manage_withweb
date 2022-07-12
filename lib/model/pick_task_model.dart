@@ -7,7 +7,7 @@ class PickTaskModel {
   String? userName;
   String? locationName;
   int? state;
-  String? taskAllocateTime;
+  // String? taskAllocateTime;
   String? pickUpDate;
   String? locationId;
   List? pickDetails;
@@ -23,7 +23,7 @@ class PickTaskModel {
     this.userName,
     this.locationName,
     this.state,
-    this.taskAllocateTime,
+    // this.taskAllocateTime,
     this.pickUpDate,
     this.locationId,
     this.totalVolume,
@@ -42,7 +42,7 @@ class PickTaskModel {
       'location_id': this.locationId,
       'pick_total_waste': this.totalVolume,
       'pick_details': this.pickDetails,
-      'task_allocate_time': this.taskAllocateTime,
+      // 'task_allocate_time': this.taskAllocateTime,
       'pick_up_date': this.pickUpDate,
       'pick_fail_code': this.failCode,
       'pick_fail_reason': this.failReason,
@@ -56,7 +56,7 @@ class PickTaskModel {
       'location_id': this.locationId,
       'pick_total_waste': this.totalVolume,
       'pick_details': this.pickDetails,
-      'task_allocate_time': Timestamp.fromDate(DateTime.now()) ,
+      // 'task_allocate_time': Timestamp.fromDate(DateTime.now()) ,
       'pick_fail_code': this.failCode,
       'pick_fail_reason': this.failReason,
       'condition': this.condition,
@@ -70,7 +70,7 @@ class PickTaskModel {
     userName = json['allocated_user_id'];
     locationName = json['location_name'];
     state = json['pick_state'];
-    taskAllocateTime = dateFormat(json['task_allocate_time']);
+    // taskAllocateTime = dateFormat(json['task_allocate_time']);
 
     locationId = (json['location_id'].runtimeType == int)
         ? json['location_id'].toString()

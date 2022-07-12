@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:copick_manage_withweb/check_data.dart';
-import 'package:copick_manage_withweb/provider/add_task_provider.dart';
+import 'package:copick_manage_withweb/provider/task_provider.dart';
 import 'package:copick_manage_withweb/provider/firebase_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -31,8 +31,8 @@ void main() async {
       ChangeNotifierProvider<FbProvider>(
         create: (_) => FbProvider(),
       ),
-      ChangeNotifierProvider<AddTaskProvider>(
-        create: (_) => AddTaskProvider(),
+      ChangeNotifierProvider<TaskProvider>(
+        create: (_) => TaskProvider(),
       )
     ],
     child: EasyLocalization(

@@ -1,13 +1,13 @@
 import 'package:copick_manage_withweb/add_task/widgets/input_code_widget.dart';
+import 'package:copick_manage_withweb/add_task/widgets/input_date_widget.dart';
 import 'package:copick_manage_withweb/add_task/widgets/input_track_widget.dart';
 import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:copick_manage_withweb/constants/screen_size.dart';
-import 'package:copick_manage_withweb/provider/add_task_provider.dart';
+import 'package:copick_manage_withweb/provider/task_provider.dart';
 import 'package:copick_manage_withweb/provider/firebase_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-
 
 class AddTaskPage extends StatefulWidget {
   const AddTaskPage({Key? key}) : super(key: key);
@@ -21,14 +21,14 @@ class _AddTaskPageState extends State<AddTaskPage>
   @override
   Widget build(BuildContext context) {
     var fbProvider = Provider.of<FbProvider>(context);
-    var taskProvider = Provider.of<AddTaskProvider>(context);
+    var taskProvider = Provider.of<TaskProvider>(context);
     var size = MediaQuery.of(context).size;
     var locList = taskProvider.locList;
     var taskList = taskProvider.taskList;
     var track1 = taskProvider.taskListTrack1;
     var track2 = taskProvider.taskListTrack2;
     var track3 = taskProvider.taskListTrack3;
-    TabController tabController = TabController(length: 3, vsync: this);
+    TabController tabController = TabController(length: 6, vsync: this);
     final formKey = GlobalKey<FormState>();
     return Scaffold(
       body: SingleChildScrollView(
@@ -72,9 +72,12 @@ class _AddTaskPageState extends State<AddTaskPage>
                           unselectedLabelColor: AppColors.black,
                           labelPadding: EdgeInsets.all(SMALLGAP),
                           tabs: [
-                            Text('경로 1'),
-                            Text('경로 2'),
-                            Text('경로 3'),
+                            Text('전체보기'),
+                            Text('월요일'),
+                            Text('화요일'),
+                            Text('수요일'),
+                            Text('목요일'),
+                            Text('금요일'),
                           ],
                         ),
                         Container(
@@ -85,24 +88,41 @@ class _AddTaskPageState extends State<AddTaskPage>
                               Container(
                                 height: size.height / 3,
                                 child: ListView.builder(
-                                  itemCount: track1.length + 1,
+                                  itemCount: track1.length,
                                   itemBuilder: (context, index) {
-                                    if (index == 0) {
-                                      return Text('title');
-                                    } else {
-                                      return Text(taskProvider.getLocName(
-                                          track1[index - 1].locationId!));
-                                    }
+                                    return Text(taskProvider
+                                        .getLocName(track1[index].locationId!));
                                   },
                                 ),
                               ),
                               Container(
                                 height: size.height / 3,
-                                child: Text('2'),
+                                child: ReorderableListView.builder(
+                                  itemCount: 5,
+                                  itemBuilder:
+                                      (BuildContext context, int index) {
+                                    return Text('$index');
+                                  },
+                                  onReorder: (int oldIndex, int newIndex) {
+
+                                  },
+                                ),
                               ),
                               Container(
                                 height: size.height / 3,
                                 child: Text('3'),
+                              ),
+                              Container(
+                                height: size.height / 3,
+                                child: Text('4'),
+                              ),
+                              Container(
+                                height: size.height / 3,
+                                child: Text('5'),
+                              ),
+                              Container(
+                                height: size.height / 3,
+                                child: Text('6'),
                               ),
                             ],
                           ),
@@ -184,6 +204,7 @@ class _AddTaskPageState extends State<AddTaskPage>
                           ),
                           Divider(),
                           InputTrackWidget(),
+                          InputDateWidget(),
                           SizedBox(
                             width: NORMALGAP,
                           ),
@@ -192,13 +213,21 @@ class _AddTaskPageState extends State<AddTaskPage>
                             height: SMALLGAP,
                           ),
                           Divider(),
+
                           SizedBox(
                             height: NORMALGAP,
                           ),
                           ElevatedButton(
                             onPressed: () async {
                               if (formKey.currentState!.validate()) {
-                                taskProvider.addTaskData(fbProvider);
+                                if (taskProvider.checkValue
+                                    .where((element) => element == true)
+                                    .isEmpty) {
+                                  print('check');
+                                } else {
+
+                                  taskProvider.addTaskData(fbProvider);
+                                }
                               }
                             },
                             child: Text('태스크 추가하기'),

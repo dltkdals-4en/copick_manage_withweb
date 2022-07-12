@@ -1,6 +1,6 @@
 import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:copick_manage_withweb/constants/screen_size.dart';
-import 'package:copick_manage_withweb/provider/add_task_provider.dart';
+import 'package:copick_manage_withweb/provider/task_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -14,7 +14,7 @@ class InputDateWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var size= MediaQuery.of(context).size;
-    var taskProvider = Provider.of<AddTaskProvider>(context);
+    var taskProvider = Provider.of<TaskProvider>(context);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

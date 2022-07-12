@@ -9,35 +9,25 @@ class SelectMenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AddTaskPage(),
-                    ));
-              },
-              child: Text('태스크 추가하기'),
-            ),
-            SizedBox(
-              height: NORMALGAP,
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AddLocationPage(),
-                    ));
-              },
-              child: Text('카페 추가하기'),
-            ),
-          ],
+    return DefaultTabController(
+      length: 2,
+      initialIndex: 1,
+      child: Scaffold(
+        appBar: AppBar(
+          bottom: TabBar(
+            tabs: [
+              Text('카페 추가'),
+              Text('태스크 추가'),
+            ],
+          ),
+        ),
+        body: Center(
+          child: TabBarView(
+            children: [
+              AddLocationPage(),
+              AddTaskPage(),
+            ],
+          ),
         ),
       ),
     );

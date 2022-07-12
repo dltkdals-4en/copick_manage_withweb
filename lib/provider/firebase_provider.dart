@@ -49,4 +49,49 @@ class FbProvider with ChangeNotifier {
 
     print(hasTaskData);
   }
+
+  Future<void> addLocData(Map<String, dynamic> map) async {
+    await _firestore.collection('waste_location').doc().set(map).then((value) {
+      hasTaskData = false;
+      hasLocData = false;
+
+      notifyListeners();
+    });
+  }
+
+  Future<void> addDemoData(Map<String, dynamic> map) async {
+    await _firestore.collection('location_demo').doc().set(map).then((value) {
+      hasTaskData = false;
+      hasLocData = false;
+
+      notifyListeners();
+    });
+  }
+  Future<void>modifyLocData(Map<String, dynamic> map, String docId) async{
+    await _firestore
+        .collection('waste_location')
+        .doc(docId)
+        .update(map)
+        .then((value) {
+      hasTaskData = false;
+      hasLocData = false;
+      notifyListeners();
+    });
+  }
+  Future<void> deleteData(String docId) async {
+    await _firestore
+        .collection('waste_location')
+        .doc(docId)
+        .delete()
+        .then((value) {
+      hasTaskData = false;
+      hasLocData = false;
+
+      notifyListeners();
+    });
+  }
+
+
+
+
 }

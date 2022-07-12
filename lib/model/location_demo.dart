@@ -1,19 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class WasteLocationModel {
+class LocationDemo {
   String? locationId;
   String? locationName;
   String? locationPostal;
   String? locationAddress;
   double? locationGpsLat;
   double? locationGpsLong;
-  String? locDocId;
-  String? locationTel;
-  String? lastCallDate;
-  String? locationAdmin;
 
-  WasteLocationModel(
+  String? locationTel;
+  String? pickUpDate;
+  int? pickOrder;
+  int? track;
+  int? condition;
+
+  LocationDemo(
       {this.locationId,
       this.locationName,
       this.locationPostal,
@@ -21,25 +23,27 @@ class WasteLocationModel {
       this.locationGpsLat,
       this.locationGpsLong,
       this.locationTel,
-      this.lastCallDate,
-      this.locDocId,
-      this.locationAdmin});
+      this.pickUpDate,
+      this.pickOrder,
+      this.track});
 
   Map<String, dynamic> toMap() {
     return {
-      'location_id': this.locationId,
-      'location_name': this.locationName,
-      'location_postal': this.locationPostal,
-      'location_address': this.locationAddress,
-      'location_gps_lat': this.locationGpsLat,
-      'location_gps_long': this.locationGpsLong,
-      'location_tel': this.locationTel,
-      'last_call_date': Timestamp.fromDate(DateTime.now()),
-      'location_admin': this.locationAdmin,
+      'id': this.locationId,
+      'name': this.locationName,
+      'postal': this.locationPostal,
+      'address': this.locationAddress,
+      'lat': this.locationGpsLat,
+      'long': this.locationGpsLong,
+      'tel': this.locationTel,
+      'pick_up_date': Timestamp.fromDate(DateTime.now()),
+      'pick_order': this.pickOrder,
+      'track': this.track,
+      'condition': 0,
     };
   }
 
-  WasteLocationModel.fromJson(Map<String, dynamic> json, String docId)
+  LocationDemo.fromJson(Map<String, dynamic> json, String docId)
       : locationId = idFormat(json['location_id']),
         locationName = json['location_name'],
         locationPostal = json['location_postal'],
@@ -47,9 +51,7 @@ class WasteLocationModel {
         locationGpsLat = json['location_gps_lat'],
         locationGpsLong = json['location_gps_long'],
         locationTel = json['location_tel'],
-        lastCallDate = dateFormat(json['last_call_date']),
-        locationAdmin = json['location_admin'],
-        locDocId = docId;
+        pickUpDate = dateFormat(json['last_call_date']);
 }
 
 String idFormat(data) {

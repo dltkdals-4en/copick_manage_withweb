@@ -1,6 +1,6 @@
 import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:copick_manage_withweb/constants/screen_size.dart';
-import 'package:copick_manage_withweb/provider/add_task_provider.dart';
+import 'package:copick_manage_withweb/provider/task_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,7 +9,7 @@ class InputOrderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var taskProvider = Provider.of<AddTaskProvider>(context);
+    var taskProvider = Provider.of<TaskProvider>(context);
     var size = MediaQuery.of(context).size;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
