@@ -22,19 +22,26 @@ class InputCodeWidget extends StatelessWidget {
         SizedBox(
           height: SMALLGAP,
         ),
-        DropdownButtonFormField<String>(
-
-          hint: Text('매장 선택'),
-          items: taskProvider.nameList.map<DropdownMenuItem<String>>((e) {
-            return DropdownMenuItem<String>(
-              value: e,
-              child: Text('$e'),
-            );
-          }).toList(),
-          onChanged: (String? value) {
-            taskProvider.selectedName(value);
-          },
-
+        Container(
+          width: size.width / 3,
+          child: DropdownButtonFormField<String>(
+            value: taskProvider.initialName,
+            hint: Text('매장 선택'),
+            items: taskProvider.nameList.map<DropdownMenuItem<String>>((e) {
+              return DropdownMenuItem<String>(
+                value: e,
+                child: Text('$e'),
+              );
+            }).toList(),
+            onChanged: (String? value) {
+              taskProvider.selectedName(value);
+            },
+            validator: (value) {
+              if (value == null) {
+                return "매장을 선택해주세요";
+              }
+            },
+          ),
         ),
       ],
     );

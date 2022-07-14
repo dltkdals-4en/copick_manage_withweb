@@ -15,7 +15,8 @@ class TaskProvider with ChangeNotifier {
   int trackValue = 0;
   List<int> trackItems = [0, 1, 2, 3];
   FormFieldValidator? validator;
-  String initialName = "";
+  String? initialName;
+
   List<String> nameList = [];
   List<PickTaskModel> taskListTrack1 = [];
   List<PickTaskModel> taskListTrack2 = [];
@@ -54,27 +55,25 @@ class TaskProvider with ChangeNotifier {
     );
     selectedDate.then((value) {
       dateTime = value!;
-      print(dateTime);
+
       notifyListeners();
     });
-    print(dateTime);
   }
 
   Future<void> addTaskData(FbProvider fbProvider) async {
-
     if (checkValue.where((element) => element == true) == false) {
       print('경로 선택 x');
-    } else if (initialName == '' || initialName == '매장선택') {
+    } else if (initialName == '' || initialName == '매장 선택') {
       print('매장 선택 x');
     } else {
       var locationId = locList
           .firstWhere((element) => element.locationName == initialName)
           .locationId;
-      print(locationId);
+
       checkValue.asMap().forEach((key, value) async {
         if (value == true) {
           var i = PickTaskModel(
-            track: key+1,
+            track: key + 1,
             failCode: 0,
             failReason: '',
             condition: 0,
@@ -84,12 +83,15 @@ class TaskProvider with ChangeNotifier {
             state: 0,
             totalVolume: 0,
           );
-          await fbProvider.addTaskData(i.toAdd());
-          initialName = '';
-          initCheckValue();
-          trackValue = 0;
+          await fbProvider.addTaskData(i.toAdd()).then((value) {
+            checkValue = [false, false, false, false, false];
+            trackValue = 0;
+            initialName = null;
+            taskList.clear();
+          });
+
           notifyListeners();
-        }else{
+        } else {
           print("no");
         }
       });
@@ -223,7 +225,7 @@ class TaskProvider with ChangeNotifier {
   }
 
   void selectedName(String? i) {
-    initialName = i!;
+    initialName = i ?? "";
     print(initialName);
     notifyListeners();
   }
@@ -234,8 +236,6 @@ class TaskProvider with ChangeNotifier {
         nameList.add(value.locationName!);
       }
     }
-
-
   }
 
   int mCodeVali = 0;
@@ -249,6 +249,7 @@ class TaskProvider with ChangeNotifier {
 
   List<bool> checkValue = [false, false, false, false, false];
   List<String> weekDay = ["월", "화", "수", "목", "금"];
+  List<int> testList = [1, 2, 3, 4, 5];
 
   void valueCheck(int index) {
     if (checkValue[index] == false) {
@@ -261,11 +262,20 @@ class TaskProvider with ChangeNotifier {
   }
 
   void initCheckValue() {
-    checkValue.forEach((element) {
+    for (var element in checkValue) {
       element = false;
+    }
+  }
 
-    });
-    notifyListeners();
-    print(checkValue.toString());
+  void indexChange(int oldIndex, int newIndex, List<PickTaskModel> list) {
+    if (newIndex > list.length) {
+      newIndex = list.length;
+    }
+    if (oldIndex < newIndex) {
+      newIndex--;
+    }
+    var item = list[oldIndex];
+    list.remove(item);
+    list.insert(newIndex, item);
   }
 }

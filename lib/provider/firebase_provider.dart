@@ -40,10 +40,11 @@ class FbProvider with ChangeNotifier {
   }
 
   Future<void> addTaskData(Map<String, dynamic> data) async {
+    print(data);
     await _firestore.collection('pick_task').doc().set(data).then((value) {
       hasTaskData = false;
       hasLocData = false;
-
+    print("update Fb");
       notifyListeners();
     });
 

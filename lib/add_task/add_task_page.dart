@@ -9,6 +9,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../main.dart';
+
 class AddTaskPage extends StatefulWidget {
   const AddTaskPage({Key? key}) : super(key: key);
 
@@ -23,13 +25,16 @@ class _AddTaskPageState extends State<AddTaskPage>
     var fbProvider = Provider.of<FbProvider>(context);
     var taskProvider = Provider.of<TaskProvider>(context);
     var size = MediaQuery.of(context).size;
-    var locList = taskProvider.locList;
+
     var taskList = taskProvider.taskList;
     var track1 = taskProvider.taskListTrack1;
-    var track2 = taskProvider.taskListTrack2;
-    var track3 = taskProvider.taskListTrack3;
-    TabController tabController = TabController(length: 6, vsync: this);
-    final formKey = GlobalKey<FormState>();
+    var list = taskProvider.testList;
+    TabController tabController = TabController(
+      length: 6,
+      vsync: this,
+      initialIndex: 1,
+    );
+    final _addTaskFormKey = GlobalKey<FormState>();
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -39,7 +44,6 @@ class _AddTaskPageState extends State<AddTaskPage>
                 padding: const EdgeInsets.all(20),
                 child: Container(
                   width: size.width,
-                  height: size.height / 2,
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black, width: 1),
                     borderRadius: BorderRadius.circular(10),
@@ -81,32 +85,98 @@ class _AddTaskPageState extends State<AddTaskPage>
                           ],
                         ),
                         Container(
-                          height: size.height / 3,
+                          height: size.height / 2,
                           child: TabBarView(
                             controller: tabController,
                             children: [
-                              Container(
-                                height: size.height / 3,
-                                child: ListView.builder(
-                                  itemCount: track1.length,
-                                  itemBuilder: (context, index) {
-                                    return Text(taskProvider
-                                        .getLocName(track1[index].locationId!));
-                                  },
-                                ),
+                              ListView.builder(
+                                itemCount: taskList.length,
+                                itemBuilder: (context, index) {
+                                  return Text(taskProvider
+                                      .getLocName(taskList[index].locationId!));
+                                },
                               ),
-                              Container(
-                                height: size.height / 3,
-                                child: ReorderableListView.builder(
-                                  itemCount: 5,
-                                  itemBuilder:
-                                      (BuildContext context, int index) {
-                                    return Text('$index');
-                                  },
-                                  onReorder: (int oldIndex, int newIndex) {
-
-                                  },
-                                ),
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text('카페 개수 : ${track1.length} 개'),
+                                  NorH,
+                                  Expanded(
+                                    child: ReorderableListView.builder(
+                                      itemCount: track1.length,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return Card(
+                                            key: ValueKey(track1[index]),
+                                            child: Padding(
+                                              padding: const EdgeInsets.all(
+                                                  NORMALGAP),
+                                              child: Row(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.center,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment.end,
+                                                    children: [
+                                                      Text(
+                                                        '${index + 1}',
+                                                        style: makeTextStyle(
+                                                            16,
+                                                            AppColors.black,
+                                                            'bold'),
+                                                      ),
+                                                      NorW,
+                                                      Text(
+                                                        '${taskProvider.getLocName(track1[index].locationId!)}',
+                                                        style: makeTextStyle(
+                                                            16,
+                                                            AppColors.black,
+                                                            'bold'),
+                                                      ),
+                                                      SmW,
+                                                      Text(
+                                                        '${track1[index].locationId}',
+                                                        style: makeTextStyle(
+                                                            14,
+                                                            AppColors.blackGrey,
+                                                            'regular'),
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  ElevatedButton(
+                                                    onPressed: () {},
+                                                    child: Text('삭제'),
+                                                  ),
+                                                ],
+                                              ),
+                                            ));
+                                      },
+                                      onReorder: (
+                                        int oldIndex,
+                                        int newIndex,
+                                      ) {
+                                        taskProvider.indexChange(
+                                            oldIndex, newIndex, track1);
+                                      },
+                                    ),
+                                  ),
+                                  NorH,
+                                  ElevatedButton(
+                                    onPressed: () {},
+                                    child: Text('저장하기'),
+                                    style: ElevatedButton.styleFrom(
+                                      fixedSize: Size(100, 50),
+                                    ),
+                                  )
+                                ],
                               ),
                               Container(
                                 height: size.height / 3,
@@ -179,7 +249,7 @@ class _AddTaskPageState extends State<AddTaskPage>
                   child: Padding(
                     padding: const EdgeInsets.all(20),
                     child: Form(
-                      key: formKey,
+                      key: _addTaskFormKey,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -204,7 +274,7 @@ class _AddTaskPageState extends State<AddTaskPage>
                           ),
                           Divider(),
                           InputTrackWidget(),
-                          InputDateWidget(),
+                          // InputDateWidget(),
                           SizedBox(
                             width: NORMALGAP,
                           ),
@@ -219,14 +289,24 @@ class _AddTaskPageState extends State<AddTaskPage>
                           ),
                           ElevatedButton(
                             onPressed: () async {
-                              if (formKey.currentState!.validate()) {
+                              if (_addTaskFormKey.currentState!.validate()) {
                                 if (taskProvider.checkValue
                                     .where((element) => element == true)
                                     .isEmpty) {
                                   print('check');
                                 } else {
-
-                                  taskProvider.addTaskData(fbProvider);
+                                  await taskProvider
+                                      .addTaskData(fbProvider)
+                                      .then(
+                                    (value) {
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => MyApp(),
+                                          ),
+                                          (route) => false);
+                                    },
+                                  );
                                 }
                               }
                             },
