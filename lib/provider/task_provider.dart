@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:copick_manage_withweb/add_task/add_task_page.dart';
 import 'package:copick_manage_withweb/model/location_demo.dart';
+import 'package:copick_manage_withweb/model/total_task_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../model/pick_task_model.dart';
@@ -12,15 +14,20 @@ class TaskProvider with ChangeNotifier {
   DateTime dateTime = DateTime.now().add(Duration(days: 1));
   List<WasteLocationModel> locList = [];
   List<PickTaskModel> taskList = [];
+  List<WeekdayTaskModel> totalList = [];
   int trackValue = 0;
   List<int> trackItems = [0, 1, 2, 3];
   FormFieldValidator? validator;
   String? initialName;
 
+  int currentTaskTabIndex = 0;
+
   List<String> nameList = [];
   List<PickTaskModel> taskListTrack1 = [];
   List<PickTaskModel> taskListTrack2 = [];
   List<PickTaskModel> taskListTrack3 = [];
+  List<PickTaskModel> taskListTrack4 = [];
+  List<PickTaskModel> taskListTrack5 = [];
 
   TextEditingController codeTextController = TextEditingController();
   TextEditingController nameTextController = TextEditingController();
@@ -61,6 +68,7 @@ class TaskProvider with ChangeNotifier {
   }
 
   Future<void> addTaskData(FbProvider fbProvider) async {
+    currentTaskTabIndex = 0;
     if (checkValue.where((element) => element == true) == false) {
       print('경로 선택 x');
     } else if (initialName == '' || initialName == '매장 선택') {
@@ -69,7 +77,16 @@ class TaskProvider with ChangeNotifier {
       var locationId = locList
           .firstWhere((element) => element.locationName == initialName)
           .locationId;
+      for(var e in checkValue){
+          e ?  1: 0;
+      }
 
+      var j = WeekdayTaskModel(
+        locationId: locationId,
+        locationName: getLocName(locationId!),
+        trackList: checkValue,
+      );
+      await fbProvider.addWeekDayData(j.toMap());
       checkValue.asMap().forEach((key, value) async {
         if (value == true) {
           var i = PickTaskModel(
@@ -196,17 +213,20 @@ class TaskProvider with ChangeNotifier {
   }
 
   Future<void> deleteData(FbProvider fbProvider, String locDocId) async {
-    await fbProvider.deleteData(locDocId);
+    await fbProvider.deleteLocData(locDocId);
 
     notifyListeners();
   }
 
   void sortData() {
+    // taskGrouping();
     taskList.sort((a, b) => a.track!.compareTo(b.track!));
     locList.sort((a, b) => a.locationId!.compareTo(b.locationId!));
     taskListTrack1 = taskList.where((element) => element.track == 1).toList();
     taskListTrack2 = taskList.where((element) => element.track == 2).toList();
     taskListTrack3 = taskList.where((element) => element.track == 3).toList();
+    taskListTrack4 = taskList.where((element) => element.track == 4).toList();
+    taskListTrack5 = taskList.where((element) => element.track == 5).toList();
     taskListTrack1.sort(
       (a, b) => a.pickOrder!.compareTo(b.pickOrder!),
     );
@@ -214,6 +234,12 @@ class TaskProvider with ChangeNotifier {
       (a, b) => a.pickOrder!.compareTo(b.pickOrder!),
     );
     taskListTrack3.sort(
+      (a, b) => a.pickOrder!.compareTo(b.pickOrder!),
+    );
+    taskListTrack4.sort(
+      (a, b) => a.pickOrder!.compareTo(b.pickOrder!),
+    );
+    taskListTrack5.sort(
       (a, b) => a.pickOrder!.compareTo(b.pickOrder!),
     );
     getNameList();
@@ -248,6 +274,7 @@ class TaskProvider with ChangeNotifier {
   }
 
   List<bool> checkValue = [false, false, false, false, false];
+  List<int> checkValue1 = [1,1,1,1,1];
   List<String> weekDay = ["월", "화", "수", "목", "금"];
   List<int> testList = [1, 2, 3, 4, 5];
 
@@ -278,4 +305,51 @@ class TaskProvider with ChangeNotifier {
     list.remove(item);
     list.insert(newIndex, item);
   }
+
+  Future<void> deleteTask(FbProvider fbProvider, String docId,
+      TabController taskTabController, int trackIndex) async {
+    await fbProvider.deleteTaskData(docId).then((value) {
+      currentTaskTabIndex = trackIndex;
+    });
+  }
+
+  getTrackList(int trackIndex) {
+    switch (trackIndex) {
+      case 1:
+        return taskListTrack1;
+      case 2:
+        return taskListTrack2;
+      case 3:
+        return taskListTrack3;
+      case 4:
+        return taskListTrack4;
+      case 5:
+        return taskListTrack5;
+    }
+  }
+
+  // void taskGrouping() {
+  //   if (totalList.isEmpty) {
+  //     for (var value in taskList) {
+  //       // totalList.forEach((element) {
+  //       //   if (element.locationId != value.locationId) {
+  //       totalList.add(WeekdayTaskModel(
+  //           locationId: value.locationId,
+  //           locationName: getLocName(value.locationId!),
+  //           trackList: [value.track!]));
+  //       //   } else {
+  //       //     element.trackList?.add(value.track!);
+  //       //   }
+  //       // });
+  //     }
+  //     print(totalList);
+  //     for (var value1 in totalList) {
+  //       if(totalList
+  //           .where((element) => element.locationId == value1.locationId).toString().length>2){
+  //         print(value1.locationName);
+  //       };
+  //       print("아래 ${value1.locationName}");
+  //     }
+  //   }
+  // }
 }

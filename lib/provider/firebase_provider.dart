@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:copick_manage_withweb/model/pick_task_model.dart';
+import 'package:copick_manage_withweb/model/total_task_model.dart';
 import 'package:copick_manage_withweb/model/waste_location_model.dart';
 import 'package:flutter/material.dart';
 
@@ -7,8 +8,10 @@ class FbProvider with ChangeNotifier {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
   List<WasteLocationModel> locList = [];
   List<PickTaskModel> taskList = [];
+  List<WeekdayTaskModel> weekdayList = [];
   bool hasLocData = false;
   bool hasTaskData = false;
+  bool hasWeekdayData = false;
 
   Future<void> getLocList() async {
     if (hasLocData == false) {
@@ -39,16 +42,29 @@ class FbProvider with ChangeNotifier {
     }
   }
 
+  Future<void> getWeekDayData() async {
+    if (hasWeekdayData == false) {
+      QuerySnapshot<Map<String, dynamic>> data =
+          await _firestore.collection('pick_task_weekday').get();
+      weekdayList.clear();
+      for (var value in data.docs) {
+        weekdayList.add(WeekdayTaskModel());
+      }
+      hasWeekdayData = true;
+      notifyListeners();
+    }
+  }
+
   Future<void> addTaskData(Map<String, dynamic> data) async {
     print(data);
     await _firestore.collection('pick_task').doc().set(data).then((value) {
       hasTaskData = false;
       hasLocData = false;
-    print("update Fb");
+
       notifyListeners();
     });
 
-    print(hasTaskData);
+
   }
 
   Future<void> addLocData(Map<String, dynamic> map) async {
@@ -68,7 +84,8 @@ class FbProvider with ChangeNotifier {
       notifyListeners();
     });
   }
-  Future<void>modifyLocData(Map<String, dynamic> map, String docId) async{
+
+  Future<void> modifyLocData(Map<String, dynamic> map, String docId) async {
     await _firestore
         .collection('waste_location')
         .doc(docId)
@@ -79,7 +96,8 @@ class FbProvider with ChangeNotifier {
       notifyListeners();
     });
   }
-  Future<void> deleteData(String docId) async {
+
+  Future<void> deleteLocData(String docId) async {
     await _firestore
         .collection('waste_location')
         .doc(docId)
@@ -92,7 +110,16 @@ class FbProvider with ChangeNotifier {
     });
   }
 
+  Future<void> deleteTaskData(String docId) async {
+    await _firestore.collection('pick_task').doc(docId).delete().then((value) {
+      hasTaskData = false;
+      hasLocData = false;
 
+      notifyListeners();
+    });
+  }
 
-
+  Future<void> addWeekDayData(Map<String, dynamic> map) async{
+    await _firestore.collection('pick_task_weekday')
+  }
 }

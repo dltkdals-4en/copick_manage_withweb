@@ -1,8 +1,10 @@
 import 'package:copick_manage_withweb/add_task/widgets/input_code_widget.dart';
 import 'package:copick_manage_withweb/add_task/widgets/input_date_widget.dart';
 import 'package:copick_manage_withweb/add_task/widgets/input_track_widget.dart';
+import 'package:copick_manage_withweb/add_task/widgets/track_reorderlist_widget.dart';
 import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:copick_manage_withweb/constants/screen_size.dart';
+import 'package:copick_manage_withweb/model/pick_task_model.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
 import 'package:copick_manage_withweb/provider/firebase_provider.dart';
 import 'package:flutter/cupertino.dart';
@@ -26,13 +28,13 @@ class _AddTaskPageState extends State<AddTaskPage>
     var taskProvider = Provider.of<TaskProvider>(context);
     var size = MediaQuery.of(context).size;
 
-    var taskList = taskProvider.taskList;
+    var totalList = taskProvider.totalList;
     var track1 = taskProvider.taskListTrack1;
     var list = taskProvider.testList;
-    TabController tabController = TabController(
+    TabController taskTabController = TabController(
       length: 6,
       vsync: this,
-      initialIndex: 1,
+      initialIndex: taskProvider.currentTaskTabIndex,
     );
     final _addTaskFormKey = GlobalKey<FormState>();
     return Scaffold(
@@ -60,14 +62,14 @@ class _AddTaskPageState extends State<AddTaskPage>
                               '경로별 태스크 목록',
                               style: makeTextStyle(20, AppColors.black, 'bold'),
                             ),
-                            Text('총 태스크 개수 : ${taskList.length}'),
+                            Text('총 태스크 개수 : ${totalList.length}'),
                           ],
                         ),
                         SizedBox(
                           height: SMALLGAP,
                         ),
                         TabBar(
-                          controller: tabController,
+                          controller: taskTabController,
                           labelStyle:
                               makeTextStyle(18, AppColors.lightPrimary, 'bold'),
                           unselectedLabelStyle:
@@ -87,113 +89,20 @@ class _AddTaskPageState extends State<AddTaskPage>
                         Container(
                           height: size.height / 2,
                           child: TabBarView(
-                            controller: tabController,
+                            controller: taskTabController,
                             children: [
                               ListView.builder(
-                                itemCount: taskList.length,
+                                itemCount: totalList.length,
                                 itemBuilder: (context, index) {
-                                  return Text(taskProvider
-                                      .getLocName(taskList[index].locationId!));
+                                  return Text(
+                                      'code : ${totalList[index].locationId}  name: ${totalList[index].locationName} -> track : ${totalList[index].trackList.toString()}');
                                 },
                               ),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('카페 개수 : ${track1.length} 개'),
-                                  NorH,
-                                  Expanded(
-                                    child: ReorderableListView.builder(
-                                      itemCount: track1.length,
-                                      itemBuilder:
-                                          (BuildContext context, int index) {
-                                        return Card(
-                                            key: ValueKey(track1[index]),
-                                            child: Padding(
-                                              padding: const EdgeInsets.all(
-                                                  NORMALGAP),
-                                              child: Row(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                children: [
-                                                  Row(
-                                                    mainAxisSize:
-                                                        MainAxisSize.min,
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment.end,
-                                                    children: [
-                                                      Text(
-                                                        '${index + 1}',
-                                                        style: makeTextStyle(
-                                                            16,
-                                                            AppColors.black,
-                                                            'bold'),
-                                                      ),
-                                                      NorW,
-                                                      Text(
-                                                        '${taskProvider.getLocName(track1[index].locationId!)}',
-                                                        style: makeTextStyle(
-                                                            16,
-                                                            AppColors.black,
-                                                            'bold'),
-                                                      ),
-                                                      SmW,
-                                                      Text(
-                                                        '${track1[index].locationId}',
-                                                        style: makeTextStyle(
-                                                            14,
-                                                            AppColors.blackGrey,
-                                                            'regular'),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  ElevatedButton(
-                                                    onPressed: () {},
-                                                    child: Text('삭제'),
-                                                  ),
-                                                ],
-                                              ),
-                                            ));
-                                      },
-                                      onReorder: (
-                                        int oldIndex,
-                                        int newIndex,
-                                      ) {
-                                        taskProvider.indexChange(
-                                            oldIndex, newIndex, track1);
-                                      },
-                                    ),
-                                  ),
-                                  NorH,
-                                  ElevatedButton(
-                                    onPressed: () {},
-                                    child: Text('저장하기'),
-                                    style: ElevatedButton.styleFrom(
-                                      fixedSize: Size(100, 50),
-                                    ),
-                                  )
-                                ],
-                              ),
-                              Container(
-                                height: size.height / 3,
-                                child: Text('3'),
-                              ),
-                              Container(
-                                height: size.height / 3,
-                                child: Text('4'),
-                              ),
-                              Container(
-                                height: size.height / 3,
-                                child: Text('5'),
-                              ),
-                              Container(
-                                height: size.height / 3,
-                                child: Text('6'),
-                              ),
+                              TrackReorderlistWidget(1, taskTabController),
+                              TrackReorderlistWidget(2, taskTabController),
+                              TrackReorderlistWidget(3, taskTabController),
+                              TrackReorderlistWidget(4, taskTabController),
+                              TrackReorderlistWidget(5, taskTabController),
                             ],
                           ),
                         ),

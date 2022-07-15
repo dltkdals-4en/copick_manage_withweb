@@ -1,13 +1,19 @@
-class TotalTaskModel {
+class WeekdayTaskModel {
   String? locationId;
   String? locationName;
-  List<int>? trackList;
+  List<bool>? trackList;
 
-  TotalTaskModel({
+  WeekdayTaskModel({
     this.locationId,
     this.locationName,
     this.trackList,
   });
 
-
+  Map<String, dynamic> toMap() {
+    return {
+      'location_id': this.locationId,
+      'location_name': this.locationName,
+      'track_list': this.trackList,
+    };
+  }
 }
