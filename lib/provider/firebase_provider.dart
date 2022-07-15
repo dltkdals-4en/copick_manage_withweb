@@ -120,6 +120,6 @@ class FbProvider with ChangeNotifier {
   }
 
   Future<void> addWeekDayData(Map<String, dynamic> map) async{
-    await _firestore.collection('pick_task_weekday')
+
   }
 }
