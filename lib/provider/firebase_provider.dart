@@ -48,7 +48,7 @@ class FbProvider with ChangeNotifier {
           await _firestore.collection('pick_task_weekday').get();
       weekdayList.clear();
       for (var value in data.docs) {
-        weekdayList.add(WeekdayTaskModel());
+        weekdayList.add(WeekdayTaskModel.fromJson(value.data(), value.id));
       }
       hasWeekdayData = true;
       notifyListeners();
@@ -60,18 +60,25 @@ class FbProvider with ChangeNotifier {
     await _firestore.collection('pick_task').doc().set(data).then((value) {
       hasTaskData = false;
       hasLocData = false;
-
+      hasWeekdayData= false;
       notifyListeners();
     });
-
-
+  }
+  Future<void> addWeekData(Map<String, dynamic> data) async {
+    print(data);
+    await _firestore.collection('pick_task_weekday').doc().set(data).then((value) {
+      hasTaskData = false;
+      hasLocData = false;
+      hasWeekdayData = false;
+      notifyListeners();
+    });
   }
 
   Future<void> addLocData(Map<String, dynamic> map) async {
     await _firestore.collection('waste_location').doc().set(map).then((value) {
       hasTaskData = false;
       hasLocData = false;
-
+      hasWeekdayData = false;
       notifyListeners();
     });
   }
@@ -119,7 +126,5 @@ class FbProvider with ChangeNotifier {
     });
   }
 
-  Future<void> addWeekDayData(Map<String, dynamic> map) async{
 
-  }
 }

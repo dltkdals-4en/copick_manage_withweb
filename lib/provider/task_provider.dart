@@ -77,8 +77,8 @@ class TaskProvider with ChangeNotifier {
       var locationId = locList
           .firstWhere((element) => element.locationName == initialName)
           .locationId;
-      for(var e in checkValue){
-          e ?  1: 0;
+      for (var e in checkValue) {
+        e ? 1 : 0;
       }
 
       var j = WeekdayTaskModel(
@@ -86,7 +86,7 @@ class TaskProvider with ChangeNotifier {
         locationName: getLocName(locationId!),
         trackList: checkValue,
       );
-      await fbProvider.addWeekDayData(j.toMap());
+      await fbProvider.addWeekData(j.toMap());
       checkValue.asMap().forEach((key, value) async {
         if (value == true) {
           var i = PickTaskModel(
@@ -274,7 +274,8 @@ class TaskProvider with ChangeNotifier {
   }
 
   List<bool> checkValue = [false, false, false, false, false];
-  List<int> checkValue1 = [1,1,1,1,1];
+  List<bool> modifyValue = [false, false, false, false, false];
+  List<int> checkValue1 = [1, 1, 1, 1, 1];
   List<String> weekDay = ["월", "화", "수", "목", "금"];
   List<int> testList = [1, 2, 3, 4, 5];
 
@@ -283,6 +284,15 @@ class TaskProvider with ChangeNotifier {
       checkValue[index] = true;
     } else {
       checkValue[index] = false;
+    }
+
+    notifyListeners();
+  }
+  void modifyCheck(int index) {
+    if (modifyValue[index] == false) {
+      modifyValue[index] = true;
+    } else {
+      modifyValue[index] = false;
     }
 
     notifyListeners();
@@ -352,4 +362,38 @@ class TaskProvider with ChangeNotifier {
   //     }
   //   }
   // }
+  List<String> collectDay = [];
+
+  List<dynamic> changeTrackValue(List<dynamic> trackList) {
+    collectDay.clear();
+    if (collectDay.isEmpty) {
+      trackList.asMap().forEach((key, value) {
+        switch (key) {
+          case 0:
+            if (value == true) collectDay.add("월");
+
+            break;
+          case 1:
+            if (value == true) collectDay.add("화");
+
+            break;
+          case 2:
+            if (value == true) collectDay.add("수");
+
+            break;
+          case 3:
+            if (value == true) collectDay.add("목");
+            break;
+          case 4:
+            if (value == true) collectDay.add("금");
+
+            break;
+        }
+        print(value);
+      });
+    }
+    print(trackList);
+
+    return collectDay;
+  }
 }

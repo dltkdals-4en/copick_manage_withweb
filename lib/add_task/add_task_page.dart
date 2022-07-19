@@ -1,6 +1,7 @@
 import 'package:copick_manage_withweb/add_task/widgets/input_code_widget.dart';
 import 'package:copick_manage_withweb/add_task/widgets/input_date_widget.dart';
 import 'package:copick_manage_withweb/add_task/widgets/input_track_widget.dart';
+import 'package:copick_manage_withweb/add_task/widgets/totaltrack_list_widget.dart';
 import 'package:copick_manage_withweb/add_task/widgets/track_reorderlist_widget.dart';
 import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:copick_manage_withweb/constants/screen_size.dart';
@@ -91,13 +92,7 @@ class _AddTaskPageState extends State<AddTaskPage>
                           child: TabBarView(
                             controller: taskTabController,
                             children: [
-                              ListView.builder(
-                                itemCount: totalList.length,
-                                itemBuilder: (context, index) {
-                                  return Text(
-                                      'code : ${totalList[index].locationId}  name: ${totalList[index].locationName} -> track : ${totalList[index].trackList.toString()}');
-                                },
-                              ),
+                              TotaltrackListWidget(),
                               TrackReorderlistWidget(1, taskTabController),
                               TrackReorderlistWidget(2, taskTabController),
                               TrackReorderlistWidget(3, taskTabController),

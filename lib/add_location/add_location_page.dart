@@ -1,5 +1,5 @@
 import 'package:copick_manage_withweb/add_location/widgets/input_demo_info.dart';
-import 'package:copick_manage_withweb/add_location/widgets/modify_dialog.dart';
+import 'package:copick_manage_withweb/add_location/widgets/modify_location_dialog.dart';
 import 'package:copick_manage_withweb/add_location/widgets/option_info_widget.dart';
 import 'package:copick_manage_withweb/add_location/widgets/required_info_widget.dart';
 import 'package:copick_manage_withweb/constants/constants.dart';
@@ -82,7 +82,7 @@ class _AddLocationPageState extends State<AddLocationPage>
                                       showDialog(
                                         context: context,
                                         builder: (context) {
-                                          return ModifyDialog(index);
+                                          return ModifyLocationDialog(index);
                                         },
                                         barrierDismissible: false,
                                       );

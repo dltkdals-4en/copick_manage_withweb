@@ -16,8 +16,10 @@ class CheckData extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     fbProvider.getLocList();
     fbProvider.getTaskList();
+    fbProvider.getWeekDayData();
     taskProvider.taskList = fbProvider.taskList;
     taskProvider.locList = fbProvider.locList;
+    taskProvider.totalList = fbProvider.weekdayList;
     print('test1 : ${fbProvider.taskList.length}');
     print('test2 : ${taskProvider.taskList.length}');
     taskProvider.sortData();

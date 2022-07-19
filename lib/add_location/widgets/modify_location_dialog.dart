@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 
 import '../../main.dart';
 
-class ModifyDialog extends StatelessWidget {
-  const ModifyDialog(this.index, {Key? key}) : super(key: key);
+class ModifyLocationDialog extends StatelessWidget {
+  const ModifyLocationDialog(this.index, {Key? key}) : super(key: key);
 
   final int index;
 
