@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:copick_manage_withweb/constants/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:fluttertoast/fluttertoast.dart';
+
 
 class AppColors {
   static const Color primary = Color(0xFF006E51);
@@ -84,34 +84,34 @@ const SmW = SizedBox(
   width: 10,
 );
 
-makeFToast(BuildContext context, Size size, String s) {
-  FToast fToast = FToast();
-  fToast.init(context);
-  Widget toast = Container(
-    width: size.width - NORMALGAP * 2,
-    decoration: BoxDecoration(
-      borderRadius: BorderRadius.circular(10),
-      color: AppColors.darkGrey,
-    ),
-    height: BUTTONHEIGHT,
-    child: Center(
-      child: Text(
-        s,
-        style: makeTextStyle(16, AppColors.white, 'bold'),
-      ),
-    ),
-  );
-  fToast.showToast(
-    child: toast,
-    positionedToastBuilder: (context, child) {
-      return Positioned(
-        child: child,
-        bottom: 120,
-        left: 20,
-      );
-    },
-  );
-}
+// makeFToast(BuildContext context, Size size, String s) {
+//   FToast fToast = FToast();
+//   fToast.init(context);
+//   Widget toast = Container(
+//     width: size.width - NORMALGAP * 2,
+//     decoration: BoxDecoration(
+//       borderRadius: BorderRadius.circular(10),
+//       color: AppColors.darkGrey,
+//     ),
+//     height: BUTTONHEIGHT,
+//     child: Center(
+//       child: Text(
+//         s,
+//         style: makeTextStyle(16, AppColors.white, 'bold'),
+//       ),
+//     ),
+//   );
+//   fToast.showToast(
+//     child: toast,
+//     positionedToastBuilder: (context, child) {
+//       return Positioned(
+//         child: child,
+//         bottom: 120,
+//         left: 20,
+//       );
+//     },
+//   );
+// }
 
 const mainPadding = EdgeInsets.fromLTRB(20, 20, 20, 20);
 const eTextStyleBody14b_medium = TextStyle(

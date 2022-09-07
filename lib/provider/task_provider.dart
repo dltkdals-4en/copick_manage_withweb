@@ -53,6 +53,8 @@ class TaskProvider with ChangeNotifier {
   TextEditingController modifyPostalController = TextEditingController();
   TextEditingController modifyAdminController = TextEditingController();
 
+  int currentDefaultTabIndex = 0;
+
   void dateSelect(context) {
     Future<DateTime?> selectedDate = showDatePicker(
       context: context,
@@ -68,7 +70,7 @@ class TaskProvider with ChangeNotifier {
   }
 
   Future<void> addTaskData(FbProvider fbProvider) async {
-    currentTaskTabIndex = 0;
+    currentDefaultTabIndex = 0;
     if (checkValue.where((element) => element == true) == false) {
       print('경로 선택 x');
     } else if (initialName == '' || initialName == '매장 선택') {
@@ -99,6 +101,7 @@ class TaskProvider with ChangeNotifier {
             pickOrder: 0,
             state: 0,
             totalVolume: 0,
+            team: 0,
           );
           await fbProvider.addTaskData(i.toAdd()).then((value) {
             checkValue = [false, false, false, false, false];
@@ -133,6 +136,7 @@ class TaskProvider with ChangeNotifier {
       locationAdmin: adminTextController.value.text,
     );
     await fbProvider.addLocData(i.toMap());
+    currentTaskTabIndex = 0;
   }
 
   void clearController() {
@@ -210,16 +214,18 @@ class TaskProvider with ChangeNotifier {
     );
 
     await fbProvder.modifyLocData(i.toMap(), locData.locDocId!);
+    currentDefaultTabIndex = 0;
   }
 
-  Future<void> deleteData(FbProvider fbProvider, String locDocId) async {
+  Future<void> deleteLocData(FbProvider fbProvider, String locDocId) async {
     await fbProvider.deleteLocData(locDocId);
-
+    currentDefaultTabIndex = 0;
     notifyListeners();
   }
 
   void sortData() {
     // taskGrouping();
+    totalList.sort((a, b) => a.locationId!.compareTo(b.locationId!));
     taskList.sort((a, b) => a.track!.compareTo(b.track!));
     locList.sort((a, b) => a.locationId!.compareTo(b.locationId!));
     taskListTrack1 = taskList.where((element) => element.track == 1).toList();
@@ -288,6 +294,7 @@ class TaskProvider with ChangeNotifier {
 
     notifyListeners();
   }
+
   void modifyCheck(int index) {
     if (modifyValue[index] == false) {
       modifyValue[index] = true;
@@ -389,11 +396,33 @@ class TaskProvider with ChangeNotifier {
 
             break;
         }
-        print(value);
       });
     }
-    print(trackList);
 
     return collectDay;
+  }
+
+  void updatePickOrder(List<PickTaskModel> track, FbProvider fbProvider) {
+    track.asMap().forEach((key, value) async {
+      await fbProvider.updatePickOrder({'pick_order': key}, value.pickDocId!);
+    });
+  }
+
+  void deleteWeekdayData(int index, FbProvider fbProvider) {
+    print(totalList[index].trackList);
+    var data = totalList[index];
+    taskList
+        .where((element) => element.locationId == data.locationId)
+        .forEach((element) {
+      print('${getLocName(element.locationId!)} ++ ${element.pickDocId}');
+      data.trackList!.asMap().forEach((key, value) async {
+        if (value == true) {
+          print(element.pickDocId);
+          await fbProvider.deleteTaskFromWeekday();
+        } else {
+          print('no');
+        }
+      });
+    });
   }
 }

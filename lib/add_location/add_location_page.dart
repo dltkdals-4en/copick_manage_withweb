@@ -91,7 +91,7 @@ class _AddLocationPageState extends State<AddLocationPage>
                                   ElevatedButton(
                                     onPressed: () {
                                       taskProvider
-                                          .deleteData(fbProvider,
+                                          .deleteLocData(fbProvider,
                                               locList[index].locDocId!)
                                           .then((value) =>
                                               Navigator.pushAndRemoveUntil(

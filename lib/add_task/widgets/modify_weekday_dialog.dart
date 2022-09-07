@@ -54,6 +54,21 @@ class ModifyWeekdayDialog extends StatelessWidget {
           ],
         ),
       ),
+      actions: [
+        ElevatedButton(
+          onPressed: () {
+
+            Navigator.pop(context);
+          },
+          child: Text('취소'),
+        ),
+        ElevatedButton(
+          onPressed: () {
+
+          },
+          child: Text('수정'),
+        ),
+      ],
     );
   }
 }

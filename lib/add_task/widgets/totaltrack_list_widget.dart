@@ -22,7 +22,7 @@ class TotaltrackListWidget extends StatelessWidget {
       itemBuilder: (context, index) {
         return ListTile(
           title: Text(
-            '${totalList[index].locationName}',
+            '${taskProvider.getLocName(totalList[index].locationId!)}',
           ),
           subtitle: Text(
               '${taskProvider.changeTrackValue(totalList[index].trackList!)}'),
@@ -50,6 +50,7 @@ class TotaltrackListWidget extends StatelessWidget {
               SmW,
               ElevatedButton(
                 onPressed: () {
+                  taskProvider.deleteWeekdayData(index,fbProvider);
                   // taskProvider
                   //     .deleteData(fbProvider,
                   //     totalList[index].docId!)

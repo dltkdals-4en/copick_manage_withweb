@@ -16,6 +16,7 @@ class PickTaskModel {
   String? failReason;
   int? condition;
   int? track;
+  int? team;
 
   PickTaskModel({
     this.pickDocId,
@@ -32,6 +33,7 @@ class PickTaskModel {
     this.failCode,
     this.condition,
     this.track,
+    this.team,
   });
 
   Map<String, dynamic> toMap() {
@@ -46,6 +48,7 @@ class PickTaskModel {
       'pick_up_date': this.pickUpDate,
       'pick_fail_code': this.failCode,
       'pick_fail_reason': this.failReason,
+      'team' : this.team,
     };
   }
 
@@ -61,6 +64,7 @@ class PickTaskModel {
       'pick_fail_reason': this.failReason,
       'condition': this.condition,
       'track': this.track,
+      'team' : this.team,
     };
   }
 
@@ -83,6 +87,7 @@ class PickTaskModel {
     failReason = json['pick_fail_reason'];
     condition = json['condition'];
     track = json['track'];
+    team = json['team'];
   }
 }
 

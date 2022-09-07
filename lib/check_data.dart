@@ -17,6 +17,7 @@ class CheckData extends StatelessWidget {
     fbProvider.getLocList();
     fbProvider.getTaskList();
     fbProvider.getWeekDayData();
+   
     taskProvider.taskList = fbProvider.taskList;
     taskProvider.locList = fbProvider.locList;
     taskProvider.totalList = fbProvider.weekdayList;

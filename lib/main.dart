@@ -1,15 +1,12 @@
-import 'dart:io';
-
 import 'package:copick_manage_withweb/check_data.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
 import 'package:copick_manage_withweb/provider/firebase_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:provider/provider.dart';
 
-import 'add_task/add_task_page.dart';
+
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

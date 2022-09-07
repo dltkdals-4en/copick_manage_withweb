@@ -169,6 +169,7 @@ class ModifyLocationDialog extends StatelessWidget {
           onPressed: () {
             if (_locModifyformKey.currentState!.validate()) {
               provider.modifyInfo(locData, fbProvder).then((value) {
+                provider.clearModifyController();
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(

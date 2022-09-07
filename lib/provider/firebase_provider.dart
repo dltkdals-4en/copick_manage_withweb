@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:copick_manage_withweb/model/pick_task_model.dart';
+import 'package:copick_manage_withweb/model/task_record_model.dart';
 import 'package:copick_manage_withweb/model/total_task_model.dart';
 import 'package:copick_manage_withweb/model/waste_location_model.dart';
 import 'package:flutter/material.dart';
@@ -9,9 +10,11 @@ class FbProvider with ChangeNotifier {
   List<WasteLocationModel> locList = [];
   List<PickTaskModel> taskList = [];
   List<WeekdayTaskModel> weekdayList = [];
+  List<TaskRecordModel> recordList = [];
   bool hasLocData = false;
   bool hasTaskData = false;
   bool hasWeekdayData = false;
+  bool hasRecordData = false;
 
   Future<void> getLocList() async {
     if (hasLocData == false) {
@@ -42,6 +45,21 @@ class FbProvider with ChangeNotifier {
     }
   }
 
+  Future<void> getRecordData() async {
+    print('record');
+    if (hasRecordData == false) {
+      QuerySnapshot<Map<String, dynamic>> data =
+          await _firestore.collection('pick_task_demo').get();
+      recordList.clear();
+      for (var value in data.docs) {
+        recordList.add(TaskRecordModel.fromJson(value.data(), value.id));
+        notifyListeners();
+      }
+      hasRecordData = true;
+      notifyListeners();
+    }
+  }
+
   Future<void> getWeekDayData() async {
     if (hasWeekdayData == false) {
       QuerySnapshot<Map<String, dynamic>> data =
@@ -56,17 +74,20 @@ class FbProvider with ChangeNotifier {
   }
 
   Future<void> addTaskData(Map<String, dynamic> data) async {
-    print(data);
     await _firestore.collection('pick_task').doc().set(data).then((value) {
       hasTaskData = false;
       hasLocData = false;
-      hasWeekdayData= false;
+      hasWeekdayData = false;
       notifyListeners();
     });
   }
+
   Future<void> addWeekData(Map<String, dynamic> data) async {
-    print(data);
-    await _firestore.collection('pick_task_weekday').doc().set(data).then((value) {
+    await _firestore
+        .collection('pick_task_weekday')
+        .doc()
+        .set(data)
+        .then((value) {
       hasTaskData = false;
       hasLocData = false;
       hasWeekdayData = false;
@@ -87,7 +108,7 @@ class FbProvider with ChangeNotifier {
     await _firestore.collection('location_demo').doc().set(map).then((value) {
       hasTaskData = false;
       hasLocData = false;
-
+      hasWeekdayData = false;
       notifyListeners();
     });
   }
@@ -100,6 +121,7 @@ class FbProvider with ChangeNotifier {
         .then((value) {
       hasTaskData = false;
       hasLocData = false;
+      hasWeekdayData = false;
       notifyListeners();
     });
   }
@@ -126,5 +148,18 @@ class FbProvider with ChangeNotifier {
     });
   }
 
+  Future<void> updatePickOrder(Map<String, dynamic> map, String docId) async {
+    await _firestore
+        .collection('pick_task')
+        .doc(docId)
+        .update(map)
+        .then((value) {
+      hasTaskData = false;
+      hasLocData = false;
+      hasWeekdayData = false;
+      notifyListeners();
+    });
+  }
 
+  deleteTaskFromWeekday() {}
 }

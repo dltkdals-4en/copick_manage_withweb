@@ -1,3 +1,4 @@
+import 'package:copick_manage_withweb/model/pick_task_model.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,7 +20,7 @@ class TrackReorderlistWidget extends StatelessWidget {
     var fbProvider = Provider.of<FbProvider>(context);
     var taskProvider = Provider.of<TaskProvider>(context);
     var size = MediaQuery.of(context).size;
-    var track = taskProvider.getTrackList(trackIndex);
+    List<PickTaskModel> track = taskProvider.getTrackList(trackIndex);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.end,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -59,7 +60,7 @@ class TrackReorderlistWidget extends StatelessWidget {
                                 ),
                                 NorW,
                                 Text(
-                                  '${taskProvider.getLocName(track[index].locationId!)}',
+                                  '${taskProvider.getLocName(track[index].locationId??'')}',
                                   style: makeTextStyle(
                                       16, AppColors.black, 'bold'),
                                 ),
@@ -93,8 +94,11 @@ class TrackReorderlistWidget extends StatelessWidget {
         ),
         NorH,
         ElevatedButton(
-          onPressed: () {},
-          child: Text('경로 저장하기'),
+          onPressed: () {
+
+            taskProvider.updatePickOrder(track,fbProvider);
+          },
+          child: Text('${taskProvider.weekDay[trackIndex-1]}요일 경로 저장하기'),
           style: ElevatedButton.styleFrom(),
         )
       ],
