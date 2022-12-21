@@ -1,9 +1,9 @@
+import 'package:copick_manage_withweb/constants/screen_size.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../constants/constants.dart';
-import '../../constants/screen_size.dart';
-import '../../provider/task_provider.dart';
+import '../../../constants/constants.dart';
+import '../../../provider/task_provider.dart';
 
 class InputMainInfo extends StatelessWidget {
   const InputMainInfo({

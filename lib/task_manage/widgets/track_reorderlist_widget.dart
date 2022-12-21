@@ -22,11 +22,12 @@ class TrackReorderlistWidget extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     List<PickTaskModel> track = taskProvider.getTrackList(trackIndex);
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.end,
+      crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text('카페 개수 : ${track.length} 개'),
         NorH,
+        Text('카페 개수 : ${track.length} 개'),
+        Divider(),
         Expanded(
           child: (track.isEmpty)
               ? Center(
@@ -60,7 +61,7 @@ class TrackReorderlistWidget extends StatelessWidget {
                                 ),
                                 NorW,
                                 Text(
-                                  '${taskProvider.getLocName(track[index].locationId??'')}',
+                                  '${taskProvider.getLocName(track[index].locationId ?? '')}',
                                   style: makeTextStyle(
                                       16, AppColors.black, 'bold'),
                                 ),
@@ -75,8 +76,14 @@ class TrackReorderlistWidget extends StatelessWidget {
                             ElevatedButton(
                               onPressed: () {
                                 taskProvider.deleteTask(
-                                    fbProvider, track[index].pickDocId!,taskTabController, trackIndex);
+                                    fbProvider,
+                                    track[index].pickDocId!,
+                                    taskTabController,
+                                    trackIndex);
                               },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.lightPrimary,
+                              ),
                               child: Text('삭제'),
                             ),
                           ],
@@ -95,10 +102,9 @@ class TrackReorderlistWidget extends StatelessWidget {
         NorH,
         ElevatedButton(
           onPressed: () {
-
-            taskProvider.updatePickOrder(track,fbProvider);
+            taskProvider.updatePickOrder(track, fbProvider, trackIndex);
           },
-          child: Text('${taskProvider.weekDay[trackIndex-1]}요일 경로 저장하기'),
+          child: Text('${taskProvider.weekDay[trackIndex - 1]}요일 경로 저장하기'),
           style: ElevatedButton.styleFrom(),
         )
       ],

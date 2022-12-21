@@ -1,5 +1,4 @@
-import 'package:copick_manage_withweb/add_location/add_location_page.dart';
-import 'package:copick_manage_withweb/add_task/add_task_page.dart';
+
 import 'package:copick_manage_withweb/provider/task_provider.dart';
 import 'package:copick_manage_withweb/provider/firebase_provider.dart';
 import 'package:copick_manage_withweb/select_menu_page.dart';
@@ -21,8 +20,7 @@ class CheckData extends StatelessWidget {
     taskProvider.taskList = fbProvider.taskList;
     taskProvider.locList = fbProvider.locList;
     taskProvider.totalList = fbProvider.weekdayList;
-    print('test1 : ${fbProvider.taskList.length}');
-    print('test2 : ${taskProvider.taskList.length}');
+   
     taskProvider.sortData();
 
     // return AddLocationPage();

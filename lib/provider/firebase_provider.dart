@@ -3,10 +3,12 @@ import 'package:copick_manage_withweb/model/pick_task_model.dart';
 import 'package:copick_manage_withweb/model/task_record_model.dart';
 import 'package:copick_manage_withweb/model/total_task_model.dart';
 import 'package:copick_manage_withweb/model/waste_location_model.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class FbProvider with ChangeNotifier {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   List<WasteLocationModel> locList = [];
   List<PickTaskModel> taskList = [];
   List<WeekdayTaskModel> weekdayList = [];

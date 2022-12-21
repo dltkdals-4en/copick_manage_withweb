@@ -1,11 +1,12 @@
-import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/task_provider.dart';
+import '../../../constants/constants.dart';
+import '../../../provider/task_provider.dart';
 
-class OptionInfoWidget extends StatelessWidget {
-  const OptionInfoWidget({Key? key}) : super(key: key);
+
+class InputDemoInfo extends StatelessWidget {
+  const InputDemoInfo({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +16,7 @@ class OptionInfoWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '선택 정보 입력',
+          '데모 태스크 정보 입력',
           style: makeTextStyle(18, AppColors.black, 'bold'),
         ),
         NorH,
@@ -25,14 +26,14 @@ class OptionInfoWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '담당자명',
+                  'demo code',
                   style: makeTextStyle(16, AppColors.black, 'bold'),
                 ),
                 SmH,
                 Container(
                   width: size.width / 4,
                   child: TextField(
-                    controller: taskProvider.adminTextController,
+                    controller: taskProvider.demoCodeController,
                     cursorColor: AppColors.lightPrimary,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -53,14 +54,14 @@ class OptionInfoWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '매장 전화 번호',
+                  'track',
                   style: makeTextStyle(16, AppColors.black, 'bold'),
                 ),
                 SmH,
                 Container(
                   width: size.width / 4,
                   child: TextField(
-                    controller: taskProvider.telController,
+                    controller: taskProvider.trackController,
                     cursorColor: AppColors.lightPrimary,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -81,14 +82,14 @@ class OptionInfoWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  '카페 이미지',
+                  'order',
                   style: makeTextStyle(16, AppColors.black, 'bold'),
                 ),
                 SmH,
                 Container(
                   width: size.width / 4,
                   child: TextField(
-                    controller: taskProvider.postalController,
+                    controller: taskProvider.orderController,
                     cursorColor: AppColors.lightPrimary,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(),
@@ -104,9 +105,7 @@ class OptionInfoWidget extends StatelessWidget {
                 ),
               ],
             ),
-
           ],
-          
         ),
         SmH,
       ],

@@ -244,3 +244,4 @@ const eTextStyleSubtitle24 = TextStyle(
   fontWeight: FontWeight.bold,
   color: AppColors.black,
 );
+

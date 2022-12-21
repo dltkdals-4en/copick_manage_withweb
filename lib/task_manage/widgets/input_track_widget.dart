@@ -18,7 +18,7 @@ class InputTrackWidget extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Text(
-          '수거 경로 및 순서 입력',
+          '수거 일자 선택',
           style: makeTextStyle(18, AppColors.black, 'bold'),
         ),
         SizedBox(

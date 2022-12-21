@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:copick_manage_withweb/add_task/add_task_page.dart';
+import 'package:copick_manage_withweb/task_manage/task_manage_page.dart';
 import 'package:copick_manage_withweb/model/location_demo.dart';
 import 'package:copick_manage_withweb/model/total_task_model.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,7 +20,7 @@ class TaskProvider with ChangeNotifier {
   FormFieldValidator? validator;
   String? initialName;
 
-  int currentTaskTabIndex = 0;
+  int currentTaskTabIndex = 1;
 
   List<String> nameList = [];
   List<PickTaskModel> taskListTrack1 = [];
@@ -53,7 +53,7 @@ class TaskProvider with ChangeNotifier {
   TextEditingController modifyPostalController = TextEditingController();
   TextEditingController modifyAdminController = TextEditingController();
 
-  int currentDefaultTabIndex = 0;
+  int currentDefaultTabIndex = 1;
 
   void dateSelect(context) {
     Future<DateTime?> selectedDate = showDatePicker(
@@ -70,7 +70,7 @@ class TaskProvider with ChangeNotifier {
   }
 
   Future<void> addTaskData(FbProvider fbProvider) async {
-    currentDefaultTabIndex = 0;
+    currentDefaultTabIndex = 1;
     if (checkValue.where((element) => element == true) == false) {
       print('경로 선택 x');
     } else if (initialName == '' || initialName == '매장 선택') {
@@ -402,9 +402,11 @@ class TaskProvider with ChangeNotifier {
     return collectDay;
   }
 
-  void updatePickOrder(List<PickTaskModel> track, FbProvider fbProvider) {
+  void updatePickOrder(
+      List<PickTaskModel> track, FbProvider fbProvider, int trackIndex) {
     track.asMap().forEach((key, value) async {
       await fbProvider.updatePickOrder({'pick_order': key}, value.pickDocId!);
+      currentTaskTabIndex = trackIndex;
     });
   }
 
@@ -424,5 +426,10 @@ class TaskProvider with ChangeNotifier {
         }
       });
     });
+  }
+
+  void changeTabIndex(int value) {
+    currentDefaultTabIndex = value;
+    notifyListeners();
   }
 }

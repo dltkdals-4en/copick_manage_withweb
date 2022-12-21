@@ -1,12 +1,12 @@
 import 'package:copick_manage_withweb/constants/constants.dart';
-import 'package:copick_manage_withweb/constants/validators.dart';
-import 'package:copick_manage_withweb/provider/add_location_provider.dart';
+
 import 'package:copick_manage_withweb/provider/firebase_provider.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../main.dart';
+import '../../../main.dart';
+
 
 class ModifyLocationDialog extends StatelessWidget {
   const ModifyLocationDialog(this.index, {Key? key}) : super(key: key);
@@ -164,6 +164,13 @@ class ModifyLocationDialog extends StatelessWidget {
             Navigator.pop(context);
           },
           child: Text('취소'),
+          style: ElevatedButton.styleFrom(
+            backgroundColor: AppColors.white,
+            side: BorderSide(
+              color: AppColors.lightPrimary,
+              width: 1,
+            ),
+          ),
         ),
         ElevatedButton(
           onPressed: () {
@@ -181,6 +188,8 @@ class ModifyLocationDialog extends StatelessWidget {
               print("no");
             }
           },
+          style: ElevatedButton.styleFrom(
+              backgroundColor: AppColors.lightPrimary),
           child: Text('수정'),
         ),
       ],
