@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 
 import '../constants/screen_size.dart';
 import '../main.dart';
-import '../provider/firebase_provider.dart';
+import '../provider/fb_helper.dart';
 import '../provider/task_provider.dart';
 
 class LocationList extends StatelessWidget {
@@ -13,7 +13,7 @@ class LocationList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var fbProvider = Provider.of<FbProvider>(context);
+    var fbProvider = Provider.of<FbHelper>(context);
     var taskProvider = Provider.of<TaskProvider>(context);
     var size = MediaQuery.of(context).size;
     var locList = taskProvider.locList;

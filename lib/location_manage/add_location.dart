@@ -1,6 +1,6 @@
 import 'package:copick_manage_withweb/constants/screen_size.dart';
 import 'package:copick_manage_withweb/location_manage/widgets/required_info_widget.dart';
-import 'package:copick_manage_withweb/provider/firebase_provider.dart';
+import 'package:copick_manage_withweb/provider/fb_helper.dart';
 import 'package:copick_manage_withweb/provider/manage_provider.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
 
@@ -17,7 +17,7 @@ class AddLocation extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     var taskProvider = Provider.of<TaskProvider>(context);
-    var fbProvider = Provider.of<FbProvider>(context);
+    var fbProvider = Provider.of<FbHelper>(context);
     var locMProvider = Provider.of<ManageProvider>(context);
     final _locAddformKey = GlobalKey<FormState>();
     return Container(
@@ -76,6 +76,7 @@ class AddLocation extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () async {
                               if (_locAddformKey.currentState!.validate()) {
+                                print(taskProvider.selectedCity);
                                 taskProvider.addLocData(fbProvider).then((value) {
                                   taskProvider.clearController();
                                   AlertDialog(

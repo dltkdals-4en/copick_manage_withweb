@@ -14,23 +14,23 @@ class SelectMenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var taskProvider = Provider.of<TaskProvider>(context);
     return DefaultTabController(
-      length:2,
+      length: 3,
       initialIndex: taskProvider.currentDefaultTabIndex,
       child: Scaffold(
         appBar: AppBar(
           backgroundColor: AppColors.lightPrimary,
           title: Text('CO:PICK 관리'),
           bottom: TabBar(
-            labelPadding: EdgeInsets.all(10) ,
+            labelPadding: EdgeInsets.all(10),
             indicatorColor: AppColors.white,
-onTap: (value) {
+            onTap: (value) {
               print(value);
-  taskProvider.changeTabIndex(value);
-},
+              taskProvider.changeTabIndex(value);
+            },
             tabs: [
               Text('매장 관리'),
               Text('태스크 관리'),
-              // Text('수거 기록 보기'),
+              Text('수거 기록 보기'),
             ],
           ),
         ),
@@ -39,7 +39,7 @@ onTap: (value) {
             children: [
               WasteLocationPage(),
               TaskManagePage(),
-              // RecordPage(),
+              RecordPage(),
             ],
           ),
         ),

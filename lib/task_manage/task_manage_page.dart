@@ -3,7 +3,7 @@ import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:copick_manage_withweb/constants/screen_size.dart';
 
 import 'package:copick_manage_withweb/provider/task_provider.dart';
-import 'package:copick_manage_withweb/provider/firebase_provider.dart';
+import 'package:copick_manage_withweb/provider/fb_helper.dart';
 import 'package:copick_manage_withweb/task_manage/add_task.dart';
 import 'package:copick_manage_withweb/task_manage/widgets/totaltrack_list_widget.dart';
 import 'package:copick_manage_withweb/task_manage/widgets/track_reorderlist_widget.dart';
@@ -24,13 +24,11 @@ class _TaskManagePageState extends State<TaskManagePage>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-    var fbProvider = Provider.of<FbProvider>(context);
+    var fbProvider = Provider.of<FbHelper>(context);
     var taskProvider = Provider.of<TaskProvider>(context);
     var size = MediaQuery.of(context).size;
 
     var totalList = taskProvider.totalList;
-    var track1 = taskProvider.taskListTrack1;
-    var list = taskProvider.testList;
     TabController taskTabController = TabController(
       length: 6,
       vsync: this,

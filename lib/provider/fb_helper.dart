@@ -6,7 +6,7 @@ import 'package:copick_manage_withweb/model/waste_location_model.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-class FbProvider with ChangeNotifier {
+class FbHelper with ChangeNotifier {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   List<WasteLocationModel> locList = [];
@@ -20,6 +20,7 @@ class FbProvider with ChangeNotifier {
 
   Future<void> getLocList() async {
     if (hasLocData == false) {
+      print('getLoc()');
       QuerySnapshot<Map<String, dynamic>> data =
           await _firestore.collection('waste_location').get();
       locList.clear();
@@ -32,10 +33,8 @@ class FbProvider with ChangeNotifier {
   }
 
   Future<void> getTaskList() async {
-    print(hasTaskData);
     if (hasTaskData == false) {
-      print('task : $hasTaskData');
-
+      print('getTask()');
       QuerySnapshot<Map<String, dynamic>> data =
           await _firestore.collection('pick_task').get();
       taskList.clear();
@@ -51,7 +50,7 @@ class FbProvider with ChangeNotifier {
     print('record');
     if (hasRecordData == false) {
       QuerySnapshot<Map<String, dynamic>> data =
-          await _firestore.collection('pick_task_demo').get();
+          await _firestore.collection('pick_task_demo').orderBy('pick_up_date',descending: true).limit(100).get();
       recordList.clear();
       for (var value in data.docs) {
         recordList.add(TaskRecordModel.fromJson(value.data(), value.id));
@@ -105,7 +104,14 @@ class FbProvider with ChangeNotifier {
       notifyListeners();
     });
   }
-
+  Future<void> addLocDataToAnsung(Map<String, dynamic> map) async {
+    await _firestore.collection('waste_location_ansung').doc().set(map).then((value) {
+      hasTaskData = false;
+      hasLocData = false;
+      hasWeekdayData = false;
+      notifyListeners();
+    });
+  }
   Future<void> addDemoData(Map<String, dynamic> map) async {
     await _firestore.collection('location_demo').doc().set(map).then((value) {
       hasTaskData = false;
@@ -164,4 +170,6 @@ class FbProvider with ChangeNotifier {
   }
 
   deleteTaskFromWeekday() {}
+
+
 }

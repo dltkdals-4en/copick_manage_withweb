@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:copick_manage_withweb/model/task_record_model.dart';
 import 'package:copick_manage_withweb/task_manage/task_manage_page.dart';
 import 'package:copick_manage_withweb/model/location_demo.dart';
 import 'package:copick_manage_withweb/model/total_task_model.dart';
@@ -6,7 +7,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../model/pick_task_model.dart';
 import '../model/waste_location_model.dart';
-import 'firebase_provider.dart';
+import 'fb_helper.dart';
 
 class TaskProvider with ChangeNotifier {
   TextEditingController dateTextController = TextEditingController();
@@ -15,12 +16,15 @@ class TaskProvider with ChangeNotifier {
   List<WasteLocationModel> locList = [];
   List<PickTaskModel> taskList = [];
   List<WeekdayTaskModel> totalList = [];
+  List<TaskRecordModel> recordList = [];
   int trackValue = 0;
   List<int> trackItems = [0, 1, 2, 3];
   FormFieldValidator? validator;
   String? initialName;
+  int currentTaskTabIndex = 2;
 
-  int currentTaskTabIndex = 1;
+  List<String> city =['성수', '안성'];
+  String selectedCity = '성수';
 
   List<String> nameList = [];
   List<PickTaskModel> taskListTrack1 = [];
@@ -53,7 +57,7 @@ class TaskProvider with ChangeNotifier {
   TextEditingController modifyPostalController = TextEditingController();
   TextEditingController modifyAdminController = TextEditingController();
 
-  int currentDefaultTabIndex = 1;
+  int currentDefaultTabIndex = 0;
 
   void dateSelect(context) {
     Future<DateTime?> selectedDate = showDatePicker(
@@ -69,7 +73,7 @@ class TaskProvider with ChangeNotifier {
     });
   }
 
-  Future<void> addTaskData(FbProvider fbProvider) async {
+  Future<void> addTaskData(FbHelper fbProvider) async {
     currentDefaultTabIndex = 1;
     if (checkValue.where((element) => element == true) == false) {
       print('경로 선택 x');
@@ -118,7 +122,7 @@ class TaskProvider with ChangeNotifier {
     }
   }
 
-  Future<void> addLocData(FbProvider fbProvider) async {
+  Future<void> addLocData(FbHelper fbProvider) async {
     var latlng = latlngController.value.text.split(',');
 
     var i = WasteLocationModel(
@@ -135,8 +139,13 @@ class TaskProvider with ChangeNotifier {
       locationTel: telController.value.text,
       locationAdmin: adminTextController.value.text,
     );
-    await fbProvider.addLocData(i.toMap());
-    currentTaskTabIndex = 0;
+    if(selectedCity == '안성'){
+      await fbProvider.addLocDataToAnsung(i.toMap());
+      currentTaskTabIndex = 0;
+    }else {
+      await fbProvider.addLocData(i.toMap());
+      currentTaskTabIndex = 0;
+    }
   }
 
   void clearController() {
@@ -182,7 +191,7 @@ class TaskProvider with ChangeNotifier {
   // }
 
   Future<void> modifyInfo(
-      WasteLocationModel locData, FbProvider fbProvder) async {
+      WasteLocationModel locData, FbHelper fbProvder) async {
     var latlng = modifyLatLngController.value.text.split(',');
 
     var i = WasteLocationModel(
@@ -217,7 +226,7 @@ class TaskProvider with ChangeNotifier {
     currentDefaultTabIndex = 0;
   }
 
-  Future<void> deleteLocData(FbProvider fbProvider, String locDocId) async {
+  Future<void> deleteLocData(FbHelper fbProvider, String locDocId) async {
     await fbProvider.deleteLocData(locDocId);
     currentDefaultTabIndex = 0;
     notifyListeners();
@@ -228,6 +237,7 @@ class TaskProvider with ChangeNotifier {
     totalList.sort((a, b) => a.locationId!.compareTo(b.locationId!));
     taskList.sort((a, b) => a.track!.compareTo(b.track!));
     locList.sort((a, b) => a.locationId!.compareTo(b.locationId!));
+    recordList.sort((a, b) => b.pickUpDate!.compareTo(a.pickUpDate!));
     taskListTrack1 = taskList.where((element) => element.track == 1).toList();
     taskListTrack2 = taskList.where((element) => element.track == 2).toList();
     taskListTrack3 = taskList.where((element) => element.track == 3).toList();
@@ -323,7 +333,7 @@ class TaskProvider with ChangeNotifier {
     list.insert(newIndex, item);
   }
 
-  Future<void> deleteTask(FbProvider fbProvider, String docId,
+  Future<void> deleteTask(FbHelper fbProvider, String docId,
       TabController taskTabController, int trackIndex) async {
     await fbProvider.deleteTaskData(docId).then((value) {
       currentTaskTabIndex = trackIndex;
@@ -403,26 +413,26 @@ class TaskProvider with ChangeNotifier {
   }
 
   void updatePickOrder(
-      List<PickTaskModel> track, FbProvider fbProvider, int trackIndex) {
+      List<PickTaskModel> track, FbHelper fbProvider, int trackIndex) {
     track.asMap().forEach((key, value) async {
       await fbProvider.updatePickOrder({'pick_order': key}, value.pickDocId!);
       currentTaskTabIndex = trackIndex;
     });
   }
 
-  void deleteWeekdayData(int index, FbProvider fbProvider) {
-    print(totalList[index].trackList);
+  void deleteWeekdayData(int index, FbHelper fbProvider) {
+
     var data = totalList[index];
     taskList
         .where((element) => element.locationId == data.locationId)
         .forEach((element) {
-      print('${getLocName(element.locationId!)} ++ ${element.pickDocId}');
+
       data.trackList!.asMap().forEach((key, value) async {
         if (value == true) {
-          print(element.pickDocId);
+
           await fbProvider.deleteTaskFromWeekday();
         } else {
-          print('no');
+
         }
       });
     });
@@ -430,6 +440,11 @@ class TaskProvider with ChangeNotifier {
 
   void changeTabIndex(int value) {
     currentDefaultTabIndex = value;
+    notifyListeners();
+  }
+
+  void changeCity(Object? value) {
+    selectedCity =value.toString();
     notifyListeners();
   }
 }

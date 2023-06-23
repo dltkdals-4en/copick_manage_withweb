@@ -6,6 +6,13 @@ class ManageProvider with ChangeNotifier{
     bool taskAddWidgetVisible = true;
     bool taskListWidgetVisible = true;
 
+  String loc1 = '성수';
+
+  void changeLoc1() {
+    loc1 = '평택';
+    notifyListeners();
+  }
+
   void changeAddLocationWidget() {
     (locationAddWidgetVisible)?locationAddWidgetVisible=false:locationAddWidgetVisible=true;
     notifyListeners();

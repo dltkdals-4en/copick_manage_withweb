@@ -2,8 +2,11 @@ import 'package:copick_manage_withweb/check_data.dart';
 import 'package:copick_manage_withweb/login/login_screen.dart';
 import 'package:copick_manage_withweb/provider/manage_provider.dart';
 import 'package:copick_manage_withweb/provider/login_provider.dart';
+import 'package:copick_manage_withweb/provider/record_provider.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
-import 'package:copick_manage_withweb/provider/firebase_provider.dart';
+import 'package:copick_manage_withweb/provider/fb_helper.dart';
+import 'package:copick_manage_withweb/routes/route_generator.dart';
+import 'package:copick_manage_withweb/routes/routes.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +29,8 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<FbProvider>(
-          create: (_) => FbProvider(),
+        ChangeNotifierProvider<FbHelper>(
+          create: (_) => FbHelper(),
         ),
         ChangeNotifierProvider<TaskProvider>(
           create: (_) => TaskProvider(),
@@ -37,6 +40,9 @@ void main() async {
         ),
         ChangeNotifierProvider<ManageProvider>(
           create: (_) => ManageProvider(),
+        ),
+        ChangeNotifierProvider<RecordProvider>(
+          create: (_) => RecordProvider(),
         )
       ],
       child: EasyLocalization(
@@ -60,7 +66,7 @@ class MyApp extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      title: 'CO:PICK Manager',
+      title: 'CO:PICK 수거 시스템 관리',
       theme: ThemeData(
         // This is the theme of your application.
         //
@@ -73,7 +79,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: LoginScreen(),
+      initialRoute: Routes.splash,
+      onGenerateRoute: RouteGenerator.generateRoute,
     );
   }
 }

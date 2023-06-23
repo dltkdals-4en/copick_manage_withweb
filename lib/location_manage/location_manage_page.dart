@@ -5,7 +5,7 @@ import 'package:copick_manage_withweb/location_manage/widgets/modify_location_di
 import 'package:copick_manage_withweb/main.dart';
 import 'package:copick_manage_withweb/model/waste_location_model.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
-import 'package:copick_manage_withweb/provider/firebase_provider.dart';
+import 'package:copick_manage_withweb/provider/fb_helper.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

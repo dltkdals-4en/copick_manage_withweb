@@ -1,7 +1,7 @@
 import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import '../../provider/firebase_provider.dart';
+import '../../provider/fb_helper.dart';
 import '../../provider/task_provider.dart';
 import 'modify_weekday_dialog.dart';
 
@@ -11,7 +11,7 @@ class TotaltrackListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var fbProvider = Provider.of<FbProvider>(context);
+    var fbProvider = Provider.of<FbHelper>(context);
     var taskProvider = Provider.of<TaskProvider>(context);
     var size = MediaQuery.of(context).size;
     final _addTaskFormKey = GlobalKey<FormState>();

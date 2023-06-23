@@ -1,1 +1,1 @@
-const isDebugMode = true;
+const isLoginPass = true;

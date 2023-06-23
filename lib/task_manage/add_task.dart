@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../constants/constants.dart';
 import '../constants/screen_size.dart';
 import '../main.dart';
-import '../provider/firebase_provider.dart';
+import '../provider/fb_helper.dart';
 import '../provider/task_provider.dart';
 import 'widgets/input_code_widget.dart';
 import 'widgets/input_track_widget.dart';
@@ -17,7 +17,7 @@ class AddTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var fbProvider = Provider.of<FbProvider>(context);
+    var fbProvider = Provider.of<FbHelper>(context);
     var taskProvider = Provider.of<TaskProvider>(context);
     var manageProvider = Provider.of<ManageProvider>(context);
     var size = MediaQuery.of(context).size;

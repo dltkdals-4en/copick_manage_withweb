@@ -1,6 +1,6 @@
 import 'package:copick_manage_withweb/constants/constants.dart';
 
-import 'package:copick_manage_withweb/provider/firebase_provider.dart';
+import 'package:copick_manage_withweb/provider/fb_helper.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -19,7 +19,7 @@ class ModifyLocationDialog extends StatelessWidget {
     var size = MediaQuery.of(context).size;
     var provider = Provider.of<TaskProvider>(context);
     var locData = provider.locList[index];
-    var fbProvder = Provider.of<FbProvider>(context);
+    var fbProvder = Provider.of<FbHelper>(context);
     return AlertDialog(
       title: Text(
         '카페 정보 수정',
