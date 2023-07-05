@@ -76,18 +76,13 @@ class AddLocation extends StatelessWidget {
                           child: ElevatedButton(
                             onPressed: () async {
                               if (_locAddformKey.currentState!.validate()) {
-                                print(taskProvider.selectedCity);
+
                                 taskProvider.addLocData(fbProvider).then((value) {
                                   taskProvider.clearController();
                                   AlertDialog(
                                     content: Text('등록되었습니다.'),
                                   );
-                                  Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => MyApp(),
-                                      ),
-                                      (route) => false);
+
                                 });
                               }
                             },

@@ -14,7 +14,7 @@ class SelectMenuPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var taskProvider = Provider.of<TaskProvider>(context);
     return DefaultTabController(
-      length: 3,
+      length: 2,
       initialIndex: taskProvider.currentDefaultTabIndex,
       child: Scaffold(
         appBar: AppBar(
@@ -30,7 +30,6 @@ class SelectMenuPage extends StatelessWidget {
             tabs: [
               Text('매장 관리'),
               Text('태스크 관리'),
-              Text('수거 기록 보기'),
             ],
           ),
         ),
@@ -39,7 +38,6 @@ class SelectMenuPage extends StatelessWidget {
             children: [
               WasteLocationPage(),
               TaskManagePage(),
-              RecordPage(),
             ],
           ),
         ),

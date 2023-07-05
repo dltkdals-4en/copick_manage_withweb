@@ -16,7 +16,7 @@ class PickTaskModel {
   String? failReason;
   int? condition;
   int? track;
-  int? team;
+  String? team;
 
   PickTaskModel({
     this.pickDocId,

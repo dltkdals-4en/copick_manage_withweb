@@ -30,7 +30,7 @@ class _TaskManagePageState extends State<TaskManagePage>
 
     var totalList = taskProvider.totalList;
     TabController taskTabController = TabController(
-      length: 6,
+      length: 5,
       vsync: this,
       initialIndex: taskProvider.currentTaskTabIndex,
     );
@@ -78,7 +78,7 @@ class _TaskManagePageState extends State<TaskManagePage>
                         labelPadding: EdgeInsets.all(SMALLGAP),
                         indicatorColor: AppColors.lightPrimary,
                         tabs: [
-                          Text('전체보기'),
+                          // Text('전체보기'),
                           Text('월요일'),
                           Text('화요일'),
                           Text('수요일'),
@@ -92,7 +92,7 @@ class _TaskManagePageState extends State<TaskManagePage>
                         child: TabBarView(
                           controller: taskTabController,
                           children: [
-                            TotaltrackListWidget(),
+                            // TotaltrackListWidget(),
                             TrackReorderlistWidget(1, taskTabController),
                             TrackReorderlistWidget(2, taskTabController),
                             TrackReorderlistWidget(3, taskTabController),

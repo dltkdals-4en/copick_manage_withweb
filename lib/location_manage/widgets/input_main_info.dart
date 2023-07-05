@@ -46,7 +46,7 @@ class InputMainInfo extends StatelessWidget {
                     return '코드를 입력해주세요.';
                   } else if (text.length > 6) {
                     return '길이가 맞지않습니다.';
-                  } else if (!RegExp(r'^(?:[A-Z]{1})(?:[0-9]{5})$')
+                  } else if (!RegExp(r'^(?:[A-Z]{1})(?:[0-9]{4})$')
                       .hasMatch(text)) {
                     return '형식에 맞지않습니다.';
                   } else if (taskProvider.locList

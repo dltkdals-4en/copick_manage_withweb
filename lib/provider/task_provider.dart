@@ -21,11 +21,14 @@ class TaskProvider with ChangeNotifier {
   List<int> trackItems = [0, 1, 2, 3];
   FormFieldValidator? validator;
   String? initialName;
-  int currentTaskTabIndex = 2;
+  int currentTaskTabIndex = 0;
 
-  List<String> city =['성수', '안성'];
+  List<String> city = ['성수', '안성'];
+
   String selectedCity = '성수';
 
+  List<String> team = ['A', 'B', 'C'];
+  String selectedTeam = 'A';
   List<String> nameList = [];
   List<PickTaskModel> taskListTrack1 = [];
   List<PickTaskModel> taskListTrack2 = [];
@@ -57,7 +60,7 @@ class TaskProvider with ChangeNotifier {
   TextEditingController modifyPostalController = TextEditingController();
   TextEditingController modifyAdminController = TextEditingController();
 
-  int currentDefaultTabIndex = 0;
+  int currentDefaultTabIndex = 1;
 
   void dateSelect(context) {
     Future<DateTime?> selectedDate = showDatePicker(
@@ -105,7 +108,8 @@ class TaskProvider with ChangeNotifier {
             pickOrder: 0,
             state: 0,
             totalVolume: 0,
-            team: 0,
+            team: selectedTeam,
+            pickUpDate: '',
           );
           await fbProvider.addTaskData(i.toAdd()).then((value) {
             checkValue = [false, false, false, false, false];
@@ -116,7 +120,7 @@ class TaskProvider with ChangeNotifier {
 
           notifyListeners();
         } else {
-          print("no");
+          print("failed");
         }
       });
     }
@@ -139,13 +143,9 @@ class TaskProvider with ChangeNotifier {
       locationTel: telController.value.text,
       locationAdmin: adminTextController.value.text,
     );
-    if(selectedCity == '안성'){
-      await fbProvider.addLocDataToAnsung(i.toMap());
-      currentTaskTabIndex = 0;
-    }else {
-      await fbProvider.addLocData(i.toMap());
-      currentTaskTabIndex = 0;
-    }
+
+    await fbProvider.addLocDataToAnsung(i.toMap());
+    currentTaskTabIndex = 0;
   }
 
   void clearController() {
@@ -421,19 +421,14 @@ class TaskProvider with ChangeNotifier {
   }
 
   void deleteWeekdayData(int index, FbHelper fbProvider) {
-
     var data = totalList[index];
     taskList
         .where((element) => element.locationId == data.locationId)
         .forEach((element) {
-
       data.trackList!.asMap().forEach((key, value) async {
         if (value == true) {
-
           await fbProvider.deleteTaskFromWeekday();
-        } else {
-
-        }
+        } else {}
       });
     });
   }
@@ -444,7 +439,12 @@ class TaskProvider with ChangeNotifier {
   }
 
   void changeCity(Object? value) {
-    selectedCity =value.toString();
+    selectedCity = value.toString();
+    notifyListeners();
+  }
+
+  void changeTeam(Object? value) {
+    selectedTeam = value.toString();
     notifyListeners();
   }
 }

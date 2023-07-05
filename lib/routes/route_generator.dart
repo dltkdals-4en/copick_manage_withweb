@@ -1,3 +1,4 @@
+import 'package:copick_manage_withweb/location_manage/location_manage_page.dart';
 import 'package:copick_manage_withweb/main.dart';
 import 'package:copick_manage_withweb/pages/splash/splash_page.dart';
 import 'package:copick_manage_withweb/routes/routes.dart';
@@ -19,6 +20,10 @@ class RouteGenerator {
       case Routes.splash:
         return MaterialPageRoute(
           builder: (context) => SplashPage(),
+        );
+      case Routes.location:
+        return MaterialPageRoute(
+          builder: (context) => WasteLocationPage(),
         );
       default:
         return MaterialPageRoute(

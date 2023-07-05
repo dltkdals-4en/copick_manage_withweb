@@ -7,10 +7,6 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if(kIsWeb){
-      return LoginScreen();
-    }
-
-    return const Placeholder();
+    return LoginScreen();
   }
 }

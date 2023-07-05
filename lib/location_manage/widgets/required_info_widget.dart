@@ -25,17 +25,17 @@ class RequiredInfoWidget extends StatelessWidget {
               '필수 정보 입력',
               style: makeTextStyle(18, AppColors.black, 'bold'),
             ),
-            kNorW,
-            DropdownButton(
-              value: taskProvider.selectedCity,
-              items: taskProvider.city.map((e) {
-                return DropdownMenuItem<String>(child: Text(e),
-                value: e,);
-              }).toList(),
-              onChanged: (value) {
-                  taskProvider.changeCity(value);
-              },
-            ),
+            // kNorW,
+            // DropdownButton(
+            //   value: taskProvider.selectedCity,
+            //   items: taskProvider.city.map((e) {
+            //     return DropdownMenuItem<String>(child: Text(e),
+            //     value: e,);
+            //   }).toList(),
+            //   onChanged: (value) {
+            //       taskProvider.changeCity(value);
+            //   },
+            // ),
           ],
         ),
         SizedBox(

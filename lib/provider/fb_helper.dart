@@ -22,7 +22,7 @@ class FbHelper with ChangeNotifier {
     if (hasLocData == false) {
       print('getLoc()');
       QuerySnapshot<Map<String, dynamic>> data =
-          await _firestore.collection('waste_location').get();
+          await _firestore.collection('waste_location_anseong').get();
       locList.clear();
       for (var element in data.docs) {
         locList.add(WasteLocationModel.fromJson(element.data(), element.id));
@@ -36,7 +36,7 @@ class FbHelper with ChangeNotifier {
     if (hasTaskData == false) {
       print('getTask()');
       QuerySnapshot<Map<String, dynamic>> data =
-          await _firestore.collection('pick_task').get();
+          await _firestore.collection('pick_task_anseong').get();
       taskList.clear();
       for (var element in data.docs) {
         taskList.add(PickTaskModel.fromJson(element.data(), element.id));
@@ -75,7 +75,7 @@ class FbHelper with ChangeNotifier {
   }
 
   Future<void> addTaskData(Map<String, dynamic> data) async {
-    await _firestore.collection('pick_task').doc().set(data).then((value) {
+    await _firestore.collection('pick_task_anseong').doc().set(data).then((value) {
       hasTaskData = false;
       hasLocData = false;
       hasWeekdayData = false;
@@ -105,7 +105,7 @@ class FbHelper with ChangeNotifier {
     });
   }
   Future<void> addLocDataToAnsung(Map<String, dynamic> map) async {
-    await _firestore.collection('waste_location_ansung').doc().set(map).then((value) {
+    await _firestore.collection('waste_location_anseong').doc().set(map).then((value) {
       hasTaskData = false;
       hasLocData = false;
       hasWeekdayData = false;
@@ -136,7 +136,7 @@ class FbHelper with ChangeNotifier {
 
   Future<void> deleteLocData(String docId) async {
     await _firestore
-        .collection('waste_location')
+        .collection('waste_location_anseong')
         .doc(docId)
         .delete()
         .then((value) {
@@ -148,7 +148,7 @@ class FbHelper with ChangeNotifier {
   }
 
   Future<void> deleteTaskData(String docId) async {
-    await _firestore.collection('pick_task').doc(docId).delete().then((value) {
+    await _firestore.collection('pick_task_anseong').doc(docId).delete().then((value) {
       hasTaskData = false;
       hasLocData = false;
 
@@ -158,7 +158,7 @@ class FbHelper with ChangeNotifier {
 
   Future<void> updatePickOrder(Map<String, dynamic> map, String docId) async {
     await _firestore
-        .collection('pick_task')
+        .collection('pick_task_anseong')
         .doc(docId)
         .update(map)
         .then((value) {

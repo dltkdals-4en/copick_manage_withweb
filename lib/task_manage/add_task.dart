@@ -87,11 +87,8 @@ class AddTask extends StatelessWidget {
                                   .isEmpty) {
                                 print('check');
                               } else {
-                                await taskProvider.addTaskData(fbProvider).then(
-                                  (value) {
-                                    Navigator.of(context).pop();
-                                  },
-                                );
+                                await taskProvider.addTaskData(fbProvider);
+
                               }
                             }
                           },

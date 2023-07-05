@@ -160,7 +160,7 @@ class LoginScreen extends StatelessWidget {
         ),
       );
     } else {
-      return HomePage();
+      return CheckData();
     }
   }
 }

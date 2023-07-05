@@ -20,12 +20,12 @@ class CheckData extends StatelessWidget {
     } else if (fbProvider.hasTaskData == false) {
       fbProvider.getTaskList();
       return LoadingScreen();
-    } else if (fbProvider.hasWeekdayData == false) {
-      fbProvider.getWeekDayData();
-      return LoadingScreen();
-    }else if (fbProvider.hasRecordData ==false){
-      fbProvider.getRecordData();
-      return LoadingScreen();
+    // } else if (fbProvider.hasWeekdayData == false) {
+    //   fbProvider.getWeekDayData();
+    //   return LoadingScreen();
+    // }else if (fbProvider.hasRecordData ==false){
+    //   fbProvider.getRecordData();
+    //   return LoadingScreen();
     }
     else {
       taskProvider.taskList = fbProvider.taskList;
