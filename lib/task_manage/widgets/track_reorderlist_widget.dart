@@ -61,7 +61,7 @@ class TrackReorderlistWidget extends StatelessWidget {
                                 ),
                                 NorW,
                                 Text(
-                                  '${taskProvider.getLocName(track[index].locationId ?? '')}',
+                                  '${taskProvider.getLocName(track[index].locationId ?? '알수 없음')}',
                                   style: makeTextStyle(
                                       16, AppColors.black, 'bold'),
                                 ),

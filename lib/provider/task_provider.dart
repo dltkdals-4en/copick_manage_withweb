@@ -276,7 +276,9 @@ class TaskProvider with ChangeNotifier {
     if (nameList.isEmpty) {
       for (var value in locList) {
         nameList.add(value.locationName!);
+
       }
+      nameList.sort((a, b) => a.compareTo(b),);
     }
   }
 

@@ -85,7 +85,7 @@ class FbHelper with ChangeNotifier {
 
   Future<void> addWeekData(Map<String, dynamic> data) async {
     await _firestore
-        .collection('pick_task_weekday')
+        .collection('pick_task_weekday_anseong')
         .doc()
         .set(data)
         .then((value) {
@@ -123,7 +123,7 @@ class FbHelper with ChangeNotifier {
 
   Future<void> modifyLocData(Map<String, dynamic> map, String docId) async {
     await _firestore
-        .collection('waste_location')
+        .collection('waste_location_anseong')
         .doc(docId)
         .update(map)
         .then((value) {
