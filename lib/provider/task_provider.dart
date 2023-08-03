@@ -236,7 +236,7 @@ class TaskProvider with ChangeNotifier {
     // taskGrouping();
     totalList.sort((a, b) => a.locationId!.compareTo(b.locationId!));
     taskList.sort((a, b) => a.track!.compareTo(b.track!));
-    locList.sort((a, b) => a.locationId!.compareTo(b.locationId!));
+    locList.sort((a, b) => b.locationId!.compareTo(a.locationId!));
     recordList.sort((a, b) => b.pickUpDate!.compareTo(a.pickUpDate!));
     taskListTrack1 = taskList.where((element) => element.track == 1).toList();
     taskListTrack2 = taskList.where((element) => element.track == 2).toList();

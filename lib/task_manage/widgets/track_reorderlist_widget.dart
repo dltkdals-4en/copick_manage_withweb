@@ -71,6 +71,12 @@ class TrackReorderlistWidget extends StatelessWidget {
                                   style: makeTextStyle(
                                       14, AppColors.blackGrey, 'regular'),
                                 ),
+                                SmW,
+                                Text(
+                                  '수거 ${track[index].team} 팀',
+                                  style: makeTextStyle(
+                                      14, AppColors.black, 'regular'),
+                                ),
                               ],
                             ),
                             ElevatedButton(
