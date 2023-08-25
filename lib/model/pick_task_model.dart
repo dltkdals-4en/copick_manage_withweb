@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:copick_manage_withweb/isDebug.dart';
 import 'package:intl/intl.dart';
 
 class PickTaskModel {
@@ -7,6 +8,7 @@ class PickTaskModel {
   String? userName;
   String? locationName;
   int? state;
+
   // String? taskAllocateTime;
   String? pickUpDate;
   String? locationId;
@@ -48,7 +50,7 @@ class PickTaskModel {
       'pick_up_date': this.pickUpDate,
       'pick_fail_code': this.failCode,
       'pick_fail_reason': this.failReason,
-      'team' : this.team,
+      'team': this.team,
     };
   }
 
@@ -64,21 +66,24 @@ class PickTaskModel {
       'pick_fail_reason': this.failReason,
       'condition': this.condition,
       'track': this.track,
-      'team' : this.team,
+      'team': this.team,
     };
   }
 
-  PickTaskModel.fromJson(Map<String, dynamic> json, id) {
-    pickDocId = id;
+  PickTaskModel.fromJson(Map<String, dynamic> json, docId, locId) {
+    pickDocId = docId;
     pickOrder = json['pick_order'];
     userName = json['allocated_user_id'];
     locationName = json['location_name'];
     state = json['pick_state'];
     // taskAllocateTime = dateFormat(json['task_allocate_time']);
 
-    locationId = (json['location_id'].runtimeType == int)
-        ? json['location_id'].toString()
-        : json['location_id'];
+    locationId = (isAnseong)
+        ? (json['location_id'].runtimeType == int)
+            ? json['location_id'].toString()
+            : json['location_id']
+        : locId;
+
     pickDetails = json['pick_details'];
     totalVolume = (json['pick_total_waste'] != null)
         ? double.parse(json['pick_total_waste'].toString())
@@ -88,6 +93,8 @@ class PickTaskModel {
     condition = json['condition'];
     track = json['track'];
     team = json['team'];
+    pickUpDate =
+        (json['pick_up_date'] != null) ? dateFormat(json['pick_up_date']) : '';
   }
 }
 
@@ -95,7 +102,7 @@ String dateFormat(Timestamp timestamp) {
   var date =
       DateTime.fromMicrosecondsSinceEpoch(timestamp.microsecondsSinceEpoch)
           .toString();
-  var stringToDate = DateFormat('yy-MM-dd HH:mm').parse(date);
-  var format = DateFormat('yy/MM/dd HH:mm');
+  var stringToDate = DateFormat('yy-MM-dd HH:mm:ss').parse(date);
+  var format = DateFormat('yy/MM/dd HH:mm:ss');
   return format.format(stringToDate);
 }

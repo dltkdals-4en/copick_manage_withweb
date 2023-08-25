@@ -92,9 +92,10 @@ class TrackReorderlistWidget extends StatelessWidget {
                               ),
                               child: Text('삭제'),
                             ),
-                          ],
+                            ],
+                          ),
                         ),
-                      )),
+                      ),
                     );
                   },
                   onReorder: (

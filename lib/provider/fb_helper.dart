@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:copick_manage_withweb/isDebug.dart';
 import 'package:copick_manage_withweb/model/pick_task_model.dart';
 import 'package:copick_manage_withweb/model/task_record_model.dart';
 import 'package:copick_manage_withweb/model/total_task_model.dart';
 import 'package:copick_manage_withweb/model/waste_location_model.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
@@ -18,11 +20,17 @@ class FbHelper with ChangeNotifier {
   bool hasWeekdayData = false;
   bool hasRecordData = false;
 
+  String anseongLoc = 'waste_location_anseong';
+  String seongsuLoc = 'waste_location';
+  String anseongTask = 'pick_task_anseong';
+  String seongsuTask = 'pick_task_demo';
+
   Future<void> getLocList() async {
     if (hasLocData == false) {
       print('getLoc()');
-      QuerySnapshot<Map<String, dynamic>> data =
-          await _firestore.collection('waste_location_anseong').get();
+      QuerySnapshot<Map<String, dynamic>> data = await _firestore
+          .collection((isAnseong) ? anseongLoc : seongsuLoc)
+          .get();
       locList.clear();
       for (var element in data.docs) {
         locList.add(WasteLocationModel.fromJson(element.data(), element.id));
@@ -36,21 +44,66 @@ class FbHelper with ChangeNotifier {
     if (hasTaskData == false) {
       print('getTask()');
       QuerySnapshot<Map<String, dynamic>> data =
-          await _firestore.collection('pick_task_anseong').get();
+          await _firestore.collection(anseongTask).get();
       taskList.clear();
       for (var element in data.docs) {
-        taskList.add(PickTaskModel.fromJson(element.data(), element.id));
+        String locationId = locList
+            .firstWhere(
+              (e) => e.locationName == element.data()['location_name'],
+          orElse: () => WasteLocationModel(locationId: '알수 없음'),
+        )
+            .locationId ??
+            '';
+        taskList.add(
+            PickTaskModel.fromJson(element.data(), element.id, locationId));
       }
       hasTaskData = true;
       notifyListeners();
     }
   }
 
+  Future<void> getSeongsuTask() async {
+    var startDate = DateFormat('yy-MM-dd hh:mm:ss')
+        .parse((getMonth>=10)?'$getYear-$getMonth-01 00:00:00':'$getYear-0$getMonth-01 00:00:00');
+    var endDate = DateFormat('yy-MM-dd hh:mm:ss')
+        .parse((getMonth>=10)?'$getYear-${getMonth + 1}-01 00:00:00':'$getYear-0${getMonth + 1}-01 00:00:00');
+    if (hasTaskData == false) {
+      print('getSeongSuTask()');
+
+      await _firestore
+          .collection(seongsuTask)
+          .where('pick_up_date', isGreaterThan: startDate)
+          .where('pick_up_date', isLessThan: endDate)
+          .get()
+          .then((value) {
+        taskList.clear();
+        for (var element in value.docs) {
+          String locationId = locList
+                  .firstWhere(
+                    (e) => e.locationName == element.data()['location_name'],
+                    orElse: () => WasteLocationModel(locationId: '알수 없음'),
+                  )
+                  .locationId ??
+              '';
+          if (!element.data()['location_name'].toString().contains('수거')) {
+            taskList.add(
+                PickTaskModel.fromJson(element.data(), element.id, locationId));
+          }
+        }
+        hasTaskData = true;
+        notifyListeners();
+      });
+    }
+  }
+
   Future<void> getRecordData() async {
     print('record');
     if (hasRecordData == false) {
-      QuerySnapshot<Map<String, dynamic>> data =
-          await _firestore.collection('pick_task_demo').orderBy('pick_up_date',descending: true).limit(100).get();
+      QuerySnapshot<Map<String, dynamic>> data = await _firestore
+          .collection((isAnseong) ? anseongTask : seongsuTask)
+          .orderBy('pick_up_date', descending: true)
+          .limit(100)
+          .get();
       recordList.clear();
       for (var value in data.docs) {
         recordList.add(TaskRecordModel.fromJson(value.data(), value.id));
@@ -75,7 +128,11 @@ class FbHelper with ChangeNotifier {
   }
 
   Future<void> addTaskData(Map<String, dynamic> data) async {
-    await _firestore.collection('pick_task_anseong').doc().set(data).then((value) {
+    await _firestore
+        .collection((isAnseong) ? anseongTask : seongsuTask)
+        .doc()
+        .set(data)
+        .then((value) {
       hasTaskData = false;
       hasLocData = false;
       hasWeekdayData = false;
@@ -96,24 +153,14 @@ class FbHelper with ChangeNotifier {
     });
   }
 
+
+
   Future<void> addLocData(Map<String, dynamic> map) async {
-    await _firestore.collection('waste_location').doc().set(map).then((value) {
-      hasTaskData = false;
-      hasLocData = false;
-      hasWeekdayData = false;
-      notifyListeners();
-    });
-  }
-  Future<void> addLocDataToAnsung(Map<String, dynamic> map) async {
-    await _firestore.collection('waste_location_anseong').doc().set(map).then((value) {
-      hasTaskData = false;
-      hasLocData = false;
-      hasWeekdayData = false;
-      notifyListeners();
-    });
-  }
-  Future<void> addDemoData(Map<String, dynamic> map) async {
-    await _firestore.collection('location_demo').doc().set(map).then((value) {
+    await _firestore
+        .collection((isAnseong) ? anseongLoc : seongsuLoc)
+        .doc()
+        .set(map)
+        .then((value) {
       hasTaskData = false;
       hasLocData = false;
       hasWeekdayData = false;
@@ -121,9 +168,11 @@ class FbHelper with ChangeNotifier {
     });
   }
 
+
+
   Future<void> modifyLocData(Map<String, dynamic> map, String docId) async {
     await _firestore
-        .collection('waste_location_anseong')
+        .collection((isAnseong) ? anseongLoc : seongsuLoc)
         .doc(docId)
         .update(map)
         .then((value) {
@@ -136,7 +185,7 @@ class FbHelper with ChangeNotifier {
 
   Future<void> deleteLocData(String docId) async {
     await _firestore
-        .collection('waste_location_anseong')
+        .collection((isAnseong) ? anseongLoc : seongsuLoc)
         .doc(docId)
         .delete()
         .then((value) {
@@ -148,7 +197,11 @@ class FbHelper with ChangeNotifier {
   }
 
   Future<void> deleteTaskData(String docId) async {
-    await _firestore.collection('pick_task_anseong').doc(docId).delete().then((value) {
+    await _firestore
+        .collection((isAnseong) ? anseongTask : seongsuTask)
+        .doc(docId)
+        .delete()
+        .then((value) {
       hasTaskData = false;
       hasLocData = false;
 
@@ -158,7 +211,7 @@ class FbHelper with ChangeNotifier {
 
   Future<void> updatePickOrder(Map<String, dynamic> map, String docId) async {
     await _firestore
-        .collection('pick_task_anseong')
+        .collection((isAnseong) ? anseongTask : seongsuTask)
         .doc(docId)
         .update(map)
         .then((value) {
@@ -170,6 +223,4 @@ class FbHelper with ChangeNotifier {
   }
 
   deleteTaskFromWeekday() {}
-
-
 }

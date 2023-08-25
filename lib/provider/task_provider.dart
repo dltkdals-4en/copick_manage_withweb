@@ -1,10 +1,16 @@
+import 'dart:io';
+import 'dart:js_interop';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:copick_manage_withweb/model/task_record_model.dart';
 import 'package:copick_manage_withweb/task_manage/task_manage_page.dart';
 import 'package:copick_manage_withweb/model/location_demo.dart';
 import 'package:copick_manage_withweb/model/total_task_model.dart';
+import 'package:copick_manage_withweb/utilitys/copick_gsheets.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:gsheets/gsheets.dart';
+import '../isDebug.dart';
 import '../model/pick_task_model.dart';
 import '../model/waste_location_model.dart';
 import 'fb_helper.dart';
@@ -60,7 +66,7 @@ class TaskProvider with ChangeNotifier {
   TextEditingController modifyPostalController = TextEditingController();
   TextEditingController modifyAdminController = TextEditingController();
 
-  int currentDefaultTabIndex = 1;
+  int currentDefaultTabIndex = 0;
 
   void dateSelect(context) {
     Future<DateTime?> selectedDate = showDatePicker(
@@ -144,7 +150,7 @@ class TaskProvider with ChangeNotifier {
       locationAdmin: adminTextController.value.text,
     );
 
-    await fbProvider.addLocDataToAnsung(i.toMap());
+    await fbProvider.addLocData(i.toMap());
     currentTaskTabIndex = 0;
   }
 
@@ -233,6 +239,7 @@ class TaskProvider with ChangeNotifier {
   }
 
   void sortData() {
+    print(taskList.length);
     // taskGrouping();
     totalList.sort((a, b) => a.locationId!.compareTo(b.locationId!));
     taskList.sort((a, b) => a.track!.compareTo(b.track!));
@@ -276,9 +283,10 @@ class TaskProvider with ChangeNotifier {
     if (nameList.isEmpty) {
       for (var value in locList) {
         nameList.add(value.locationName!);
-
       }
-      nameList.sort((a, b) => a.compareTo(b),);
+      nameList.sort(
+        (a, b) => a.compareTo(b),
+      );
     }
   }
 
@@ -448,5 +456,63 @@ class TaskProvider with ChangeNotifier {
   void changeTeam(Object? value) {
     selectedTeam = value.toString();
     notifyListeners();
+  }
+
+  sortSeongsuData() {}
+
+  String getLocId(String? locationName) {
+    String i = locList
+            .firstWhere(
+              (element) => element.locationName == locationName,
+              orElse: () => WasteLocationModel(locationId: '알수 없음'),
+            )
+            .locationId ??
+        '';
+
+    return i;
+  }
+
+  String gsheetsId = '12mKxf680TiCDp7TxXnB5GDy1gBlly5c7YH6WQ-k5aJw';
+  String workSheetTitle = (getMonth>=10)?'$getYear.$getMonth':'$getYear.0$getMonth';
+  Spreadsheet? spreadsheet;
+  Worksheet? worksheet;
+  bool sheetExists = false;
+  Future<void> initGsheets() async {
+    final gsheets = CopickGsheetsConfig.copickGsheets;
+    spreadsheet = await gsheets.spreadsheet(gsheetsId);
+
+    if (worksheet == null) {
+
+      for (var element in spreadsheet!.sheets) {
+        if (element.title == workSheetTitle) {
+          sheetExists = true;
+        }
+      }
+       if(sheetExists){
+         worksheet = spreadsheet!.worksheetByTitle(workSheetTitle);
+       }else{
+         await spreadsheet!.addWorksheet(workSheetTitle).then((value) {
+           worksheet = spreadsheet!.worksheetByTitle(workSheetTitle);
+         });
+       }
+
+    }
+  }
+
+  Future<void> insertGsheets() async {
+    await initGsheets();
+    var time = Duration(seconds: 1, milliseconds: 500);
+    await worksheet!.values.insertRow(1, ['카페 코드','카페명','수거시간']).then((value) async {
+      for (var element in taskList) {
+        await Future.delayed(
+          time,
+              () {
+            worksheet!.values.appendRow(
+                [element.locationId, element.locationName, element.pickUpDate]);
+          },
+        );
+      }
+    });
+
   }
 }
