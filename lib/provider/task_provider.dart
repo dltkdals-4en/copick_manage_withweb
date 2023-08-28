@@ -27,7 +27,7 @@ class TaskProvider with ChangeNotifier {
   List<int> trackItems = [0, 1, 2, 3];
   FormFieldValidator? validator;
   String? initialName;
-  int currentTaskTabIndex = 0;
+  int? currentTaskTabIndex;
 
   List<String> city = ['성수', '안성'];
 
@@ -36,7 +36,13 @@ class TaskProvider with ChangeNotifier {
   List<String> team = ['A', 'B', 'C', '추가'];
   String selectedTeam = 'A';
   List<String> nameList = [];
-  List<int> weekDayNum = [1,2,3,4,5,];
+  List<int> weekDayNum = [
+    1,
+    2,
+    3,
+    4,
+    5,
+  ];
   List<PickTaskModel> taskListTrack1 = [];
   List<PickTaskModel> taskListTrack2 = [];
   List<PickTaskModel> taskListTrack3 = [];
@@ -83,7 +89,7 @@ class TaskProvider with ChangeNotifier {
     });
   }
 
-  Future<void> addTaskData() async {
+  Future<void> addTaskData(FbHelper fbProvider) async {
     currentDefaultTabIndex = 1;
     if (checkValue.where((element) => element == true) == false) {
       print('경로 선택 x');
@@ -97,20 +103,19 @@ class TaskProvider with ChangeNotifier {
         e ? 1 : 0;
       }
       var team = 0;
-     switch(selectedTeam){
-       case 'A':
-         team = 10;
-         break;
-       case 'B':
-         team = 20;
-         break;
-       case 'C':
-         team = 30;
-         break;
-       case '추가':
-         team = 40;
-
-     }
+      switch (selectedTeam) {
+        case 'A':
+          team = 10;
+          break;
+        case 'B':
+          team = 20;
+          break;
+        case 'C':
+          team = 30;
+          break;
+        case '추가':
+          team = 40;
+      }
       var i = PickTaskModel(
         track: selectedWeek,
         failCode: 0,
@@ -121,29 +126,15 @@ class TaskProvider with ChangeNotifier {
         pickOrder: 0,
         state: 0,
         totalVolume: 0,
-        team: team.toString(),
+        team: team,
         pickUpDate: '',
       );
-      await FbHelper().addTaskData(i.toAdd()).then((value) {
-        checkValue = [false, false, false, false, false];
+      await fbProvider.addTaskData(i.toAdd()).then((value) {
+        currentTaskTabIndex = selectedWeek!;
         trackValue = 0;
         initialName = null;
         taskList.clear();
-      });
-
-      notifyListeners();
-      var j = WeekdayTaskModel(
-        locationId: locationId,
-        locationName: getLocName(locationId!),
-        trackList: checkValue,
-      );
-      // await fbProvider.addWeekData(j.toMap());
-      checkValue.asMap().forEach((key, value) async {
-        if (value == true) {
-
-        } else {
-          print("failed");
-        }
+        notifyListeners();
       });
     }
   }
@@ -255,7 +246,6 @@ class TaskProvider with ChangeNotifier {
   }
 
   void sortData() {
-
     // taskGrouping();
     totalList.sort((a, b) => a.locationId!.compareTo(b.locationId!));
     taskList.sort((a, b) => a.track!.compareTo(b.track!));
@@ -362,7 +352,7 @@ class TaskProvider with ChangeNotifier {
   Future<void> deleteTask(FbHelper fbProvider, String docId,
       TabController taskTabController, int trackIndex) async {
     await fbProvider.deleteTaskData(docId).then((value) {
-      currentTaskTabIndex = trackIndex;
+      currentTaskTabIndex = trackIndex - 1;
     });
   }
 
@@ -489,49 +479,51 @@ class TaskProvider with ChangeNotifier {
   }
 
   String gsheetsId = '12mKxf680TiCDp7TxXnB5GDy1gBlly5c7YH6WQ-k5aJw';
-  String workSheetTitle = (getMonth>=10)?'$getYear.$getMonth':'$getYear.0$getMonth';
+  String workSheetTitle =
+      (getMonth >= 10) ? '$getYear.$getMonth' : '$getYear.0$getMonth';
   Spreadsheet? spreadsheet;
   Worksheet? worksheet;
   bool sheetExists = false;
+
   Future<void> initGsheets() async {
     final gsheets = CopickGsheetsConfig.copickGsheets;
     spreadsheet = await gsheets.spreadsheet(gsheetsId);
 
     if (worksheet == null) {
-
       for (var element in spreadsheet!.sheets) {
         if (element.title == workSheetTitle) {
           sheetExists = true;
         }
       }
-       if(sheetExists){
-         worksheet = spreadsheet!.worksheetByTitle(workSheetTitle);
-       }else{
-         await spreadsheet!.addWorksheet(workSheetTitle).then((value) {
-           worksheet = spreadsheet!.worksheetByTitle(workSheetTitle);
-         });
-       }
-
+      if (sheetExists) {
+        worksheet = spreadsheet!.worksheetByTitle(workSheetTitle);
+      } else {
+        await spreadsheet!.addWorksheet(workSheetTitle).then((value) {
+          worksheet = spreadsheet!.worksheetByTitle(workSheetTitle);
+        });
+      }
     }
   }
 
   Future<void> insertGsheets() async {
     await initGsheets();
     var time = Duration(seconds: 1, milliseconds: 500);
-    await worksheet!.values.insertRow(1, ['카페 코드','카페명','수거시간']).then((value) async {
+    await worksheet!.values
+        .insertRow(1, ['카페 코드', '카페명', '수거시간']).then((value) async {
       for (var element in taskList) {
         await Future.delayed(
           time,
-              () {
+          () {
             worksheet!.values.appendRow(
                 [element.locationId, element.locationName, element.pickUpDate]);
           },
         );
       }
     });
-
   }
+
   int? selectedWeek;
+
   void changeWeek(Object? value) {
     selectedWeek = int.parse(value.toString());
     notifyListeners();

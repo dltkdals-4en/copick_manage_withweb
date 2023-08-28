@@ -86,7 +86,7 @@ class AddTask extends StatelessWidget {
                                 print('check');
                               } else {
                                 print('team: ${taskProvider.selectedTeam}//week ${taskProvider.selectedWeek}');
-                                await taskProvider.addTaskData();
+                                await taskProvider.addTaskData(fbProvider);
 
                               }
                             }

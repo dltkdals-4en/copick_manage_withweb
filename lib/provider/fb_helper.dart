@@ -132,9 +132,9 @@ class FbHelper with ChangeNotifier {
   Future<void> addTaskData(Map<String, dynamic> data) async {
     await _firestore
         .collection((isAnseong) ? anseongTask : seongsuTask)
-        .doc()
-        .set(data)
+        .add(data)
         .then((value) {
+          print('init');
       hasTaskData = false;
       hasLocData = false;
       hasWeekdayData = false;
@@ -220,39 +220,39 @@ class FbHelper with ChangeNotifier {
     });
   }
 
-  // deleteDummyData(List<PickTaskModel> taskList) async {
-  //   for (var value in taskList) {
-  //     await _firestore.collection(anseongTask).doc(value.pickDocId).delete();
-  //   }
-  //   notifyListeners();
-  // }
+  deleteDummyData(List<PickTaskModel> taskList) async {
+    for (var value in taskList) {
+      await _firestore.collection(anseongTask).doc(value.pickDocId).delete();
+    }
+    notifyListeners();
+  }
   Future<void> addDummyTaskData(List<PickTaskModel> taskList) async{
     for (var value in taskList) {
       await _firestore.collection('anseong_task_dummy').add(value.toAdd());
     }
   }
 
-  Future<void> updateTeamToInt(List<PickTaskModel> taskList) async {
-    for (var element in taskList) {
-      print(element.team);
-      var team = 0;
-      switch (element.team) {
-        case 'A':
-          team = 10;
-          break;
-        case 'B':
-          team = 20;
-          break;
-        case 'C':
-          team = 30;
-          break;
-        case '추가':
-          team = 40;
-      }
-      await _firestore
-          .collection(anseongTask)
-          .doc(element.pickDocId)
-          .update({'team': team});
-    }
-  }
+  // Future<void> updateTeamToInt(List<PickTaskModel> taskList) async {
+  //   for (var element in taskList) {
+  //     print(element.team);
+  //     var team = 0;
+  //     switch (element.team) {
+  //       case 'A':
+  //         team = 10;
+  //         break;
+  //       case 'B':
+  //         team = 20;
+  //         break;
+  //       case 'C':
+  //         team = 30;
+  //         break;
+  //       case '추가':
+  //         team = 40;
+  //     }
+  //     await _firestore
+  //         .collection(anseongTask)
+  //         .doc(element.pickDocId)
+  //         .update({'team': team});
+  //   }
+  // }
 }

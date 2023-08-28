@@ -23,7 +23,6 @@ class _WasteLocationPageState extends State<WasteLocationPage>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
-
     var taskProvider = Provider.of<TaskProvider>(context);
     var size = MediaQuery.of(context).size;
 

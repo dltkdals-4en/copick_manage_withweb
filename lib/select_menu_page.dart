@@ -39,17 +39,16 @@ class SelectMenuPage extends StatelessWidget {
             IconButton(
               onPressed: () async {
                 // await FbHelper().deleteDummyData(taskProvider.taskList);
-                // showDialog(
-                //   context: context,
-                //   builder: (context) {
-                //     // FbHelper()
-                //     //     .addDummyTaskData(taskProvider.taskList)
-                //     FbHelper()
-                //         .updateTeamToInt(taskProvider.taskList)
-                //         .then((value) => Navigator.pop(context));
-                //     return LoadingScreen();
-                //   },
-                // );
+                showDialog(
+                  context: context,
+                  builder: (context) {
+                    // FbHelper()
+                    //     .addDummyTaskData(taskProvider.taskList)
+                    FbHelper().deleteDummyData(taskProvider.taskList)
+                        .then((value) => Navigator.pop(context));
+                    return LoadingScreen();
+                  },
+                );
               },
               icon: Icon(Icons.abc),
             ),

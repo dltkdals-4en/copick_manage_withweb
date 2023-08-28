@@ -32,7 +32,7 @@ class _TaskManagePageState extends State<TaskManagePage>
     TabController taskTabController = TabController(
       length: 5,
       vsync: this,
-      initialIndex: taskProvider.currentTaskTabIndex,
+      initialIndex: (taskProvider.currentTaskTabIndex == null)?0:taskProvider.currentTaskTabIndex!-1,
     );
 
     return Scaffold(
