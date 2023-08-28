@@ -92,7 +92,7 @@ class PickTaskModel {
     failReason = json['pick_fail_reason'];
     condition = json['condition'];
     track = json['track'];
-    team = json['team'];
+    team = (json['team'].runtimeType == int)?json['team'].toString():json['team'];
     pickUpDate =
         (json['pick_up_date'] != null) ? dateFormat(json['pick_up_date']) : '';
   }

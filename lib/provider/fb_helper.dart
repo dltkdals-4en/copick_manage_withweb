@@ -48,11 +48,11 @@ class FbHelper with ChangeNotifier {
       taskList.clear();
       for (var element in data.docs) {
         String locationId = locList
-            .firstWhere(
-              (e) => e.locationName == element.data()['location_name'],
-          orElse: () => WasteLocationModel(locationId: '알수 없음'),
-        )
-            .locationId ??
+                .firstWhere(
+                  (e) => e.locationName == element.data()['location_name'],
+                  orElse: () => WasteLocationModel(locationId: '알수 없음'),
+                )
+                .locationId ??
             '';
         taskList.add(
             PickTaskModel.fromJson(element.data(), element.id, locationId));
@@ -63,10 +63,12 @@ class FbHelper with ChangeNotifier {
   }
 
   Future<void> getSeongsuTask() async {
-    var startDate = DateFormat('yy-MM-dd hh:mm:ss')
-        .parse((getMonth>=10)?'$getYear-$getMonth-01 00:00:00':'$getYear-0$getMonth-01 00:00:00');
-    var endDate = DateFormat('yy-MM-dd hh:mm:ss')
-        .parse((getMonth>=10)?'$getYear-${getMonth + 1}-01 00:00:00':'$getYear-0${getMonth + 1}-01 00:00:00');
+    var startDate = DateFormat('yy-MM-dd hh:mm:ss').parse((getMonth >= 10)
+        ? '$getYear-$getMonth-01 00:00:00'
+        : '$getYear-0$getMonth-01 00:00:00');
+    var endDate = DateFormat('yy-MM-dd hh:mm:ss').parse((getMonth >= 10)
+        ? '$getYear-${getMonth + 1}-01 00:00:00'
+        : '$getYear-0${getMonth + 1}-01 00:00:00');
     if (hasTaskData == false) {
       print('getSeongSuTask()');
 
@@ -153,8 +155,6 @@ class FbHelper with ChangeNotifier {
     });
   }
 
-
-
   Future<void> addLocData(Map<String, dynamic> map) async {
     await _firestore
         .collection((isAnseong) ? anseongLoc : seongsuLoc)
@@ -167,8 +167,6 @@ class FbHelper with ChangeNotifier {
       notifyListeners();
     });
   }
-
-
 
   Future<void> modifyLocData(Map<String, dynamic> map, String docId) async {
     await _firestore
@@ -222,5 +220,39 @@ class FbHelper with ChangeNotifier {
     });
   }
 
-  deleteTaskFromWeekday() {}
+  // deleteDummyData(List<PickTaskModel> taskList) async {
+  //   for (var value in taskList) {
+  //     await _firestore.collection(anseongTask).doc(value.pickDocId).delete();
+  //   }
+  //   notifyListeners();
+  // }
+  Future<void> addDummyTaskData(List<PickTaskModel> taskList) async{
+    for (var value in taskList) {
+      await _firestore.collection('anseong_task_dummy').add(value.toAdd());
+    }
+  }
+
+  Future<void> updateTeamToInt(List<PickTaskModel> taskList) async {
+    for (var element in taskList) {
+      print(element.team);
+      var team = 0;
+      switch (element.team) {
+        case 'A':
+          team = 10;
+          break;
+        case 'B':
+          team = 20;
+          break;
+        case 'C':
+          team = 30;
+          break;
+        case '추가':
+          team = 40;
+      }
+      await _firestore
+          .collection(anseongTask)
+          .doc(element.pickDocId)
+          .update({'team': team});
+    }
+  }
 }

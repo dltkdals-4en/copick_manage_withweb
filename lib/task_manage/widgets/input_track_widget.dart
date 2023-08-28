@@ -36,11 +36,12 @@ class InputTrackWidget extends StatelessWidget {
                   return Column(
                     children: [
                       Text('${provider.weekDay[index]}'),
-                      Checkbox(
-                          value: provider.checkValue[index],
+                      Radio(
+                           groupValue: provider.selectedWeek,
+                          value: provider.weekDayNum[index],
                           onChanged: (value) {
-                            provider.valueCheck(index);
-                          }),
+                            provider.changeWeek(value);},
+                          ),
                     ],
                   );
                 },
@@ -63,7 +64,7 @@ class InputTrackWidget extends StatelessWidget {
               child:   DropdownButton(
                 value: provider.selectedTeam,
                 items: provider.team.map((e) {
-                  return DropdownMenuItem<String>(child: Text('$e팀'),
+                  return DropdownMenuItem<String>(child: Text('$e'),
                   value: e,);
                 }).toList(),
                 onChanged: (value) {

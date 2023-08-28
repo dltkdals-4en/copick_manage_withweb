@@ -1,3 +1,5 @@
+import 'package:copick_manage_withweb/constants/loading_screen.dart';
+import 'package:copick_manage_withweb/provider/fb_helper.dart';
 import 'package:copick_manage_withweb/task_manage/task_manage_page.dart';
 import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:copick_manage_withweb/location_manage/location_manage_page.dart';
@@ -32,6 +34,26 @@ class SelectMenuPage extends StatelessWidget {
               Text('태스크 관리'),
             ],
           ),
+          actions: [
+
+            IconButton(
+              onPressed: () async {
+                // await FbHelper().deleteDummyData(taskProvider.taskList);
+                // showDialog(
+                //   context: context,
+                //   builder: (context) {
+                //     // FbHelper()
+                //     //     .addDummyTaskData(taskProvider.taskList)
+                //     FbHelper()
+                //         .updateTeamToInt(taskProvider.taskList)
+                //         .then((value) => Navigator.pop(context));
+                //     return LoadingScreen();
+                //   },
+                // );
+              },
+              icon: Icon(Icons.abc),
+            ),
+          ],
         ),
         body: Center(
           child: TabBarView(

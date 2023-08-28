@@ -82,12 +82,11 @@ class AddTask extends StatelessWidget {
                         child: ElevatedButton(
                           onPressed: () async {
                             if (_addTaskFormKey.currentState!.validate()) {
-                              if (taskProvider.checkValue
-                                  .where((element) => element == true)
-                                  .isEmpty) {
+                              if (taskProvider.selectedWeek == null) {
                                 print('check');
                               } else {
-                                await taskProvider.addTaskData(fbProvider);
+                                print('team: ${taskProvider.selectedTeam}//week ${taskProvider.selectedWeek}');
+                                await taskProvider.addTaskData();
 
                               }
                             }
