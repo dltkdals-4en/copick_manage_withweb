@@ -5,14 +5,16 @@ import 'package:copick_manage_withweb/routes/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../pages/root/root_page.dart';
+
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     final args = settings.arguments;
     switch (settings.name) {
-      // case Routes.root:
-      //   return MaterialPageRoute(
-      //     builder: (context) => RootPage(),
-      //   );
+      case Routes.root:
+        return MaterialPageRoute(
+          builder: (context) => RootPage(),
+        );
       // case Routes.home:
       //   return MaterialPageRoute(
       //     builder: (context) => Home(),

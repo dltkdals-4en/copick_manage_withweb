@@ -1,5 +1,6 @@
 import 'package:copick_manage_withweb/check_data.dart';
 import 'package:copick_manage_withweb/login/login_screen.dart';
+import 'package:copick_manage_withweb/provider/get_data_provider.dart';
 import 'package:copick_manage_withweb/provider/manage_provider.dart';
 import 'package:copick_manage_withweb/provider/login_provider.dart';
 import 'package:copick_manage_withweb/provider/record_provider.dart';
@@ -43,7 +44,10 @@ void main() async {
         ),
         ChangeNotifierProvider<RecordProvider>(
           create: (_) => RecordProvider(),
-        )
+        ),
+        ChangeNotifierProvider<GetDataProvider>(
+          create: (_) => GetDataProvider(),
+        ),
       ],
       child: EasyLocalization(
         path: 'assets/language',

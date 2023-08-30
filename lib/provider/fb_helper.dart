@@ -4,9 +4,12 @@ import 'package:copick_manage_withweb/model/pick_task_model.dart';
 import 'package:copick_manage_withweb/model/task_record_model.dart';
 import 'package:copick_manage_withweb/model/total_task_model.dart';
 import 'package:copick_manage_withweb/model/waste_location_model.dart';
+import 'package:copick_manage_withweb/utilitys/utils.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+
+import '../pages/area_config/area_config.dart';
 
 class FbHelper with ChangeNotifier {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -25,7 +28,26 @@ class FbHelper with ChangeNotifier {
   String anseongTask = 'pick_task_anseong';
   String seongsuTask = 'pick_task_demo';
 
+  String? locData;
+  String? taskData;
+
+//   void firebaseName(Area area){
+//     switch (area){
+//       case Area.seongdong:
+//         locData = 'waste_loation';
+//         taskData = 'pick_task';
+//         notifyListeners();
+//         break;
+//       case Area.anseong:
+//         locData = 'waste_loation_anseong';
+//         taskData = 'pick_task_anseong';
+//         notifyListeners();
+//         break;
+//     }
+// }
+
   Future<void> getLocList() async {
+    // firebaseName(area);
     if (hasLocData == false) {
       print('getLoc()');
       QuerySnapshot<Map<String, dynamic>> data = await _firestore
@@ -255,4 +277,8 @@ class FbHelper with ChangeNotifier {
           .update({'team': team});
     }
   }
+
+ Future<QuerySnapshot<Map<String, dynamic>>> getLocData(String locPath) async{
+    return await _firestore.collection(locPath).get();
+ }
 }
