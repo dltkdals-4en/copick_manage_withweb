@@ -66,11 +66,11 @@ class PickTaskModel {
       'pick_fail_reason': this.failReason,
       'condition': this.condition,
       'track': this.track,
-      'team': this.team,
+      'team': double.parse(this.team!),
     };
   }
 
-  PickTaskModel.fromJson(Map<String, dynamic> json, docId, locId) {
+  PickTaskModel.fromJson(Map<String, dynamic> json, docId) {
     pickDocId = docId;
     pickOrder = json['pick_order'];
     userName = json['allocated_user_id'];
@@ -78,11 +78,11 @@ class PickTaskModel {
     state = json['pick_state'];
     // taskAllocateTime = dateFormat(json['task_allocate_time']);
 
-    locationId = (isAnseong)
-        ? (json['location_id'].runtimeType == int)
+    locationId =
+         (json['location_id'].runtimeType == int)
             ? json['location_id'].toString()
-            : json['location_id']
-        : locId;
+            : json['location_id'];
+
 
     pickDetails = json['pick_details'];
     totalVolume = (json['pick_total_waste'] != null)

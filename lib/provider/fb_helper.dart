@@ -26,7 +26,7 @@ class FbHelper with ChangeNotifier {
   String anseongLoc = 'waste_location_anseong';
   String seongsuLoc = 'waste_location';
   String anseongTask = 'pick_task_anseong';
-  String seongsuTask = 'pick_task_demo';
+  String seongsuTask = 'pick_task';
 
   String? locData;
   String? taskData;
@@ -65,22 +65,24 @@ class FbHelper with ChangeNotifier {
   Future<void> getTaskList() async {
     if (hasTaskData == false) {
       print('getTask()');
-      QuerySnapshot<Map<String, dynamic>> data =
-          await _firestore.collection(anseongTask).get();
       taskList.clear();
-      for (var element in data.docs) {
-        String locationId = locList
-                .firstWhere(
-                  (e) => e.locationName == element.data()['location_name'],
-                  orElse: () => WasteLocationModel(locationId: '알수 없음'),
-                )
-                .locationId ??
-            '';
-        taskList.add(
-            PickTaskModel.fromJson(element.data(), element.id, locationId));
-      }
-      hasTaskData = true;
-      notifyListeners();
+      await _firestore.collection(anseongTask).get().then((data) {
+        print(data.docs.length);
+        for (var element in data.docs) {
+          // String locationId = locList
+          //         .firstWhere(
+          //           (e) => e.locationName == element.data()['location_name'],
+          //           orElse: () => WasteLocationModel(locationId: '알수 없음'),
+          //         )
+          //         .locationId ??
+          //     '';
+          taskList.add(
+              PickTaskModel.fromJson(element.data(), element.id));
+        }
+        print(taskList.length);
+        hasTaskData = true;
+        notifyListeners();
+      });
     }
   }
 
@@ -111,7 +113,7 @@ class FbHelper with ChangeNotifier {
               '';
           if (!element.data()['location_name'].toString().contains('수거')) {
             taskList.add(
-                PickTaskModel.fromJson(element.data(), element.id, locationId));
+                PickTaskModel.fromJson(element.data(), element.id));
           }
         }
         hasTaskData = true;
@@ -248,7 +250,7 @@ class FbHelper with ChangeNotifier {
   //   }
   //   notifyListeners();
   // }
-  Future<void> addDummyTaskData(List<PickTaskModel> taskList) async{
+  Future<void> addDummyTaskData(List<PickTaskModel> taskList) async {
     for (var value in taskList) {
       await _firestore.collection('anseong_task_dummy').add(value.toAdd());
     }
@@ -278,7 +280,7 @@ class FbHelper with ChangeNotifier {
     }
   }
 
- Future<QuerySnapshot<Map<String, dynamic>>> getLocData(String locPath) async{
+  Future<QuerySnapshot<Map<String, dynamic>>> getLocData(String locPath) async {
     return await _firestore.collection(locPath).get();
- }
+  }
 }

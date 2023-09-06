@@ -40,7 +40,7 @@ class GetDataProvider with ChangeNotifier {
     if (selectedArea != Area.undefined) {
       print('$selectedArea data loading');
       if (!haveLoc) {
-        taskList.clear();
+        // taskList.clear();
         await FbHelper().getLocData(selectedArea.locPath).then((value) {
           value.docs.forEach((element) {
             locList.add(WasteLocationModel.fromJson(element.data(), element.id));

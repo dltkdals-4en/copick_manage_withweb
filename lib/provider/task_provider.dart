@@ -83,7 +83,7 @@ class TaskProvider with ChangeNotifier {
     });
   }
 
-  Future<void> addTaskData() async {
+  Future<void> addTaskData(FbHelper fbProvider) async {
     currentDefaultTabIndex = 1;
     if (checkValue.where((element) => element == true) == false) {
       print('경로 선택 x');
@@ -124,8 +124,7 @@ class TaskProvider with ChangeNotifier {
         team: team.toString(),
         pickUpDate: '',
       );
-      await FbHelper().addTaskData(i.toAdd()).then((value) {
-        checkValue = [false, false, false, false, false];
+      await fbProvider.addTaskData(i.toAdd()).then((value) {
         trackValue = 0;
         initialName = null;
         taskList.clear();
@@ -138,13 +137,7 @@ class TaskProvider with ChangeNotifier {
         trackList: checkValue,
       );
       // await fbProvider.addWeekData(j.toMap());
-      checkValue.asMap().forEach((key, value) async {
-        if (value == true) {
 
-        } else {
-          print("failed");
-        }
-      });
     }
   }
 

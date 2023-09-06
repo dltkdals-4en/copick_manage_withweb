@@ -20,7 +20,7 @@ class CheckData extends StatelessWidget {
       fbProvider.getLocList();
       return LoadingScreen();
     } else if (fbProvider.hasTaskData == false) {
-      (isAnseong)?fbProvider.getTaskList():fbProvider.getSeongsuTask();
+     fbProvider.getTaskList();
       return LoadingScreen();
     // } else if (fbProvider.hasWeekdayData == false) {
     //   fbProvider.getWeekDayData();
@@ -33,9 +33,10 @@ class CheckData extends StatelessWidget {
       taskProvider.taskList = fbProvider.taskList;
       taskProvider.locList = fbProvider.locList;
       taskProvider.totalList = fbProvider.weekdayList;
-      if(isAnseong)taskProvider.sortData();
+     taskProvider.sortData();
 
-      return (isAnseong)?SelectMenuPage():SeongsuHomePage();
+      // return (isAnseong)?SelectMenuPage():SeongsuHomePage();
+      return SelectMenuPage();
     }
   }
 }
