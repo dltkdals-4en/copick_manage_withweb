@@ -113,16 +113,13 @@ class TaskProvider with ChangeNotifier {
      }
       var i = PickTaskModel(
         track: selectedWeek,
-        failCode: 0,
-        failReason: '',
-        condition: 0,
+
         locationId: locationId,
-        pickDetails: [],
+
         pickOrder: 0,
-        state: 0,
-        totalVolume: 0,
+
         team: team.toString(),
-        pickUpDate: '',
+
       );
       await fbProvider.addTaskData(i.toAdd()).then((value) {
         trackValue = 0;
@@ -508,22 +505,22 @@ class TaskProvider with ChangeNotifier {
     }
   }
 
-  Future<void> insertGsheets() async {
-    await initGsheets();
-    var time = Duration(seconds: 1, milliseconds: 500);
-    await worksheet!.values.insertRow(1, ['카페 코드','카페명','수거시간']).then((value) async {
-      for (var element in taskList) {
-        await Future.delayed(
-          time,
-              () {
-            worksheet!.values.appendRow(
-                [element.locationId, element.locationName, element.pickUpDate]);
-          },
-        );
-      }
-    });
-
-  }
+  // Future<void> insertGsheets() async {
+  //   await initGsheets();
+  //   var time = Duration(seconds: 1, milliseconds: 500);
+  //   await worksheet!.values.insertRow(1, ['카페 코드','카페명','수거시간']).then((value) async {
+  //     for (var element in taskList) {
+  //       await Future.delayed(
+  //         time,
+  //             () {
+  //           worksheet!.values.appendRow(
+  //               [element.locationId, element.locationName, element.pickUpDate]);
+  //         },
+  //       );
+  //     }
+  //   });
+  //
+  // }
   int? selectedWeek;
   void changeWeek(Object? value) {
     selectedWeek = int.parse(value.toString());

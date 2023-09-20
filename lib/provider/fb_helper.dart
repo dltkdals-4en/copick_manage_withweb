@@ -9,7 +9,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
-import '../pages/area_config/area_config.dart';
 
 class FbHelper with ChangeNotifier {
   FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -282,5 +281,9 @@ class FbHelper with ChangeNotifier {
 
   Future<QuerySnapshot<Map<String, dynamic>>> getLocData(String locPath) async {
     return await _firestore.collection(locPath).get();
+  }
+  Future<QuerySnapshot<Map<String, dynamic>>> getTaskData(String path) async {
+
+      return await _firestore.collection(path).get();
   }
 }

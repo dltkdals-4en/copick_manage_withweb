@@ -26,9 +26,9 @@ const TextStyle kLabelTextStyle =
 const TextStyle kContentTextStyle =
     TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: KColors.black);
 const TextStyle kBtnTextStyle =
-TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: KColors.white);
+    TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: KColors.white);
 const TextStyle kTagTextStyle =
-TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: KColors.white);
+    TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: KColors.white);
 
 
 const SizedBox kBigH = SizedBox(

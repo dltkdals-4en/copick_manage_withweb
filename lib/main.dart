@@ -6,6 +6,7 @@ import 'package:copick_manage_withweb/provider/login_provider.dart';
 import 'package:copick_manage_withweb/provider/record_provider.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
 import 'package:copick_manage_withweb/provider/fb_helper.dart';
+import 'package:copick_manage_withweb/provider/ui_provider.dart';
 import 'package:copick_manage_withweb/routes/route_generator.dart';
 import 'package:copick_manage_withweb/routes/routes.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -47,6 +48,9 @@ void main() async {
         ),
         ChangeNotifierProvider<GetDataProvider>(
           create: (_) => GetDataProvider(),
+        ),
+        ChangeNotifierProvider<UiProvider>(
+          create: (_) => UiProvider(),
         ),
       ],
       child: EasyLocalization(

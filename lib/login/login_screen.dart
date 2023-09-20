@@ -1,7 +1,7 @@
 import 'package:copick_manage_withweb/check_data.dart';
 import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:copick_manage_withweb/login/widgets/login_denine_dialog.dart';
-import 'package:copick_manage_withweb/pages/home/home_page.dart';
+import 'package:copick_manage_withweb/pages/out/home_page.dart';
 import 'package:copick_manage_withweb/provider/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';

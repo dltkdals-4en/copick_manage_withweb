@@ -36,29 +36,32 @@ dependencies:
 
   cupertino_icons: ^1.0.2
   sqflite: ^2.0.0+4
+
   shared_preferences: ^2.0.8
   path: ^1.8.0
   sliding_up_panel: ^2.0.0+1
   cached_network_image: ^3.2.0
   provider: ^6.0.1
+
   firebase_core: ^2.4.0
   firebase_auth: ^4.2.0
   cloud_firestore: ^4.2.0
+
   intl: ^0.18.0
   flutter_picker: ^2.0.2
   url_launcher: ^6.0.9
   flutter_launcher_icons: ^0.11.0
   flutter_swiper_null_safety: ^1.0.2
-  sms_autofill: ^2.2.0
-  mobile_number: ^2.1.1
   firebase_storage: ^11.0.7
   easy_localization: ^3.0.0
+
   auto_size_text: ^3.0.0
-  flutter_keyboard_visibility: ^5.2.0
   pull_to_refresh: ^2.0.0
   change_app_package_name: ^1.0.0
   fluttertoast: ^8.0.8
   gsheets: ^0.5.0
+
+  go_router: ^10.2.0
 
 dev_dependencies:
   flutter_test:

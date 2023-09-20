@@ -1,6 +1,9 @@
-import 'package:copick_manage_withweb/pages/area_config/area_config.dart';
+import 'package:copick_manage_withweb/constants/constants.dart';
+import 'package:copick_manage_withweb/data_helper/enum_helper.dart';
 import 'package:copick_manage_withweb/provider/get_data_provider.dart';
 import 'package:copick_manage_withweb/routes/routes.dart';
+import 'package:copick_manage_withweb/utilitys/constants.dart';
+import 'package:copick_manage_withweb/utilitys/custom_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,19 +12,34 @@ class AreaChoicePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var server  = Provider.of<GetDataProvider>(context);
+    var server = Provider.of<GetDataProvider>(context);
+    var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Column(
-        children: [
-          ElevatedButton(onPressed: () {
-            server.changeArea(Area.seongdong);
-            Navigator.pushNamed(context, Routes.root);
-          }, child: Text('성동'),),
-          ElevatedButton(onPressed: () {
-            server.changeArea(Area.anseong);
-            Navigator.pushNamed(context, Routes.root);
-          }, child: Text('안성'),),
-        ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text('관리할 지역을 선택해주세요',style: kHeaderTextStyle,),
+            BigH,
+            CustomBtn(
+              onPressed: () {
+                server.changeArea(AreaInfo.Seongdong);
+                Navigator.pushNamed(context, Routes.root);
+              },
+              title: '성동',
+              size: Size(150, 50),
+            ),
+            NorH,
+            CustomBtn(
+              onPressed: () {
+                server.changeArea(AreaInfo.Anseong);
+                Navigator.pushNamed(context, Routes.root);
+              },
+              title: '안성',
+              size: Size(150, 50),
+            ),
+          ],
+        ),
       ),
     );
   }

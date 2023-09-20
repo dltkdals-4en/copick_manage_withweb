@@ -8,7 +8,8 @@ class SplashPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LoginScreen();
+    // return LoginScreen();
     // return AreaChoicePage();
+    return AreaChoicePage();
   }
 }
