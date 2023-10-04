@@ -123,7 +123,7 @@ class TaskProvider with ChangeNotifier {
         condition: 0,
         locationId: locationId,
         pickDetails: [],
-        pickOrder: 0,
+        pickOrder: int.parse('${team}0'),
         state: 0,
         totalVolume: 0,
         team: team,
