@@ -21,7 +21,9 @@ class RootPage extends StatelessWidget {
     } else {
       ui.selectedArea = data.areaInfo;
       ui.taskList = data.taskList;
-      ui.wasteList = data.locList;
+      ui.sortLocList(data.locList);
+      // ui.wasteList = data.locList;
+
       return HomePage();
     }
   }

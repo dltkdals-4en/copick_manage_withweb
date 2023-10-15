@@ -21,13 +21,13 @@ class GetDataProvider with ChangeNotifier {
       if (areaInfo != null) {
         print('${areaInfo!.waste} data loading');
         if (!haveLoc) {
-          locList.clear();
+
           await FbHelper().getLocData(areaInfo!.waste).then((value) {
+            locList.clear();
             for (var element in value.docs) {
               locList
                   .add(WasteLocationModel.fromJson(element.data(), element.id));
             }
-          }).then((value) {
             print('loclist -> ${locList.length}');
             haveLoc = true;
             notifyListeners();
@@ -44,12 +44,12 @@ class GetDataProvider with ChangeNotifier {
       if (areaInfo != null) {
         print('${areaInfo!.task} data loading');
         if (!haveTask) {
-          taskList.clear();
+
           await FbHelper().getTaskData(areaInfo!.task).then((value) {
+            taskList.clear();
             for (var element in value.docs) {
               taskList.add(TaskModel.fromJson(element.data(), element.id));
             }
-          }).then((value) {
             print('tasklist -> ${taskList.length}');
             haveTask = true;
             notifyListeners();

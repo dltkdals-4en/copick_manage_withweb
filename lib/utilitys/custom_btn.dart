@@ -11,7 +11,7 @@ class CustomBtn extends StatelessWidget {
       this.btnColor,
       this.btnBorder,
         this.size,
-
+  this.fontSize,
       Key? key})
       : super(key: key);
 
@@ -21,7 +21,7 @@ class CustomBtn extends StatelessWidget {
   final Color? btnColor;
   final Color? btnBorder;
   final Size? size;
-
+  final double? fontSize;
   final String? image;
 
   @override
@@ -63,7 +63,7 @@ class CustomBtn extends StatelessWidget {
             title,
             style: kBtnTextStyle.copyWith(
               color: (txtColor == null) ? KColors.white : txtColor,
-              fontSize: 28,
+              fontSize: (fontSize == null)?28:fontSize,
             ),
           ),
         ],

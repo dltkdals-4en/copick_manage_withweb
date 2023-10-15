@@ -280,10 +280,11 @@ class FbHelper with ChangeNotifier {
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getLocData(String locPath) async {
+    print('fb get $locPath Data');
     return await _firestore.collection(locPath).get();
   }
   Future<QuerySnapshot<Map<String, dynamic>>> getTaskData(String path) async {
-
+    print('fb get $path Data');
       return await _firestore.collection(path).get();
   }
 }
