@@ -349,11 +349,21 @@ class TaskProvider with ChangeNotifier {
     list.insert(newIndex, item);
   }
 
-  Future<void> deleteTask(FbHelper fbProvider, String docId,
-      TabController taskTabController, int trackIndex) async {
-    await fbProvider.deleteTaskData(docId).then((value) {
+  Future<void> deleteTask(String docId, int trackIndex) async {
+    await FbHelper().deleteTaskData(docId).then((value) {
       currentTaskTabIndex = trackIndex - 1;
     });
+  }
+
+  Future<void> deleteAllTask(int trackIndex) async {
+    taskList
+        .where((element) => element.track == trackIndex)
+        .toList()
+        .forEach((element) async {
+      await FbHelper().deleteTaskData(element.pickDocId!);
+    });
+    currentTaskTabIndex = trackIndex;
+    notifyListeners();
   }
 
   getTrackList(int trackIndex) {

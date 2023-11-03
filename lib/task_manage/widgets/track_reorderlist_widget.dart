@@ -82,9 +82,7 @@ class TrackReorderlistWidget extends StatelessWidget {
                             ElevatedButton(
                               onPressed: () {
                                 taskProvider.deleteTask(
-                                    fbProvider,
                                     track[index].pickDocId!,
-                                    taskTabController,
                                     trackIndex);
                               },
                               style: ElevatedButton.styleFrom(
@@ -107,12 +105,24 @@ class TrackReorderlistWidget extends StatelessWidget {
                 ),
         ),
         NorH,
-        ElevatedButton(
-          onPressed: () {
-            taskProvider.updatePickOrder(track, fbProvider, trackIndex);
-          },
-          child: Text('${taskProvider.weekDay[trackIndex - 1]}요일 경로 저장하기'),
-          style: ElevatedButton.styleFrom(),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ElevatedButton(
+              onPressed: () {
+                taskProvider.updatePickOrder(track, fbProvider, trackIndex);
+              },
+              child: Text('${taskProvider.weekDay[trackIndex - 1]}요일 경로 저장하기'),
+              style: ElevatedButton.styleFrom(),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                taskProvider.deleteAllTask(trackIndex);
+              },
+              child: Text('${taskProvider.weekDay[trackIndex - 1]}요일 경로 전체 삭제'),
+              style: ElevatedButton.styleFrom(),
+            ),
+          ],
         )
       ],
     );
