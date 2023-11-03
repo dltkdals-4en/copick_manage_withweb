@@ -3,14 +3,14 @@ import 'package:copick_manage_withweb/utilitys/custom_btn.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/ui_provider.dart';
+import '../../provider/task_manage_provider.dart';
 
 class LocManagePage extends StatelessWidget {
   const LocManagePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    var ui = Provider.of<UiProvider>(context);
+    var ui = Provider.of<TaskManageProvider>(context);
     return Scaffold(
       appBar: AppBar(),
       body: Stack(

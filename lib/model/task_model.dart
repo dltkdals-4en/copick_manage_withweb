@@ -44,7 +44,7 @@ class TaskModel {
     locationId = formatId(json['location_id']);
 
     track = json['track'];
-    team = formatId(json['location_id']);
+    team = json['team'].toString();
   }
 }
 

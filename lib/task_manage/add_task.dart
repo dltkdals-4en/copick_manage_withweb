@@ -21,7 +21,7 @@ class AddTask extends StatelessWidget {
     var taskProvider = Provider.of<TaskProvider>(context);
     var manageProvider = Provider.of<ManageProvider>(context);
     var size = MediaQuery.of(context).size;
-    final _addTaskFormKey = GlobalKey<FormState>();
+    final addTaskFormKey = GlobalKey<FormState>();
 
     return Padding(
       padding: const EdgeInsets.all(20),
@@ -37,7 +37,7 @@ class AddTask extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(20),
           child: Form(
-            key: _addTaskFormKey,
+            key: addTaskFormKey,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -81,7 +81,7 @@ class AddTask extends StatelessWidget {
                         height: 48,
                         child: ElevatedButton(
                           onPressed: () async {
-                            if (_addTaskFormKey.currentState!.validate()) {
+                            if (addTaskFormKey.currentState!.validate()) {
                               if (taskProvider.selectedWeek == null) {
                                 print('check');
                               } else {

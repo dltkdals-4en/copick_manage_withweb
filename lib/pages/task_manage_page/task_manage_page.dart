@@ -1,7 +1,8 @@
 import 'dart:ui';
 
+import 'package:copick_manage_withweb/pages/task_manage_page/widgets/task_app_bar_widget.dart';
 import 'package:copick_manage_withweb/pages/task_manage_page/widgets/task_order_page.dart';
-import 'package:copick_manage_withweb/provider/ui_provider.dart';
+import 'package:copick_manage_withweb/provider/task_manage_provider.dart';
 import 'package:copick_manage_withweb/utilitys/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -14,23 +15,29 @@ class TaskManagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var ui = Provider.of<UiProvider>(context);
+    var ui = Provider.of<TaskManageProvider>(context);
     var items = ui.taskDayList;
+    ui.teamList();
     return DefaultTabController(
       length: 5,
       child: Scaffold(
-        body: Container(
-          child: ScrollConfiguration(
-            behavior: ScrollConfiguration.of(context).copyWith(
-              dragDevices: {
-                PointerDeviceKind.touch,
-                PointerDeviceKind.mouse,
-              },
-            ),
+        appBar: AppBar(
+          title: TaskAppBarWidget(),
+          centerTitle: true,
+        ),
+        body: ScrollConfiguration(
+          behavior: ScrollConfiguration.of(context).copyWith(
+            dragDevices: {
+              PointerDeviceKind.touch,
+              PointerDeviceKind.mouse,
+            },
+          ),
+          child: Visibility(
+            visible: true,
             child: Column(
               children: [
                 TabBar(
-                  tabs: [
+                  tabs: const [
                     Text('전체'),
                     Text('A팀'),
                     Text('B팀'),
@@ -40,20 +47,22 @@ class TaskManagePage extends StatelessWidget {
                   labelStyle: makeTextStyle(
                       18, KColors.lightPrimary, 'bold'),
                   unselectedLabelStyle:
-                  makeTextStyle(18, KColors.black, 'bold'),
+                      makeTextStyle(18, KColors.black, 'bold'),
                   labelColor: KColors.lightPrimary,
                   unselectedLabelColor: KColors.black,
-                  labelPadding: EdgeInsets.all(SMALLGAP),
+                  labelPadding: const EdgeInsets.all(SMALLGAP),
                   indicatorColor: KColors.lightPrimary,
                 ),
-                Expanded(
-                  child: TabBarView(children: [
-                    TaskOrderPage(),
-                    TaskOrderPage(),
-                    TaskOrderPage(),
-                    TaskOrderPage(),
-                    TaskOrderPage(),
-                  ]),
+                const Expanded(
+                  child: TabBarView(
+                    children: [
+                      TaskOrderPage(),
+                      TaskOrderPage(),
+                      TaskOrderPage(),
+                      TaskOrderPage(),
+                      TaskOrderPage(),
+                    ],
+                  ),
                 ),
                 // PageView(
                 //   controller: ui.teamPageController,
