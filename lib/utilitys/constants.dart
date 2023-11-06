@@ -30,7 +30,9 @@ const TextStyle kBtnTextStyle =
 const TextStyle kTagTextStyle =
     TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: KColors.white);
 
+ ButtonStyle bigBtn = ElevatedButton.styleFrom(
 
+ );
 const SizedBox kBigH = SizedBox(
   height: 30,
 );

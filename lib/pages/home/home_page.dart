@@ -1,3 +1,5 @@
+import 'package:copick_manage_withweb/pages/home/widgets/home_task_add_widget.dart';
+import 'package:copick_manage_withweb/pages/home/widgets/home_task_check_widget.dart';
 import 'package:copick_manage_withweb/provider/task_manage_provider.dart';
 import 'package:copick_manage_withweb/routes/routes.dart';
 import 'package:copick_manage_withweb/utilitys/colors.dart';
@@ -15,17 +17,17 @@ class HomePage extends StatelessWidget {
     var ui = Provider.of<TaskManageProvider>(context);
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(NORMALGAP),
+      appBar: AppBar(
+        title: Text(
+            '${ui.selectedArea!.title} 지역 정보 관리',
+            style: kAppbarTitle.copyWith(),
+        ),
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              child: Text(
-                '${ui.selectedArea!.title} 수거 정보',
-                style: kHeaderTextStyle.copyWith(),
-              ),
-            ),
-            kBigH,
             Container(
               width: size.width,
               decoration: BoxDecoration(
@@ -57,85 +59,30 @@ class HomePage extends StatelessWidget {
               ),
             ),
             kBigH,
-            Expanded(
-              child: Container(
-                width: size.width,
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    width: 1,
-                    color: KColors.lightPrimary,
-                  ),
-                  borderRadius: BorderRadius.circular(20),
+            Container(
+              width: size.width,
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 1,
+                  color: KColors.lightPrimary,
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(NORMALGAP),
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => kNorW,
-                    itemCount: 6,
-                    itemBuilder: (context, index) {
-                      if (index == 5) {
-                        return ElevatedButton(
-                          onPressed: () {},
-                          child: Text('태스크 일괄 추가'),
-                        );
-                      } else {
-                        return Card(
-                          child: Container(
-                            width: size.width,
-                            child: Padding(
-                              padding: const EdgeInsets.all(SMALLGAP),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        '${ui.getWeekDay(index)}요일',
-                                        style: kLabelTextStyle.copyWith(),
-                                      ),
-                                      kNorH,
-                                      Text(
-                                          '태스크 수 : ${ui.getTaskLength(index)}'),
-                                      kSmH,
-                                    ],
-                                  ),
-                                  ElevatedButton(
-                                    onPressed: () {
-                                      ui.saveTaskIndex(index);
-                                      Navigator.pushNamed(context, Routes.task);
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: KColors.lightPrimary,
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(SMALLGAP),
-                                      child: Text(
-                                        '태스크 관리',
-                                        style: kContentTextStyle.copyWith(
-                                            fontWeight: FontWeight.w600,
-                                            color: KColors.white),
-                                      ),
-                                    ),
-                                  ),
-                                  // CustomBtn(
-                                  //   onPressed: () {
-                                  //     ui.saveTaskIndex(index);
-                                  //     Navigator.pushNamed(context, Routes.task);
-                                  //   },
-                                  //   title: '태스크 관리',
-                                  //   fontSize: 16,
-                                  // )
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
-                      }
-                    },
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(NORMALGAP),
+                child: Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '태스크 관리',
+                        style: kHeaderTextStyle.copyWith(),
+                      ),
+                      kBigH,
+                      HomeTaskAddWidget(),
+                      kBigH,
+                      HomeTaskCheckWidget(),
+                    ],
                   ),
                 ),
               ),
