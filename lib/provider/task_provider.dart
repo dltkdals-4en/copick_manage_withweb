@@ -351,7 +351,8 @@ class TaskProvider with ChangeNotifier {
 
   Future<void> deleteTask(String docId, int trackIndex) async {
     await FbHelper().deleteTaskData(docId).then((value) {
-      currentTaskTabIndex = trackIndex - 1;
+      currentTaskTabIndex = trackIndex;
+      notifyListeners();
     });
   }
 

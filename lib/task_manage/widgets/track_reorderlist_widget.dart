@@ -80,8 +80,8 @@ class TrackReorderlistWidget extends StatelessWidget {
                               ],
                             ),
                             ElevatedButton(
-                              onPressed: () {
-                                taskProvider.deleteTask(
+                              onPressed: () async {
+                                await taskProvider.deleteTask(
                                     track[index].pickDocId!,
                                     trackIndex);
                               },
