@@ -21,6 +21,7 @@ class TaskManageProvider with ChangeNotifier {
   PageController teamPageController = PageController();
   List<String> tabTitle = [];
   int? selectedDay;
+  String? searchText;
 
   void changeLocList(String? value) {
     if (value == null) {
@@ -71,6 +72,7 @@ class TaskManageProvider with ChangeNotifier {
         taskList!.where((element) => element.track == index + 1).toList();
     selectedDay = index + 1;
     print('taskDay : ${taskDayList!.length}');
+    getDayList();
     notifyListeners();
   }
 
@@ -83,26 +85,21 @@ class TaskManageProvider with ChangeNotifier {
 
   List<TaskModel> getList(int tabIndex, String? searchText) {
     switch (tabIndex) {
+
       case 0:
-        taskDayList!.sort( (a, b) => a.team!.compareTo(b.team!),);
-        return taskDayList!;
-      case 1:
-        var i = taskDayList!
+        return taskDayList!
             .where((element) => element.team == '10' || element.team == 'A')
             .toList();
-       i.sort(
-          (a, b) => a.pickOrder!.compareTo(b.pickOrder!),
-        );
-        return i;
-      case 2:
+
+      case 1:
         return taskDayList!
             .where((element) => element.team == '20' || element.team == 'B')
             .toList();
-      case 3:
+      case 2:
         return taskDayList!
             .where((element) => element.team == '30' || element.team == 'C')
             .toList();
-      case 4:
+      case 3:
         return taskDayList!
             .where((element) => element.team == '40' || element.team == '추가')
             .toList();
@@ -141,6 +138,16 @@ class TaskManageProvider with ChangeNotifier {
   }
 
   void teamList() {}
+
+  int getAddedTaskLength(int index) {
+    return taskList?.where((element) => element.track == index+1 && element.team == '40' || element.team == '추가').length??0;
+  }
+
+  void deleteTask() {
+    notifyListeners();
+  }
+
+  void getDayList() {}
 
 // void search(String value) {
 //   print(value);

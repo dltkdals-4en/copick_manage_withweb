@@ -14,15 +14,17 @@ class HomeTaskCheckWidget extends StatelessWidget {
     var ui = Provider.of<TaskManageProvider>(context);
     var size = MediaQuery.of(context).size;
     return Container(
-      height: size.height*2/3,
+      height: 250,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
+
         children: [
           Text('요일별 태스크 관리',style: kLabelTextStyle.copyWith(), ),
           kNorH,
           Expanded(
             child: ListView.separated(
+              scrollDirection: Axis.horizontal,
               separatorBuilder: (context, index) => kNorW,
               itemCount: 5,
               itemBuilder: (context, index) {
@@ -34,28 +36,25 @@ class HomeTaskCheckWidget extends StatelessWidget {
                 // } else {
                   return Card(
                     child: Container(
-                      width: size.width,
+                      width: (size.width-(NORMALGAP*4+NORMALGAP*4))/5,
                       child: Padding(
                         padding: const EdgeInsets.all(NORMALGAP),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              mainAxisSize: MainAxisSize.min,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  '${ui.getWeekDay(index)}요일',
-                                  style: kLabelTextStyle.copyWith(),
-                                ),
-                                kNorH,
-                                Text('태스크 수 : ${ui.getTaskLength(index)}'),
-                                kSmH,
-                              ],
+                            Text(
+                              '${ui.getWeekDay(index)}요일',
+                              style: kLabelTextStyle.copyWith(),
                             ),
+                            kNorH,
+                            Text('태스크 수 : ${ui.getTaskLength(index)}'),
+                            Text('추가 일정: ${ui.getAddedTaskLength(index)}개'),
+                            kSmH,
                             ElevatedButton(
                               onPressed: () {
                                 ui.saveTaskIndex(index);
+
                                 Navigator.pushNamed(context, Routes.task);
                               },
                               style: ElevatedButton.styleFrom(
@@ -71,14 +70,6 @@ class HomeTaskCheckWidget extends StatelessWidget {
                                 ),
                               ),
                             ),
-                            // CustomBtn(
-                            //   onPressed: () {
-                            //     ui.saveTaskIndex(index);
-                            //     Navigator.pushNamed(context, Routes.task);
-                            //   },
-                            //   title: '태스크 관리',
-                            //   fontSize: 16,
-                            // )
                           ],
                         ),
                       ),

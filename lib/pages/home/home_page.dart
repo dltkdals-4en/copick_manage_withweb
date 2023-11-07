@@ -25,52 +25,53 @@ class HomePage extends StatelessWidget {
         centerTitle: true,
       ),
       body: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              width: size.width,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1,
-                  color: KColors.lightPrimary,
+        child: Padding(
+          padding: const EdgeInsets.all(NORMALGAP),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Container(
+                width: size.width,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: KColors.lightPrimary,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(NORMALGAP),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.end,
-                  children: [
-                    Text('총 매장 개수 : ${ui.wasteList!.length}'),
-                    kNorH,
-                    CustomBtn(
-                      onPressed: () {
-                        ui.changeLocList(null);
-                        Navigator.pushNamed(context, Routes.location);
-                      },
-                      title: '매장 관리',
-                      size: Size(100, 50),
-                      fontSize: 16,
-                    ),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.all(NORMALGAP),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Text('총 매장 개수 : ${ui.wasteList!.length}'),
+                      kNorH,
+                      CustomBtn(
+                        onPressed: () {
+                          ui.changeLocList(null);
+                          Navigator.pushNamed(context, Routes.location);
+                        },
+                        title: '매장 관리',
+                        size: Size(100, 50),
+                        fontSize: 16,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            kBigH,
-            Container(
-              width: size.width,
-              decoration: BoxDecoration(
-                border: Border.all(
-                  width: 1,
-                  color: KColors.lightPrimary,
+              kBigH,
+              Container(
+                width: size.width,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: KColors.lightPrimary,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(NORMALGAP),
-                child: Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.all(NORMALGAP),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -86,8 +87,8 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

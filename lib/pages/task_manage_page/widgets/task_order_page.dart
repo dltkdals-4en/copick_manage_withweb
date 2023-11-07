@@ -23,31 +23,9 @@ class TaskOrderPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('카페 개수 : ${items.length} 개'),
-                (tabIndex != 0)
-                    ? Row(
-                        children: [
-                          ElevatedButton(
-                            onPressed: () {},
-                            child: Text('태스크 추가'),
-                          ),
-                          kNorW,
-                          ElevatedButton(
-                            onPressed: () {
-                              tmProvider.deleteAllTask();
-                            },
-                            child: Text('태스크 전체 삭제'),
-                          ),
-                        ],
-                      )
-                    : SizedBox(),
+
               ],
             ),
-          ),
-          kNorH,
-          TextFormField(
-            onChanged: (value) {
-              tmProvider.getList(tabIndex, value);
-            },
           ),
           kBigH,
           Expanded(

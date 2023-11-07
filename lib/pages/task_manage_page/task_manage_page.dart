@@ -15,11 +15,11 @@ class TaskManagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var ui = Provider.of<TaskManageProvider>(context);
-    var items = ui.taskDayList;
-    ui.teamList();
+    var tmProvider = Provider.of<TaskManageProvider>(context);
+    var items = tmProvider.taskDayList;
+    tmProvider.teamList();
     return DefaultTabController(
-      length: 5,
+      length: 4,
       child: Scaffold(
         appBar: AppBar(
           title: TaskAppBarWidget(),
@@ -32,18 +32,54 @@ class TaskManagePage extends StatelessWidget {
               PointerDeviceKind.mouse,
             },
           ),
-          child: Visibility(
-            visible: true,
+          child: Padding(
+            padding: const EdgeInsets.all(NORMALGAP),
             child: Column(
               children: [
+                Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        tmProvider.deleteTask();
+                      },
+                      child: Text('태스크 추가'),
+                    ),
+                    kNorW,
+                    ElevatedButton(
+                      onPressed: () {
+                        tmProvider.deleteAllTask();
+                      },
+                      child: Text('추가 태스크 삭제'),
+                    ),
+                    kNorW,
+                    ElevatedButton(
+                      onPressed: () {
+                        tmProvider.deleteAllTask();
+                      },
+                      child: Text('태스크 전체 삭제'),
+                    ),
+                  ],
+                ),
+                kBigH,
+                Container(
+                  child: Column(
+                    children: [
+                      TextFormField(
+
+                      ),
+                      (tmProvider.)
+                    ],
+                  ),
+                ),
                 TabBar(
                   tabs: const [
-                    Text('전체'),
+
                     Text('A팀'),
                     Text('B팀'),
                     Text('C팀'),
                     Text('추가 요청'),
                   ],
+
                   labelStyle: makeTextStyle(
                       18, KColors.lightPrimary, 'bold'),
                   unselectedLabelStyle:
@@ -52,11 +88,12 @@ class TaskManagePage extends StatelessWidget {
                   unselectedLabelColor: KColors.black,
                   labelPadding: const EdgeInsets.all(SMALLGAP),
                   indicatorColor: KColors.lightPrimary,
+
                 ),
                 const Expanded(
                   child: TabBarView(
                     children: [
-                      TaskOrderPage(),
+
                       TaskOrderPage(),
                       TaskOrderPage(),
                       TaskOrderPage(),

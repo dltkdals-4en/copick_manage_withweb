@@ -10,6 +10,6 @@ class TaskAppBarWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var tmProvider = Provider.of<TaskManageProvider>(context);
     var tabIndex = DefaultTabController.of(context).index;
-    return Text('${tmProvider.getWeekDay(tabIndex)}요일 태스크 관리');
+    return Text('${tmProvider.getWeekDay(tmProvider.selectedDay!-1)}요일 태스크 관리');
   }
 }

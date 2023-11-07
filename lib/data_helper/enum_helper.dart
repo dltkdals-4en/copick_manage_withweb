@@ -12,8 +12,8 @@ enum AreaInfo {
       id: 'adminSd',
       pw: 'admin1234',
       api: 'seongdong',
-      task: 'pick_task',
-      record: 'pick_task_demo',
+      task: 'pick_task_seongdong',
+      record: 'pick_record_seongdong',
       waste: 'waste_location'),
   Test(
       title: '테스트',

@@ -18,7 +18,7 @@ class SplashPage extends StatelessWidget {
     // return LoginScreen();
     // return AreaChoicePage();
     if(isDebug){
-      server.areaInfo = AreaInfo.Test;
+      server.areaInfo = AreaInfo.Anseong;
       return RootPage();
     }else{
       return AreaChoicePage();
