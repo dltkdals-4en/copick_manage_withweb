@@ -11,20 +11,20 @@ class RootPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var data = Provider.of<GetDataProvider>(context);
-    var ui = Provider.of<TaskManageProvider>(context);
+    var tmProvider = Provider.of<TaskManageProvider>(context);
     if (!data.haveLoc) {
       data.getLocData();
-      return LoadingScreen();
+      return const LoadingScreen();
     } else if (!data.haveTask) {
       data.getTaskData();
-      return LoadingScreen();
+      return const LoadingScreen();
     } else {
-      ui.selectedArea = data.areaInfo;
-      ui.taskList = data.taskList;
-      ui.sortLocList(data.locList);
+      tmProvider.selectedArea = data.areaInfo;
+      tmProvider.taskList = data.taskList;
+      tmProvider.sortLocList(data.locList);
       // ui.wasteList = data.locList;
 
-      return HomePage();
+      return const HomePage();
     }
   }
 }

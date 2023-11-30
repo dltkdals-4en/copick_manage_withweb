@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/task_manage_provider.dart';
-import '../../../routes/routes.dart';
-import '../../../utilitys/colors.dart';
 
 class HomeTaskAddWidget extends StatelessWidget {
   const HomeTaskAddWidget({super.key});
@@ -26,14 +24,14 @@ class HomeTaskAddWidget extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {},
-              child: Text('개별 태스크 추가'),
               style: ElevatedButton.styleFrom(),
+              child: const Text('개별 태스크 추가'),
             ),
             kNorW,
             ElevatedButton(
               onPressed: () {},
-              child: Text('태스크 일괄 추가'),
               style: ElevatedButton.styleFrom(),
+              child: const Text('태스크 일괄 추가'),
             ),
           ],
         ),

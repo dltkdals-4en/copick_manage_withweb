@@ -1,11 +1,7 @@
 import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:copick_manage_withweb/constants/screen_size.dart';
 import 'package:copick_manage_withweb/location_manage/add_location.dart';
-import 'package:copick_manage_withweb/location_manage/widgets/modify_location_dialog.dart';
-import 'package:copick_manage_withweb/main.dart';
-import 'package:copick_manage_withweb/model/waste_location_model.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
-import 'package:copick_manage_withweb/provider/fb_helper.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +30,7 @@ class _WasteLocationPageState extends State<WasteLocationPage>
           padding: const EdgeInsets.all(NORMALGAP),
           child: Column(
             children: [
-              AddLocation(),
+              const AddLocation(),
               BigH,
               Container(
                 width: size.width,
@@ -43,12 +39,12 @@ class _WasteLocationPageState extends State<WasteLocationPage>
                   border: Border.all(color: Colors.black, width: 1),
                   borderRadius: BorderRadius.circular(SMALLGAP),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(NORMALGAP),
+                child: const Padding(
+                  padding: EdgeInsets.all(NORMALGAP),
                   child: LocationList(),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: NORMALGAP,
               ),
             ],

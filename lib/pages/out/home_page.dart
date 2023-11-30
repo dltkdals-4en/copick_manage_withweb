@@ -35,13 +35,13 @@ class HomePageOut extends StatelessWidget {
                         ),
                         child: Column(
                           children: [
-                            Text('${manage.loc1}'),
-                            Text('안성'),
+                            Text(manage.loc1),
+                            const Text('안성'),
                             ElevatedButton(
                               onPressed: () {
                                 manage.changeLoc1();
                               },
-                              child: Text('push'),
+                              child: const Text('push'),
                             ),
                           ],
                         ),

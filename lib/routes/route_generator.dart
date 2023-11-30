@@ -16,31 +16,31 @@ class RouteGenerator {
     switch (settings.name) {
       case Routes.root:
         return MaterialPageRoute(
-          builder: (context) => RootPage(),
+          builder: (context) => const RootPage(),
         );
       case Routes.home:
         return MaterialPageRoute(
-          builder: (context) => HomePage(),
+          builder: (context) => const HomePage(),
         );
       case Routes.splash:
         return MaterialPageRoute(
-          builder: (context) => SplashPage(),
+          builder: (context) => const SplashPage(),
         );
       case Routes.location:
         return MaterialPageRoute(
-          builder: (context) => LocManagePage(),
+          builder: (context) => const LocManagePage(),
         );
       case Routes.task:
         return MaterialPageRoute(
-          builder: (context) => TaskManagePage(),
+          builder: (context) => const TaskManagePage(),
         );
       case Routes.taskAdd:
         return MaterialPageRoute(
-          builder: (context) => TaskAddPage(),
+          builder: (context) => const TaskAddPage(),
         );
       default:
         return MaterialPageRoute(
-          builder: (context) => MyApp(),
+          builder: (context) => const MyApp(),
         );
     }
   }
@@ -49,9 +49,9 @@ class RouteGenerator {
     return CupertinoPageRoute(builder: (_) {
       return Scaffold(
         appBar: AppBar(
-          title: Text('Error'),
+          title: const Text('Error'),
         ),
-        body: Center(
+        body: const Center(
           child: Text('Error'),
         ),
       );

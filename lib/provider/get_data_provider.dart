@@ -48,7 +48,8 @@ class GetDataProvider with ChangeNotifier {
           await FbHelper().getTaskData(areaInfo!.task).then((value) {
             taskList.clear();
             for (var element in value.docs) {
-              taskList.add(TaskModel.fromJson(element.data(), element.id));
+              String locName  = locList.firstWhere((e) => e.locationId == element.data()['location_id']).locationName??'';
+              taskList.add(TaskModel.fromJson(element.data(), locName, element.id));
             }
             print('tasklist -> ${taskList.length}');
             haveTask = true;

@@ -29,12 +29,12 @@ class OptionInfoWidget extends StatelessWidget {
                   style: makeTextStyle(16, AppColors.black, 'bold'),
                 ),
                 SmH,
-                Container(
+                SizedBox(
                   width: size.width / 4,
                   child: TextField(
                     controller: taskProvider.adminTextController,
                     cursorColor: AppColors.lightPrimary,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -57,12 +57,12 @@ class OptionInfoWidget extends StatelessWidget {
                   style: makeTextStyle(16, AppColors.black, 'bold'),
                 ),
                 SmH,
-                Container(
+                SizedBox(
                   width: size.width / 4,
                   child: TextField(
                     controller: taskProvider.telController,
                     cursorColor: AppColors.lightPrimary,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -85,12 +85,12 @@ class OptionInfoWidget extends StatelessWidget {
                   style: makeTextStyle(16, AppColors.black, 'bold'),
                 ),
                 SmH,
-                Container(
+                SizedBox(
                   width: size.width / 4,
                   child: TextField(
                     controller: taskProvider.postalController,
                     cursorColor: AppColors.lightPrimary,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(

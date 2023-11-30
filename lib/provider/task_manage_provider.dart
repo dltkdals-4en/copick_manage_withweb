@@ -1,5 +1,4 @@
 import 'package:copick_manage_withweb/data_helper/enum_helper.dart';
-import 'package:copick_manage_withweb/provider/fb_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -22,6 +21,8 @@ class TaskManageProvider with ChangeNotifier {
   List<String> tabTitle = [];
   int? selectedDay;
   String? searchText;
+  List<TaskModel>? searchList = [];
+  List<List<TaskModel>>? teamList =[[],[],[],[]];
 
   void changeLocList(String? value) {
     if (value == null) {
@@ -72,7 +73,6 @@ class TaskManageProvider with ChangeNotifier {
         taskList!.where((element) => element.track == index + 1).toList();
     selectedDay = index + 1;
     print('taskDay : ${taskDayList!.length}');
-    getDayList();
     notifyListeners();
   }
 
@@ -107,6 +107,23 @@ class TaskManageProvider with ChangeNotifier {
         return taskDayList!;
     }
   }
+  void getTeamList() {
+   taskDayTotal = taskDayList;
+   taskDayA = taskDayList!
+       .where((element) => element.team == '10' || element.team == 'A')
+       .toList();
+   taskDayB =  taskDayList!
+       .where((element) => element.team == '20' || element.team == 'B')
+       .toList();
+   taskDayC =taskDayList!
+       .where((element) => element.team == '30' || element.team == 'C')
+       .toList();
+   taskDayAdd =taskDayList!
+       .where((element) => element.team == '40' || element.team == '추가')
+       .toList();
+   teamList = [taskDayA!, taskDayB!, taskDayC!, taskDayAdd! ];
+   notifyListeners();
+  }
 
   String? getMaxId() {
     return taskDayList!.reduce((a, b) {
@@ -118,26 +135,23 @@ class TaskManageProvider with ChangeNotifier {
   }
 
   void deleteAllTask() {
-    taskDayList!.forEach((element) {
+    for (var element in taskDayList!) {
       // FbHelper().deleteTaskData(element.)
-    });
+    }
   }
 
-  void searchList(String? value, List<TaskModel> items) {
-    print(value);
+  void search(String? value) {
 
     if (value == null) {
-      items = items;
-      notifyListeners();
+     searchList = [];
+     notifyListeners();
     } else {
-      items = items
-          .where((element) => element.locationName!.contains(value))
-          .toList();
+      searchList = taskDayTotal!.where((element) => element.locationName!.contains(value)).toList();
       notifyListeners();
     }
   }
 
-  void teamList() {}
+
 
   int getAddedTaskLength(int index) {
     return taskList?.where((element) => element.track == index+1 && element.team == '40' || element.team == '추가').length??0;
@@ -147,7 +161,7 @@ class TaskManageProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  void getDayList() {}
+
 
 // void search(String value) {
 //   print(value);

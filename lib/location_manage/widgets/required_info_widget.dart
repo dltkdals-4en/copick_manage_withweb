@@ -38,14 +38,14 @@ class RequiredInfoWidget extends StatelessWidget {
             // ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: NORMALGAP,
         ),
-        InputMainInfo(),
-        SizedBox(
+        const InputMainInfo(),
+        const SizedBox(
           height: SMALLGAP,
         ),
-        InputLocInfo(),
+        const InputLocInfo(),
       ],
     );
   }

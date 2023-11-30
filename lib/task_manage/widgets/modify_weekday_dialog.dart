@@ -21,7 +21,7 @@ class ModifyWeekdayDialog extends StatelessWidget {
         '수거 요일 수정',
         style: makeTextStyle(20, AppColors.black, 'bold'),
       ),
-      content: Container(
+      content: SizedBox(
         width: size.width / 2,
         height: size.height / 3,
         child: Column(
@@ -31,7 +31,7 @@ class ModifyWeekdayDialog extends StatelessWidget {
               '${data.locationName}',
               style: makeTextStyle(18, AppColors.black, 'bold'),
             ),
-            Container(
+            SizedBox(
               width: size.width / 2,
               height: 70,
               child: ListView.builder(
@@ -40,7 +40,7 @@ class ModifyWeekdayDialog extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      Text('${taskProvider.weekDay[index]}'),
+                      Text(taskProvider.weekDay[index]),
                       Checkbox(
                           value: taskProvider.modifyValue[index],
                           onChanged: (value) {
@@ -60,13 +60,13 @@ class ModifyWeekdayDialog extends StatelessWidget {
 
             Navigator.pop(context);
           },
-          child: Text('취소'),
+          child: const Text('취소'),
         ),
         ElevatedButton(
           onPressed: () {
 
           },
-          child: Text('수정'),
+          child: const Text('수정'),
         ),
       ],
     );

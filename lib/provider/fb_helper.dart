@@ -4,14 +4,12 @@ import 'package:copick_manage_withweb/model/pick_task_model.dart';
 import 'package:copick_manage_withweb/model/task_record_model.dart';
 import 'package:copick_manage_withweb/model/total_task_model.dart';
 import 'package:copick_manage_withweb/model/waste_location_model.dart';
-import 'package:copick_manage_withweb/utilitys/utils.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 
 class FbHelper with ChangeNotifier {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   List<WasteLocationModel> locList = [];
   List<PickTaskModel> taskList = [];

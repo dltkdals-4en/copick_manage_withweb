@@ -16,13 +16,13 @@ class TaskManagePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var tmProvider = Provider.of<TaskManageProvider>(context);
-    var items = tmProvider.taskDayList;
-    tmProvider.teamList();
+    var items = tmProvider.searchList;
+
     return DefaultTabController(
       length: 4,
       child: Scaffold(
         appBar: AppBar(
-          title: TaskAppBarWidget(),
+          title: const TaskAppBarWidget(),
           centerTitle: true,
         ),
         body: ScrollConfiguration(
@@ -42,58 +42,69 @@ class TaskManagePage extends StatelessWidget {
                       onPressed: () {
                         tmProvider.deleteTask();
                       },
-                      child: Text('태스크 추가'),
+                      child: const Text('태스크 추가'),
                     ),
                     kNorW,
                     ElevatedButton(
                       onPressed: () {
                         tmProvider.deleteAllTask();
                       },
-                      child: Text('추가 태스크 삭제'),
+                      child: const Text('추가 태스크 삭제'),
                     ),
                     kNorW,
                     ElevatedButton(
                       onPressed: () {
                         tmProvider.deleteAllTask();
                       },
-                      child: Text('태스크 전체 삭제'),
+                      child: const Text('태스크 전체 삭제'),
                     ),
                   ],
                 ),
                 kBigH,
-                Container(
+                SizedBox(
+                  height: 200,
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      TextFormField(
-
+                      TextField(
+                        onChanged: (value) {
+                          tmProvider.search(value);
+                        },
+                        onSubmitted: (value) {},
                       ),
-                      (tmProvider.)
+                      kNorH,
+                      // (tmProvider.)
+                      (items!.isNotEmpty)?Expanded(
+                        child: ListView.builder(
+                          itemCount: tmProvider.searchList!.length,
+                          itemBuilder: (context, index) {
+                            var items = tmProvider.searchList!;
+
+                            return Text('${items[index].locationName}// ${items[index].team}');
+                          },
+                        ),
+                      ):Text('no'),
                     ],
                   ),
                 ),
                 TabBar(
                   tabs: const [
-
                     Text('A팀'),
                     Text('B팀'),
                     Text('C팀'),
                     Text('추가 요청'),
                   ],
-
-                  labelStyle: makeTextStyle(
-                      18, KColors.lightPrimary, 'bold'),
+                  labelStyle: makeTextStyle(18, KColors.lightPrimary, 'bold'),
                   unselectedLabelStyle:
                       makeTextStyle(18, KColors.black, 'bold'),
                   labelColor: KColors.lightPrimary,
                   unselectedLabelColor: KColors.black,
                   labelPadding: const EdgeInsets.all(SMALLGAP),
                   indicatorColor: KColors.lightPrimary,
-
                 ),
                 const Expanded(
                   child: TabBarView(
                     children: [
-
                       TaskOrderPage(),
                       TaskOrderPage(),
                       TaskOrderPage(),

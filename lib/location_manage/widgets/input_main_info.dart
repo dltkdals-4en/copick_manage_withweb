@@ -23,15 +23,15 @@ class InputMainInfo extends StatelessWidget {
               '카페 코드 입력',
               style: makeTextStyle(16, AppColors.black, 'bold'),
             ),
-            SizedBox(
+            const SizedBox(
               height: SMALLGAP,
             ),
-            Container(
+            SizedBox(
               width: size.width /4,
               child: TextFormField(
                 cursorColor: AppColors.lightPrimary,
                 controller: taskProvider.codeTextController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -54,12 +54,13 @@ class InputMainInfo extends StatelessWidget {
                       .isNotEmpty) {
                     return '이미 등록된 코드입니다.';
                   }
+                  return null;
                 },
               ),
             ),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           width: NORMALGAP,
         ),
         Column(
@@ -69,15 +70,15 @@ class InputMainInfo extends StatelessWidget {
               '카페 이름 입력',
               style: makeTextStyle(16, AppColors.black, 'bold'),
             ),
-            SizedBox(
+            const SizedBox(
               height: SMALLGAP,
             ),
-            Container(
+            SizedBox(
               width: size.width / 3,
               child: TextFormField(
                 controller: taskProvider.nameTextController,
                 cursorColor: AppColors.lightPrimary,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   border: OutlineInputBorder(),
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide(
@@ -95,6 +96,7 @@ class InputMainInfo extends StatelessWidget {
                       .isNotEmpty) {
                     return '이미 등록된 매장입니다.';
                   }
+                  return null;
                 },
               ),
             ),

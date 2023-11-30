@@ -10,7 +10,7 @@ class LocManagePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var ui = Provider.of<TaskManageProvider>(context);
+    var tmProvider = Provider.of<TaskManageProvider>(context);
     return Scaffold(
       appBar: AppBar(),
       body: Stack(
@@ -20,22 +20,22 @@ class LocManagePage extends StatelessWidget {
             child: Column(
               children: [
                 Container(
-                  child: Text('매장 리스트'),
+                  child: const Text('매장 리스트'),
                 ),
                 kNorH,
                 TextField(
                   onChanged: (value) {
-                    ui.changeLocList(value);
+                    tmProvider.changeLocList(value);
                   },
                   onSubmitted: (value) {
-                    ui.changeLocList(value);
+                    tmProvider.changeLocList(value);
                   },
                 ),
                 Expanded(
                   child: ListView.builder(
-                    itemCount: ui.locList!.length,
+                    itemCount: tmProvider.locList!.length,
                     itemBuilder: (context, index) {
-                      var item = ui.locList![index];
+                      var item = tmProvider.locList![index];
                       return ListTile(
                         title: Text(
                           '${item.locationName}',
@@ -45,7 +45,7 @@ class LocManagePage extends StatelessWidget {
                           onPressed: () {},
                           title: '상세보기',
                           fontSize: 10,
-                          size: Size(100, 40),
+                          size: const Size(100, 40),
                         ),
                       );
                     },
@@ -59,7 +59,7 @@ class LocManagePage extends StatelessWidget {
             right:  40,
             child: ElevatedButton(
               onPressed: () {},
-              child: Text('카페 추가'),
+              child: const Text('카페 추가'),
             ),
           )
         ],

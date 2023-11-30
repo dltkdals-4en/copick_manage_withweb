@@ -19,7 +19,7 @@ class AreaChoicePage extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('관리할 지역을 선택해주세요',style: kHeaderTextStyle,),
+            const Text('관리할 지역을 선택해주세요',style: kHeaderTextStyle,),
             BigH,
             CustomBtn(
               onPressed: () {
@@ -27,7 +27,7 @@ class AreaChoicePage extends StatelessWidget {
                 Navigator.pushNamed(context, Routes.root);
               },
               title: '성동',
-              size: Size(150, 50),
+              size: const Size(150, 50),
             ),
             NorH,
             CustomBtn(
@@ -36,7 +36,7 @@ class AreaChoicePage extends StatelessWidget {
                 Navigator.pushNamed(context, Routes.root);
               },
               title: '안성',
-              size: Size(150, 50),
+              size: const Size(150, 50),
             ),
           ],
         ),

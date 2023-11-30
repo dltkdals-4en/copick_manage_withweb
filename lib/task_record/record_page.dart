@@ -18,12 +18,12 @@ class RecordPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text
-            ('${recardProvider.dateSetting()}'),
+            (recardProvider.dateSetting()),
           NorH,
           Expanded(child: ListView.builder(
             itemCount: 5,
             itemBuilder: (context, index) {
-              return Text('index');
+              return const Text('index');
             },
           )),
         ],

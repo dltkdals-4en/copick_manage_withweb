@@ -1,5 +1,3 @@
-import 'package:copick_manage_withweb/check_data.dart';
-import 'package:copick_manage_withweb/login/login_screen.dart';
 import 'package:copick_manage_withweb/provider/get_data_provider.dart';
 import 'package:copick_manage_withweb/provider/manage_provider.dart';
 import 'package:copick_manage_withweb/provider/login_provider.dart';
@@ -55,10 +53,10 @@ void main() async {
       ],
       child: EasyLocalization(
         path: 'assets/language',
-        supportedLocales: [
+        supportedLocales: const [
           Locale('ko', 'KR'),
         ],
-        child: MyApp(),
+        child: const MyApp(),
       ),
     ),
   );

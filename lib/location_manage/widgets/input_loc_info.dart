@@ -22,12 +22,12 @@ class InputLocInfo extends StatelessWidget {
           style: makeTextStyle(16, AppColors.black, 'bold'),
         ),
         SmH,
-        Container(
+        SizedBox(
           width: size.width / 2,
           child: TextField(
             controller: taskProvider.addressTextController,
             cursorColor: AppColors.lightPrimary,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: OutlineInputBorder(),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
@@ -45,7 +45,7 @@ class InputLocInfo extends StatelessWidget {
           style: makeTextStyle(16, AppColors.black, 'bold'),
         ),
         SmH,
-        Container(
+        SizedBox(
           width: size.width * 2 / 3,
           child: TextFormField(
             controller: taskProvider.latlngController,
@@ -68,6 +68,7 @@ class InputLocInfo extends StatelessWidget {
                   .hasMatch(text)) {
                 return '형식이 맞지 않습니다.';
               }
+              return null;
             },
           ),
         ),

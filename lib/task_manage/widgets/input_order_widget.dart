@@ -18,15 +18,15 @@ class InputOrderWidget extends StatelessWidget {
           '수거 순서 입력',
           style: makeTextStyle(18, AppColors.black, 'bold'),
         ),
-        SizedBox(
+        const SizedBox(
           height: SMALLGAP,
         ),
-        Container(
+        SizedBox(
           width: size.width / 3,
           child: TextFormField(
             cursorColor: AppColors.lightPrimary,
             controller: taskProvider.orderTextController,
-            decoration: InputDecoration(
+            decoration: const InputDecoration(
               border: OutlineInputBorder(),
               focusedBorder: OutlineInputBorder(
                 borderSide: BorderSide(
@@ -42,6 +42,7 @@ class InputOrderWidget extends StatelessWidget {
                 print('vvv');
                 return '값을 입력해주세요.';
               }
+              return null;
             },
           ),
         ),

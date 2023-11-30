@@ -1,8 +1,6 @@
 import 'package:copick_manage_withweb/isDebug.dart';
-import 'package:copick_manage_withweb/login/login_screen.dart';
 import 'package:copick_manage_withweb/pages/area_choice/area_choice_page.dart';
 import 'package:copick_manage_withweb/pages/root/root_page.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -19,9 +17,9 @@ class SplashPage extends StatelessWidget {
     // return AreaChoicePage();
     if(isDebug){
       server.areaInfo = AreaInfo.Anseong;
-      return RootPage();
+      return const RootPage();
     }else{
-      return AreaChoicePage();
+      return const AreaChoicePage();
     }
 
   }

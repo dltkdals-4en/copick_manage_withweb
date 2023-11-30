@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
@@ -12,7 +11,7 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen>
     with TickerProviderStateMixin {
-  Color? _color = Colors.grey[400];
+  final Color? _color = Colors.grey[400];
   late AnimationController _controller;
   late Animation<Color?> animation;
 

@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
-import '../main.dart';
 
 class AddLocation extends StatelessWidget {
   const AddLocation({Key? key}) : super(key: key);
@@ -19,7 +18,7 @@ class AddLocation extends StatelessWidget {
     var taskProvider = Provider.of<TaskProvider>(context);
     var fbProvider = Provider.of<FbHelper>(context);
     var locMProvider = Provider.of<ManageProvider>(context);
-    final _locAddformKey = GlobalKey<FormState>();
+    final locAddformKey = GlobalKey<FormState>();
     return Container(
       width: size.width,
       decoration: BoxDecoration(
@@ -29,7 +28,7 @@ class AddLocation extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(NORMALGAP),
         child: Form(
-          key: _locAddformKey,
+          key: locAddformKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -47,11 +46,11 @@ class AddLocation extends StatelessWidget {
                     child: Row(
                       children: [
                         (locMProvider.locationAddWidgetVisible)
-                            ? Text('접기')
-                            : Text('펼치기'),
+                            ? const Text('접기')
+                            : const Text('펼치기'),
                         (locMProvider.locationAddWidgetVisible)
-                            ? Icon(Icons.arrow_drop_up_outlined)
-                            : Icon(Icons.arrow_drop_down_outlined),
+                            ? const Icon(Icons.arrow_drop_up_outlined)
+                            : const Icon(Icons.arrow_drop_down_outlined),
                       ],
                     ),
                   ),
@@ -61,25 +60,25 @@ class AddLocation extends StatelessWidget {
                 visible: locMProvider.locationAddWidgetVisible,
                 child: Column(
                   children: [
-                    Divider(),
-                    RequiredInfoWidget(),
+                    const Divider(),
+                    const RequiredInfoWidget(),
                     NorH,
-                    Divider(),
+                    const Divider(),
 
                     // InputDemoInfo(),
                     // Divider(),
                     // NorH,
                     Row(
                       children: [
-                        Container(
+                        SizedBox(
                           height: 48,
                           child: ElevatedButton(
                             onPressed: () async {
-                              if (_locAddformKey.currentState!.validate()) {
+                              if (locAddformKey.currentState!.validate()) {
 
                                 taskProvider.addLocData(fbProvider).then((value) {
                                   taskProvider.clearController();
-                                  AlertDialog(
+                                  const AlertDialog(
                                     content: Text('등록되었습니다.'),
                                   );
 

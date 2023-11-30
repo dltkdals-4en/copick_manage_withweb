@@ -27,15 +27,15 @@ class WasteLocationModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'location_id': this.locationId,
-      'location_name': this.locationName,
-      'location_postal': this.locationPostal,
-      'location_address': this.locationAddress,
-      'location_gps_lat': this.locationGpsLat,
-      'location_gps_long': this.locationGpsLong,
-      'location_tel': this.locationTel,
+      'location_id': locationId,
+      'location_name': locationName,
+      'location_postal': locationPostal,
+      'location_address': locationAddress,
+      'location_gps_lat': locationGpsLat,
+      'location_gps_long': locationGpsLong,
+      'location_tel': locationTel,
       'last_call_date': Timestamp.fromDate(DateTime.now()),
-      'location_admin': this.locationAdmin,
+      'location_admin': locationAdmin,
     };
   }
 

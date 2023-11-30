@@ -15,9 +15,9 @@ class WeekdayTaskModel {
   Map<String, dynamic> toMap() {
     return {
 
-      'location_id': this.locationId,
-      'location_name': this.locationName,
-      'track_list': this.trackList,
+      'location_id': locationId,
+      'location_name': locationName,
+      'track_list': trackList,
     };
   }
 

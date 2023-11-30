@@ -1,11 +1,11 @@
 import 'package:copick_manage_withweb/pages/home/widgets/home_task_add_widget.dart';
 import 'package:copick_manage_withweb/pages/home/widgets/home_task_check_widget.dart';
+import 'package:copick_manage_withweb/provider/get_data_provider.dart';
 import 'package:copick_manage_withweb/provider/task_manage_provider.dart';
 import 'package:copick_manage_withweb/routes/routes.dart';
 import 'package:copick_manage_withweb/utilitys/colors.dart';
 import 'package:copick_manage_withweb/utilitys/constants.dart';
 import 'package:copick_manage_withweb/utilitys/custom_btn.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -14,15 +14,22 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var ui = Provider.of<TaskManageProvider>(context);
+    var tmProvider = Provider.of<TaskManageProvider>(context);
+    var dataProvider = Provider.of<GetDataProvider>(context);
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            '${ui.selectedArea!.title} 지역 정보 관리',
-            style: kAppbarTitle.copyWith(),
+          '${tmProvider.selectedArea!.title} 지역 정보 관리',
+          style: kAppbarTitle.copyWith(),
         ),
         centerTitle: true,
+        leading: BackButton(
+          onPressed: () {
+            dataProvider.init();
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -45,15 +52,15 @@ class HomePage extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
-                      Text('총 매장 개수 : ${ui.wasteList!.length}'),
+                      Text('총 매장 개수 : ${tmProvider.wasteList!.length}'),
                       kNorH,
                       CustomBtn(
                         onPressed: () {
-                          ui.changeLocList(null);
+                          tmProvider.changeLocList(null);
                           Navigator.pushNamed(context, Routes.location);
                         },
                         title: '매장 관리',
-                        size: Size(100, 50),
+                        size: const Size(100, 50),
                         fontSize: 16,
                       ),
                     ],
@@ -80,9 +87,9 @@ class HomePage extends StatelessWidget {
                         style: kHeaderTextStyle.copyWith(),
                       ),
                       kBigH,
-                      HomeTaskAddWidget(),
+                      const HomeTaskAddWidget(),
                       kBigH,
-                      HomeTaskCheckWidget(),
+                      const HomeTaskCheckWidget(),
                     ],
                   ),
                 ),

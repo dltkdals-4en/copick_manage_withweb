@@ -1,9 +1,7 @@
 import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:copick_manage_withweb/constants/screen_size.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
 class InputTrackWidget extends StatelessWidget {
@@ -23,10 +21,10 @@ class InputTrackWidget extends StatelessWidget {
               '수거 일자 선택',
               style: makeTextStyle(18, AppColors.black, 'bold'),
             ),
-            SizedBox(
+            const SizedBox(
               height: SMALLGAP,
             ),
-            Container(
+            SizedBox(
               width: size.width / 2 - 100,
               height: 70,
               child: ListView.builder(
@@ -35,7 +33,7 @@ class InputTrackWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Column(
                     children: [
-                      Text('${provider.weekDay[index]}'),
+                      Text(provider.weekDay[index]),
                       Radio(
                            groupValue: provider.selectedWeek,
                           value: provider.weekDayNum[index],
@@ -55,17 +53,16 @@ class InputTrackWidget extends StatelessWidget {
               '수거 팀 선택',
               style: makeTextStyle(18, AppColors.black, 'bold'),
             ),
-            SizedBox(
+            const SizedBox(
               height: SMALLGAP,
             ),
-            Container(
+            SizedBox(
               width: size.width / 2 - 100,
               height: 70,
               child:   DropdownButton(
                 value: provider.selectedTeam,
                 items: provider.team.map((e) {
-                  return DropdownMenuItem<String>(child: Text('$e'),
-                  value: e,);
+                  return DropdownMenuItem<String>(value: e,child: Text(e),);
                 }).toList(),
                 onChanged: (value) {
                     provider.changeTeam(value);

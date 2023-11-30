@@ -12,7 +12,7 @@ class LoadingScreen extends StatefulWidget {
 
 class _LoadingScreenState extends State<LoadingScreen>
     with TickerProviderStateMixin {
-  Color? _color = Colors.grey[400];
+  final Color? _color = Colors.grey[400];
   late AnimationController _controller;
   late Animation<Color?> animation;
 
@@ -63,7 +63,7 @@ class _LoadingScreenState extends State<LoadingScreen>
                     )
                   ],
                 ),
-                (widget.text !=null)?Text(widget.text!):SizedBox(),
+                (widget.text !=null)?Text(widget.text!):const SizedBox(),
               ],
             );
           },

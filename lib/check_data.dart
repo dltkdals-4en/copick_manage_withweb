@@ -1,9 +1,7 @@
 import 'package:copick_manage_withweb/constants/loading_screen.dart';
-import 'package:copick_manage_withweb/isDebug.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
 import 'package:copick_manage_withweb/provider/fb_helper.dart';
 import 'package:copick_manage_withweb/select_menu_page.dart';
-import 'package:copick_manage_withweb/seongsu/seongsu_home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,10 +16,10 @@ class CheckData extends StatelessWidget {
 
     if (fbProvider.hasLocData == false) {
       fbProvider.getLocList();
-      return LoadingScreen();
+      return const LoadingScreen();
     } else if (fbProvider.hasTaskData == false) {
      fbProvider.getTaskList();
-      return LoadingScreen();
+      return const LoadingScreen();
     // } else if (fbProvider.hasWeekdayData == false) {
     //   fbProvider.getWeekDayData();
     //   return LoadingScreen();
@@ -36,7 +34,7 @@ class CheckData extends StatelessWidget {
      taskProvider.sortData();
 
       // return (isAnseong)?SelectMenuPage():SeongsuHomePage();
-      return SelectMenuPage();
+      return const SelectMenuPage();
     }
   }
 }

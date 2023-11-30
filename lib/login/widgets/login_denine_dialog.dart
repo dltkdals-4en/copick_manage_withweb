@@ -5,7 +5,7 @@ class LoginDenineDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AlertDialog(
+    return const AlertDialog(
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [Text('로그인 실패')],

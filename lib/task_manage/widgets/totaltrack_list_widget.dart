@@ -14,7 +14,7 @@ class TotaltrackListWidget extends StatelessWidget {
     var fbProvider = Provider.of<FbHelper>(context);
     var taskProvider = Provider.of<TaskProvider>(context);
     var size = MediaQuery.of(context).size;
-    final _addTaskFormKey = GlobalKey<FormState>();
+    final addTaskFormKey = GlobalKey<FormState>();
 
     var totalList = taskProvider.totalList;
     return Column(
@@ -25,7 +25,7 @@ class TotaltrackListWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               return ListTile(
                 title: Text(
-                  '${taskProvider.getLocName(totalList[index].locationId!)}',
+                  taskProvider.getLocName(totalList[index].locationId!),
                 ),
                 subtitle: Text(
                     '${taskProvider.changeTrackValue(totalList[index].trackList!)}'),
@@ -34,7 +34,7 @@ class TotaltrackListWidget extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TextButton(
-                      child: Text('수거 요일 변경'),
+                      child: const Text('수거 요일 변경'),
                       onPressed: () {
                         // Navigator.of(context).push(
                         //     MaterialPageRoute(
@@ -66,14 +66,14 @@ class TotaltrackListWidget extends StatelessWidget {
                         //         ),
                         //             (route) => false));
                       },
-                      child: Text('삭제'),
+                      child: const Text('삭제'),
                     ),
                   ],
                 ),
               );
             },
             separatorBuilder: (context, index) {
-              return Divider();
+              return const Divider();
             },
           ),
         ),

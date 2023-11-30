@@ -18,11 +18,11 @@ class TaskRecordModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'location_id': this.locationId,
-      'location_name': this.locationName,
-      'track': this.track,
-      'condition': this.condition,
-      'pick_up_date': this.pickUpDate,
+      'location_id': locationId,
+      'location_name': locationName,
+      'track': track,
+      'condition': condition,
+      'pick_up_date': pickUpDate,
     };
   }
 

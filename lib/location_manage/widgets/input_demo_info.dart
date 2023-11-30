@@ -30,12 +30,12 @@ class InputDemoInfo extends StatelessWidget {
                   style: makeTextStyle(16, AppColors.black, 'bold'),
                 ),
                 SmH,
-                Container(
+                SizedBox(
                   width: size.width / 4,
                   child: TextField(
                     controller: taskProvider.demoCodeController,
                     cursorColor: AppColors.lightPrimary,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -58,12 +58,12 @@ class InputDemoInfo extends StatelessWidget {
                   style: makeTextStyle(16, AppColors.black, 'bold'),
                 ),
                 SmH,
-                Container(
+                SizedBox(
                   width: size.width / 4,
                   child: TextField(
                     controller: taskProvider.trackController,
                     cursorColor: AppColors.lightPrimary,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(
@@ -86,12 +86,12 @@ class InputDemoInfo extends StatelessWidget {
                   style: makeTextStyle(16, AppColors.black, 'bold'),
                 ),
                 SmH,
-                Container(
+                SizedBox(
                   width: size.width / 4,
                   child: TextField(
                     controller: taskProvider.orderController,
                     cursorColor: AppColors.lightPrimary,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: OutlineInputBorder(),
                       focusedBorder: OutlineInputBorder(
                         borderSide: BorderSide(

@@ -12,7 +12,7 @@ class TaskOrderPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var tmProvider = Provider.of<TaskManageProvider>(context);
     var tabIndex = DefaultTabController.of(context).index;
-    var items = tmProvider.getList(tabIndex, null);
+    var items = tmProvider.teamList![tabIndex];
     return Padding(
       padding: const EdgeInsets.all(NORMALGAP),
       child: Column(
@@ -55,7 +55,7 @@ class TaskOrderPage extends StatelessWidget {
                               ),
                               kNorW,
                               Text(
-                                tmProvider.getLocName(item.locationId),
+                                item.locationName??'',
                                 style: kLabelTextStyle.copyWith(),
                               ),
                               kSmW,
@@ -75,7 +75,7 @@ class TaskOrderPage extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: KColors.lightPrimary,
                             ),
-                            child: Text('삭제'),
+                            child: const Text('삭제'),
                           ),
                         ],
                       ),

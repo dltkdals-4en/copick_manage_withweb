@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import '../provider/task_provider.dart';
 
 class SeongsuHomePage extends StatelessWidget {
-  const SeongsuHomePage({Key? key});
+  const SeongsuHomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class SeongsuHomePage extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return Container(
                       child: Padding(
-                          padding: EdgeInsets.all(SMALLGAP),
+                          padding: const EdgeInsets.all(SMALLGAP),
                           child: ListTile(
                             title: Text('${index+1} ${list[index].locationName}'),
                             subtitle: Column(
@@ -49,9 +49,9 @@ class SeongsuHomePage extends StatelessWidget {
                 // await taskProvider.insertGsheets();
               },
               style: ElevatedButton.styleFrom(
-                fixedSize: Size(100, 50),
+                fixedSize: const Size(100, 50),
               ),
-              child: Text('전송'),
+              child: const Text('전송'),
             ),
           ),
         ],

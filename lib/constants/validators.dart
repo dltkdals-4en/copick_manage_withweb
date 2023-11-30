@@ -6,5 +6,6 @@ String? latlngVal(text) {
       .hasMatch(text)) {
     return '형식이 맞지 않습니다.';
   }
+  return null;
 }
 

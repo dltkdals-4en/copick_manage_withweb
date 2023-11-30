@@ -1,8 +1,5 @@
-import 'dart:ui';
 
-import 'package:copick_manage_withweb/constants/screen_size.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 
 class AppColors {

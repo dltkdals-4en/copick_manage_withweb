@@ -11,9 +11,9 @@ class HomeTaskCheckWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var ui = Provider.of<TaskManageProvider>(context);
+    var tmProvider = Provider.of<TaskManageProvider>(context);
     var size = MediaQuery.of(context).size;
-    return Container(
+    return SizedBox(
       height: 250,
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -35,7 +35,7 @@ class HomeTaskCheckWidget extends StatelessWidget {
                 //   );
                 // } else {
                   return Card(
-                    child: Container(
+                    child: SizedBox(
                       width: (size.width-(NORMALGAP*4+NORMALGAP*4))/5,
                       child: Padding(
                         padding: const EdgeInsets.all(NORMALGAP),
@@ -44,17 +44,17 @@ class HomeTaskCheckWidget extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              '${ui.getWeekDay(index)}요일',
+                              '${tmProvider.getWeekDay(index)}요일',
                               style: kLabelTextStyle.copyWith(),
                             ),
                             kNorH,
-                            Text('태스크 수 : ${ui.getTaskLength(index)}'),
-                            Text('추가 일정: ${ui.getAddedTaskLength(index)}개'),
+                            Text('태스크 수 : ${tmProvider.getTaskLength(index)}'),
+                            Text('추가 일정: ${tmProvider.getAddedTaskLength(index)}개'),
                             kSmH,
                             ElevatedButton(
                               onPressed: () {
-                                ui.saveTaskIndex(index);
-
+                                tmProvider.saveTaskIndex(index);
+                                tmProvider.getTeamList();
                                 Navigator.pushNamed(context, Routes.task);
                               },
                               style: ElevatedButton.styleFrom(

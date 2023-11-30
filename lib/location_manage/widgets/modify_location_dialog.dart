@@ -15,7 +15,7 @@ class ModifyLocationDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _locModifyformKey = GlobalKey<FormState>();
+    final locModifyformKey = GlobalKey<FormState>();
     var size = MediaQuery.of(context).size;
     var provider = Provider.of<TaskProvider>(context);
     var locData = provider.locList[index];
@@ -25,7 +25,7 @@ class ModifyLocationDialog extends StatelessWidget {
         '카페 정보 수정',
         style: makeTextStyle(20, AppColors.black, 'bold'),
       ),
-      content: Container(
+      content: SizedBox(
         width: size.width / 2,
         height: size.height / 3,
         child: Column(
@@ -37,9 +37,9 @@ class ModifyLocationDialog extends StatelessWidget {
             ),
             NorH,
             Form(
-              key: _locModifyformKey,
+              key: locModifyformKey,
               child: Table(
-                columnWidths: {
+                columnWidths: const {
                   0: IntrinsicColumnWidth(),
                   1: FixedColumnWidth(10),
                   2: FlexColumnWidth(),
@@ -48,7 +48,7 @@ class ModifyLocationDialog extends StatelessWidget {
                 children: [
                   TableRow(
                     children: [
-                      Text('매장명 : '),
+                      const Text('매장명 : '),
                       SmW,
                       TextFormField(
                         controller: provider.modifyNameController,
@@ -59,7 +59,7 @@ class ModifyLocationDialog extends StatelessWidget {
                   ),
                   TableRow(
                     children: [
-                      Text('코드명 : '),
+                      const Text('코드명 : '),
                       SmW,
                       TextFormField(
                         controller: provider.modifyCodeController,
@@ -89,13 +89,14 @@ class ModifyLocationDialog extends StatelessWidget {
                               return '이미 등록된 코드입니다.';
                             }
                           }
+                          return null;
                         },
                       ),
                     ],
                   ),
                   TableRow(
                     children: [
-                      Text('주소 : '),
+                      const Text('주소 : '),
                       SmW,
                       TextFormField(
                         controller: provider.modifyAddressController,
@@ -106,7 +107,7 @@ class ModifyLocationDialog extends StatelessWidget {
                   ),
                   TableRow(
                     children: [
-                      Text('담당자명 : '),
+                      const Text('담당자명 : '),
                       SmW,
                       TextFormField(
                         controller: provider.modifyAdminController,
@@ -117,7 +118,7 @@ class ModifyLocationDialog extends StatelessWidget {
                   ),
                   TableRow(
                     children: [
-                      Text('전화번호 : '),
+                      const Text('전화번호 : '),
                       SmW,
                       TextFormField(
                         controller: provider.modifyTelController,
@@ -128,7 +129,7 @@ class ModifyLocationDialog extends StatelessWidget {
                   ),
                   TableRow(
                     children: [
-                      Text('위도, 경도 : '),
+                      const Text('위도, 경도 : '),
                       SmW,
                       TextFormField(
                         controller: provider.modifyLatLngController,
@@ -139,14 +140,16 @@ class ModifyLocationDialog extends StatelessWidget {
                                     ? ''
                                     : '${locData.locationGpsLat},${locData.locationGpsLong}'),
                         validator: (text) {
-                          if (text!.isEmpty)
+                          if (text!.isEmpty) {
                             text =
                                 "${locData.locationGpsLat},${locData.locationGpsLong}";
+                          }
                           if (!RegExp(
                                   r'^[-+]?([1-8]?\d(\.\d+)?|90(\.0+)?),\s*[-+]?(180(\.0+)?|((1[0-7]\d)|([1-9]?\d))(\.\d+)?)$')
                               .hasMatch(text)) {
                             return '형식이 맞지 않습니다.';
                           }
+                          return null;
                         },
                       ),
                     ],
@@ -163,24 +166,24 @@ class ModifyLocationDialog extends StatelessWidget {
             provider.clearModifyController();
             Navigator.pop(context);
           },
-          child: Text('취소'),
           style: ElevatedButton.styleFrom(
             backgroundColor: AppColors.white,
-            side: BorderSide(
+            side: const BorderSide(
               color: AppColors.lightPrimary,
               width: 1,
             ),
           ),
+          child: const Text('취소'),
         ),
         ElevatedButton(
           onPressed: () {
-            if (_locModifyformKey.currentState!.validate()) {
+            if (locModifyformKey.currentState!.validate()) {
               provider.modifyInfo(locData, fbProvder).then((value) {
                 provider.clearModifyController();
                 Navigator.pushAndRemoveUntil(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => MyApp(),
+                      builder: (context) => const MyApp(),
                     ),
                         (route) => false);
               });
@@ -190,7 +193,7 @@ class ModifyLocationDialog extends StatelessWidget {
           },
           style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.lightPrimary),
-          child: Text('수정'),
+          child: const Text('수정'),
         ),
       ],
     );

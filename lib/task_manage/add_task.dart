@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/constants.dart';
-import '../constants/screen_size.dart';
-import '../main.dart';
 import '../provider/fb_helper.dart';
 import '../provider/task_provider.dart';
 import 'widgets/input_code_widget.dart';
@@ -55,11 +53,11 @@ class AddTask extends StatelessWidget {
                       child: Row(
                         children: [
                           (manageProvider.taskAddWidgetVisible)
-                              ? Text('접기')
-                              : Text('펼치기'),
+                              ? const Text('접기')
+                              : const Text('펼치기'),
                           (manageProvider.taskAddWidgetVisible)
-                              ? Icon(Icons.arrow_drop_up_outlined)
-                              : Icon(Icons.arrow_drop_down_outlined),
+                              ? const Icon(Icons.arrow_drop_up_outlined)
+                              : const Icon(Icons.arrow_drop_down_outlined),
                         ],
                       ),
                     ),
@@ -71,13 +69,13 @@ class AddTask extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Divider(),
-                      InputCodeWidget(),
+                      const Divider(),
+                      const InputCodeWidget(),
                       NorH,
-                      Divider(),
-                      InputTrackWidget(),
-                      Divider(),
-                      Container(
+                      const Divider(),
+                      const InputTrackWidget(),
+                      const Divider(),
+                      SizedBox(
                         height: 48,
                         child: ElevatedButton(
                           onPressed: () async {
@@ -93,7 +91,7 @@ class AddTask extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.lightPrimary),
-                          child: Text('태스크 추가하기'),
+                          child: const Text('태스크 추가하기'),
                         ),
                       ),
                     ],

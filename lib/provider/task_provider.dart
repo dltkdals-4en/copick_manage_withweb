@@ -1,13 +1,8 @@
-import 'dart:io';
-import 'dart:js_interop';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:copick_manage_withweb/model/task_record_model.dart';
-import 'package:copick_manage_withweb/task_manage/task_manage_page.dart';
-import 'package:copick_manage_withweb/model/location_demo.dart';
 import 'package:copick_manage_withweb/model/total_task_model.dart';
 import 'package:copick_manage_withweb/utilitys/copick_gsheets.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:gsheets/gsheets.dart';
 import '../isDebug.dart';
@@ -18,7 +13,7 @@ import 'fb_helper.dart';
 class TaskProvider with ChangeNotifier {
   TextEditingController dateTextController = TextEditingController();
   TextEditingController orderTextController = TextEditingController();
-  DateTime dateTime = DateTime.now().add(Duration(days: 1));
+  DateTime dateTime = DateTime.now().add(const Duration(days: 1));
   List<WasteLocationModel> locList = [];
   List<PickTaskModel> taskList = [];
   List<WeekdayTaskModel> totalList = [];
@@ -300,9 +295,9 @@ class TaskProvider with ChangeNotifier {
 
   void modify(String? text) {
     mCodeVali = 0;
-    locList.forEach((element) {
+    for (var element in locList) {
       if (element.locationId == text) mCodeVali++;
-    });
+    }
   }
 
   List<bool> checkValue = [false, false, false, false, false];

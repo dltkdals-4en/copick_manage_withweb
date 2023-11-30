@@ -20,26 +20,26 @@ class TaskModel {
 
   Map<String, dynamic> toMap() {
     return {
-      'pick_doc_id': this.pickDocId,
-      'pick_order': this.pickOrder,
-      'location_id': this.locationId,
-      'team': this.team,
+      'pick_doc_id': pickDocId,
+      'pick_order': pickOrder,
+      'location_id': locationId,
+      'team': team,
     };
   }
 
   Map<String, dynamic> toAdd() {
     return {
-      'pick_order': this.pickOrder,
-      'location_id': this.locationId,
-      'track': this.track,
-      'team': double.parse(this.team!),
+      'pick_order': pickOrder,
+      'location_id': locationId,
+      'track': track,
+      'team': double.parse(team!),
     };
   }
 
-  TaskModel.fromJson(Map<String, dynamic> json, docId) {
+  TaskModel.fromJson(Map<String, dynamic> json, locName, docId) {
     pickDocId = docId;
     pickOrder = json['pick_order'];
-    locationName = json['location_name'];
+    locationName = locName;
 
     locationId = formatId(json['location_id']);
 

@@ -19,18 +19,18 @@ class InputCodeWidget extends StatelessWidget {
           '카페 입력',
           style: makeTextStyle(18, AppColors.black, 'bold'),
         ),
-        SizedBox(
+        const SizedBox(
           height: SMALLGAP,
         ),
-        Container(
+        SizedBox(
           width: size.width / 3,
           child: DropdownButtonFormField<String>(
             value: taskProvider.initialName,
-            hint: Text('매장 선택'),
+            hint: const Text('매장 선택'),
             items: taskProvider.nameList.map<DropdownMenuItem<String>>((e) {
               return DropdownMenuItem<String>(
                 value: e,
-                child: Text('$e'),
+                child: Text(e),
               );
             }).toList(),
             onChanged: (String? value) {
@@ -40,6 +40,7 @@ class InputCodeWidget extends StatelessWidget {
               if (value == null) {
                 return "매장을 선택해주세요";
               }
+              return null;
             },
           ),
         ),

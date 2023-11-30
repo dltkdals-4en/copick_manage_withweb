@@ -29,16 +29,16 @@ class LocationDemo {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': this.locationId,
-      'name': this.locationName,
-      'postal': this.locationPostal,
-      'address': this.locationAddress,
-      'lat': this.locationGpsLat,
-      'long': this.locationGpsLong,
-      'tel': this.locationTel,
+      'id': locationId,
+      'name': locationName,
+      'postal': locationPostal,
+      'address': locationAddress,
+      'lat': locationGpsLat,
+      'long': locationGpsLong,
+      'tel': locationTel,
       'pick_up_date': Timestamp.fromDate(DateTime.now()),
-      'pick_order': this.pickOrder,
-      'track': this.track,
+      'pick_order': pickOrder,
+      'track': track,
       'condition': 0,
     };
   }

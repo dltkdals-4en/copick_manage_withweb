@@ -27,7 +27,7 @@ class TrackReorderlistWidget extends StatelessWidget {
       children: [
         NorH,
         Text('카페 개수 : ${track.length} 개'),
-        Divider(),
+        const Divider(),
         Expanded(
           child: (track.isEmpty)
               ? Center(
@@ -61,7 +61,7 @@ class TrackReorderlistWidget extends StatelessWidget {
                                 ),
                                 NorW,
                                 Text(
-                                  '${taskProvider.getLocName(track[index].locationId ?? '알수 없음')}',
+                                  taskProvider.getLocName(track[index].locationId ?? '알수 없음'),
                                   style: makeTextStyle(
                                       16, AppColors.black, 'bold'),
                                 ),
@@ -90,7 +90,7 @@ class TrackReorderlistWidget extends StatelessWidget {
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.lightPrimary,
                               ),
-                              child: Text('삭제'),
+                              child: const Text('삭제'),
                             ),
                             ],
                           ),
@@ -111,8 +111,8 @@ class TrackReorderlistWidget extends StatelessWidget {
           onPressed: () {
             taskProvider.updatePickOrder(track, fbProvider, trackIndex);
           },
-          child: Text('${taskProvider.weekDay[trackIndex - 1]}요일 경로 저장하기'),
           style: ElevatedButton.styleFrom(),
+          child: Text('${taskProvider.weekDay[trackIndex - 1]}요일 경로 저장하기'),
         )
       ],
     );

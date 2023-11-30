@@ -5,13 +5,10 @@ import 'package:copick_manage_withweb/constants/screen_size.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
 import 'package:copick_manage_withweb/provider/fb_helper.dart';
 import 'package:copick_manage_withweb/task_manage/add_task.dart';
-import 'package:copick_manage_withweb/task_manage/widgets/totaltrack_list_widget.dart';
 import 'package:copick_manage_withweb/task_manage/widgets/track_reorderlist_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../main.dart';
 
 class TaskManagePage extends StatefulWidget {
   const TaskManagePage({Key? key}) : super(key: key);
@@ -39,7 +36,7 @@ class _TaskManagePageState extends State<TaskManagePage>
       body: SingleChildScrollView(
         child: Column(
           children: [
-            AddTask(),
+            const AddTask(),
             Padding(
               padding: const EdgeInsets.all(NORMALGAP),
               child: Container(
@@ -64,7 +61,7 @@ class _TaskManagePageState extends State<TaskManagePage>
                           Text('총 태스크 개수 : ${totalList.length}'),
                         ],
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: SMALLGAP,
                       ),
                       TabBar(
@@ -75,9 +72,9 @@ class _TaskManagePageState extends State<TaskManagePage>
                             makeTextStyle(18, AppColors.black, 'bold'),
                         labelColor: AppColors.lightPrimary,
                         unselectedLabelColor: AppColors.black,
-                        labelPadding: EdgeInsets.all(SMALLGAP),
+                        labelPadding: const EdgeInsets.all(SMALLGAP),
                         indicatorColor: AppColors.lightPrimary,
-                        tabs: [
+                        tabs: const [
                           // Text('전체보기'),
                           Text('월요일'),
                           Text('화요일'),
@@ -87,7 +84,7 @@ class _TaskManagePageState extends State<TaskManagePage>
                         ],
                       ),
 
-                      Container(
+                      SizedBox(
                         height: size.height,
                         child: TabBarView(
                           controller: taskTabController,

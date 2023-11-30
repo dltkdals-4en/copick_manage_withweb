@@ -3,7 +3,6 @@ import 'package:copick_manage_withweb/constants/screen_size.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 
 
@@ -23,7 +22,7 @@ class InputDateWidget extends StatelessWidget {
           style: makeTextStyle(18, AppColors.black, 'bold'),
         ),
 
-        SizedBox(
+        const SizedBox(
           height: SMALLGAP,
         ),
         Text(
@@ -34,7 +33,7 @@ class InputDateWidget extends StatelessWidget {
           overflow: TextOverflow.ellipsis,
 
         ),
-        SizedBox(
+        const SizedBox(
           height: SMALLGAP,
         ),
         Row(
@@ -59,7 +58,7 @@ class InputDateWidget extends StatelessWidget {
               '등록일 : ',
               style: makeTextStyle(16, AppColors.black, 'medium'),
             ),
-            Container(
+            SizedBox(
               width: size.width / 5,
               child: Text(
                 DateFormat('yyyy/MM/dd')
@@ -79,20 +78,20 @@ class InputDateWidget extends StatelessWidget {
               //   },
               // ),
             ),
-            SizedBox(
+            const SizedBox(
               width: NORMALGAP,
             ),
-            Container(
+            SizedBox(
               width: 100,
               height: 40,
               child: ElevatedButton(
                 onPressed: () {
                   taskProvider.dateSelect(context);
                 },
-                child: Text('일자 선택'),
                 style: ElevatedButton.styleFrom(
-                  primary: AppColors.lightPrimary,
+                  backgroundColor: AppColors.lightPrimary,
                 ),
+                child: const Text('일자 선택'),
               ),
             )
           ],

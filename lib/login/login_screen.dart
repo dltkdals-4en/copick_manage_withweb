@@ -1,7 +1,6 @@
 import 'package:copick_manage_withweb/check_data.dart';
 import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:copick_manage_withweb/login/widgets/login_denine_dialog.dart';
-import 'package:copick_manage_withweb/pages/out/home_page.dart';
 import 'package:copick_manage_withweb/provider/login_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -13,14 +12,14 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     var size = MediaQuery.of(context).size;
     var login = Provider.of<LoginProvider>(context);
     if (!isLoginPass) {
       return Scaffold(
         body: Center(
           child: Form(
-            key: _formKey,
+            key: formKey,
             child: Column(
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -40,7 +39,7 @@ class LoginScreen extends StatelessWidget {
                       maxWidth: size.width / 3,
                       maxHeight: 100,
                     ),
-                    focusedBorder: UnderlineInputBorder(
+                    focusedBorder: const UnderlineInputBorder(
                       borderSide: BorderSide(
                         color: AppColors.primary,
                         width: 1,
@@ -50,8 +49,8 @@ class LoginScreen extends StatelessWidget {
                     filled: true,
                     fillColor: AppColors.white,
                     labelText: '이메일 주소를 입력해주세요',
-                    labelStyle: TextStyle(overflow: TextOverflow.ellipsis),
-                    prefixIcon: Icon(
+                    labelStyle: const TextStyle(overflow: TextOverflow.ellipsis),
+                    prefixIcon: const Icon(
                       Icons.email_outlined,
                       color: AppColors.primary,
                     ),
@@ -89,7 +88,7 @@ class LoginScreen extends StatelessWidget {
                     filled: true,
                     fillColor: AppColors.white,
                     labelText: '비밀번호를 입력해주세요',
-                    labelStyle: TextStyle(overflow: TextOverflow.ellipsis),
+                    labelStyle: const TextStyle(overflow: TextOverflow.ellipsis),
                     prefixIcon: const Icon(
                       Icons.password_outlined,
                       color: AppColors.primary,
@@ -117,7 +116,7 @@ class LoginScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Text('자동 로그인'),
+                    const Text('자동 로그인'),
                     SmW,
                     Checkbox(
                       value: login.authoSignIn,
@@ -131,8 +130,8 @@ class LoginScreen extends StatelessWidget {
                 NorH,
                 ElevatedButton(
                   onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      _formKey.currentState!.save();
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
                       await login
                           .loginWithEmail(login.email.text, login.pw.text)
                           .then((value) {
@@ -141,18 +140,18 @@ class LoginScreen extends StatelessWidget {
                           print('success');
                           Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
-                                  builder: (context) => CheckData()),
+                                  builder: (context) => const CheckData()),
                               (route) => false);
                         } else {
                           showDialog(
                             context: context,
-                            builder: (context) => LoginDenineDialog(),
+                            builder: (context) => const LoginDenineDialog(),
                           );
                         }
                       });
                     }
                   },
-                  child: Text('관리자 로그인'),
+                  child: const Text('관리자 로그인'),
                 ),
               ],
             ),
@@ -160,7 +159,7 @@ class LoginScreen extends StatelessWidget {
         ),
       );
     } else {
-      return CheckData();
+      return const CheckData();
     }
   }
 }

@@ -30,7 +30,7 @@ class LocationList extends StatelessWidget {
             Text('카페 개수 : ${locList.length}'),
           ],
         ),
-        SizedBox(
+        const SizedBox(
           height: SMALLGAP,
         ),
         Expanded(
@@ -46,12 +46,6 @@ class LocationList extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     ElevatedButton(
-                      child: Text(
-                        '수정',
-                        style: TextStyle(
-                          color: AppColors.lightPrimary,
-                        ),
-                      ),
                       onPressed: () {
                         // Navigator.of(context).push(
                         //     MaterialPageRoute(
@@ -68,9 +62,15 @@ class LocationList extends StatelessWidget {
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.white,
-                        side: BorderSide(
+                        side: const BorderSide(
                           color: AppColors.lightPrimary,
                           width: 1,
+                        ),
+                      ),
+                      child: const Text(
+                        '수정',
+                        style: TextStyle(
+                          color: AppColors.lightPrimary,
                         ),
                       ),
                     ),
@@ -85,21 +85,21 @@ class LocationList extends StatelessWidget {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      MyApp(),
+                                      const MyApp(),
                                 ),
                                     (route) => false));
                       },
-                      child: Text('삭제'),
                       style: ElevatedButton.styleFrom(
                           backgroundColor:
                           AppColors.lightPrimary),
+                      child: const Text('삭제'),
                     ),
                   ],
                 ),
               );
             },
             separatorBuilder: (context, index) {
-              return Divider();
+              return const Divider();
             },
           ),
         ),
