@@ -130,7 +130,7 @@ class TaskProvider with ChangeNotifier {
         pickUpDate: '',
       );
       await fbProvider.addTaskData(i.toAdd()).then((value) {
-        currentTaskTabIndex = selectedWeek!;
+        currentTaskTabIndex = selectedWeek!-1;
         trackValue = 0;
         initialName = null;
         taskList.clear();
@@ -247,6 +247,7 @@ class TaskProvider with ChangeNotifier {
 
   void sortData() {
     // taskGrouping();
+    print('data sorted');
     totalList.sort((a, b) => a.locationId!.compareTo(b.locationId!));
     taskList.sort((a, b) => a.track!.compareTo(b.track!));
     locList.sort((a, b) => b.locationId!.compareTo(a.locationId!));
@@ -536,7 +537,10 @@ class TaskProvider with ChangeNotifier {
   int? selectedWeek;
 
   void changeWeek(Object? value) {
+
     selectedWeek = int.parse(value.toString());
+    currentTaskTabIndex =selectedWeek!-1;
+    print(selectedWeek);
     notifyListeners();
   }
 }
