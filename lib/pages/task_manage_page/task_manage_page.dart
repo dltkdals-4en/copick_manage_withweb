@@ -61,7 +61,7 @@ class TaskManagePage extends StatelessWidget {
                   ],
                 ),
                 kBigH,
-                SizedBox(
+                Container(
                   height: 200,
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -83,7 +83,7 @@ class TaskManagePage extends StatelessWidget {
                             return Text('${items[index].locationName}// ${items[index].team}');
                           },
                         ),
-                      ):Text('no'),
+                      ):Text('검색 결과가 없습니다.'),
                     ],
                   ),
                 ),

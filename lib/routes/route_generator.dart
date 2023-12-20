@@ -3,7 +3,7 @@ import 'package:copick_manage_withweb/pages/home/home_page.dart';
 import 'package:copick_manage_withweb/pages/loc_manage_page/loc_manage_page.dart';
 import 'package:copick_manage_withweb/pages/splash/splash_page.dart';
 import 'package:copick_manage_withweb/pages/task_manage_page/task_manage_page.dart';
-import 'package:copick_manage_withweb/pages/task_manage_page/widgets/task_add_page.dart';
+import 'package:copick_manage_withweb/pages/task_add_page/task_add_page.dart';
 import 'package:copick_manage_withweb/routes/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -34,7 +34,11 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => const TaskManagePage(),
         );
-      case Routes.taskAdd:
+      // case Routes.taskAdd:
+      //   return MaterialPageRoute(
+      //     builder: (context) => const TaskAddPage(),
+      //   );
+      case Routes.testPage:
         return MaterialPageRoute(
           builder: (context) => const TaskAddPage(),
         );
@@ -42,6 +46,7 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => const MyApp(),
         );
+
     }
   }
 

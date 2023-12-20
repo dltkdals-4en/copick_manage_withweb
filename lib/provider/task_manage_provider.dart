@@ -142,7 +142,7 @@ class TaskManageProvider with ChangeNotifier {
 
   void search(String? value) {
 
-    if (value == null) {
+    if (value == null || value == '') {
      searchList = [];
      notifyListeners();
     } else {

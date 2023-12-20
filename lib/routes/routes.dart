@@ -7,5 +7,7 @@ class Routes {
   static const String location = '/location_manage';
   static const String task = '/task_manage';
   static const String taskAdd = '/task_add';
+
+  static const String testPage = '/test';
 // static const String preparePrefs = '/prepare_prefs';
 }

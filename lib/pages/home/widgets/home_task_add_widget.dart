@@ -1,3 +1,4 @@
+import 'package:copick_manage_withweb/routes/routes.dart';
 import 'package:copick_manage_withweb/utilitys/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,7 +30,9 @@ class HomeTaskAddWidget extends StatelessWidget {
             ),
             kNorW,
             ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                // Navigator.of(context).pushNamed(Routes.taskAdd);
+              },
               style: ElevatedButton.styleFrom(),
               child: const Text('태스크 일괄 추가'),
             ),
