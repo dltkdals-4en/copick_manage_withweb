@@ -30,7 +30,7 @@ class _TaskManagePageState extends State<TaskManagePage>
 
     var totalList = taskProvider.totalList;
     TabController taskTabController = TabController(
-      length: 5,
+      length:5,
       vsync: this,
       initialIndex: (taskProvider.currentTaskTabIndex == null)?0:taskProvider.currentTaskTabIndex!,
     );
@@ -84,6 +84,7 @@ class _TaskManagePageState extends State<TaskManagePage>
                           Text('수요일'),
                           Text('목요일'),
                           Text('금요일'),
+
                         ],
                       ),
 
@@ -98,6 +99,7 @@ class _TaskManagePageState extends State<TaskManagePage>
                             TrackReorderlistWidget(3, taskTabController),
                             TrackReorderlistWidget(4, taskTabController),
                             TrackReorderlistWidget(5, taskTabController),
+
                           ],
                         ),
                       ),

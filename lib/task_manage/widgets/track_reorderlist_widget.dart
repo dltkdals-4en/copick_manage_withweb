@@ -83,7 +83,7 @@ class TrackReorderlistWidget extends StatelessWidget {
                               onPressed: () async {
                                 await taskProvider.deleteTask(
                                     track[index].pickDocId!,
-                                    trackIndex);
+                                    trackIndex, fbProvider);
                               },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.lightPrimary,
@@ -117,7 +117,7 @@ class TrackReorderlistWidget extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                taskProvider.deleteAllTask(trackIndex);
+                taskProvider.deleteAllTask(trackIndex, fbProvider);
               },
               child: Text('${taskProvider.weekDay[trackIndex - 1]}요일 경로 전체 삭제'),
               style: ElevatedButton.styleFrom(),

@@ -9,7 +9,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 class FbHelper with ChangeNotifier {
-  FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   List<WasteLocationModel> locList = [];
   List<PickTaskModel> taskList = [];
@@ -134,7 +134,7 @@ class FbHelper with ChangeNotifier {
         .collection((isAnseong) ? anseongTask : seongsuTask)
         .add(data)
         .then((value) {
-          print('init');
+      print('init');
       hasTaskData = false;
       hasLocData = false;
       hasWeekdayData = false;
@@ -202,8 +202,13 @@ class FbHelper with ChangeNotifier {
         .then((value) {
       hasTaskData = false;
       hasLocData = false;
-
       notifyListeners();
+    });
+  }
+
+  Future<void> deleteAllTask(List<PickTaskModel> list) async {
+    list.forEach((element) async {
+      await deleteTaskData(element.pickDocId!);
     });
   }
 
@@ -226,33 +231,34 @@ class FbHelper with ChangeNotifier {
     }
     notifyListeners();
   }
-  Future<void> addDummyTaskData(List<PickTaskModel> taskList) async{
+
+  Future<void> addDummyTaskData(List<PickTaskModel> taskList) async {
     for (var value in taskList) {
       await _firestore.collection('anseong_task_dummy').add(value.toAdd());
     }
   }
 
-  // Future<void> updateTeamToInt(List<PickTaskModel> taskList) async {
-  //   for (var element in taskList) {
-  //     print(element.team);
-  //     var team = 0;
-  //     switch (element.team) {
-  //       case 'A':
-  //         team = 10;
-  //         break;
-  //       case 'B':
-  //         team = 20;
-  //         break;
-  //       case 'C':
-  //         team = 30;
-  //         break;
-  //       case '추가':
-  //         team = 40;
-  //     }
-  //     await _firestore
-  //         .collection(anseongTask)
-  //         .doc(element.pickDocId)
-  //         .update({'team': team});
-  //   }
-  // }
+// Future<void> updateTeamToInt(List<PickTaskModel> taskList) async {
+//   for (var element in taskList) {
+//     print(element.team);
+//     var team = 0;
+//     switch (element.team) {
+//       case 'A':
+//         team = 10;
+//         break;
+//       case 'B':
+//         team = 20;
+//         break;
+//       case 'C':
+//         team = 30;
+//         break;
+//       case '추가':
+//         team = 40;
+//     }
+//     await _firestore
+//         .collection(anseongTask)
+//         .doc(element.pickDocId)
+//         .update({'team': team});
+//   }
+// }
 }

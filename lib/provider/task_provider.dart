@@ -42,12 +42,14 @@ class TaskProvider with ChangeNotifier {
     3,
     4,
     5,
+    6,
   ];
   List<PickTaskModel> taskListTrack1 = [];
   List<PickTaskModel> taskListTrack2 = [];
   List<PickTaskModel> taskListTrack3 = [];
   List<PickTaskModel> taskListTrack4 = [];
   List<PickTaskModel> taskListTrack5 = [];
+  List<PickTaskModel> taskListTrack6 = [];
 
   TextEditingController codeTextController = TextEditingController();
   TextEditingController nameTextController = TextEditingController();
@@ -257,6 +259,7 @@ class TaskProvider with ChangeNotifier {
     taskListTrack3 = taskList.where((element) => element.track == 3).toList();
     taskListTrack4 = taskList.where((element) => element.track == 4).toList();
     taskListTrack5 = taskList.where((element) => element.track == 5).toList();
+    taskListTrack6 = taskList.where((element) => element.track == 6).toList();
     taskListTrack1.sort(
       (a, b) => a.pickOrder!.compareTo(b.pickOrder!),
     );
@@ -350,22 +353,29 @@ class TaskProvider with ChangeNotifier {
     list.insert(newIndex, item);
   }
 
-  Future<void> deleteTask(String docId, int trackIndex) async {
-    await FbHelper().deleteTaskData(docId).then((value) {
-      currentTaskTabIndex = trackIndex;
+  Future<void> deleteTask(String docId, int trackIndex, FbHelper fbProvider,) async {
+    await fbProvider.deleteTaskData(docId).then((value) {
+      currentTaskTabIndex = trackIndex-1;
       notifyListeners();
     });
   }
 
-  Future<void> deleteAllTask(int trackIndex) async {
-    taskList
+  Future<void> deleteAllTask(int trackIndex, FbHelper fbProvider) async {
+    var list = taskList
         .where((element) => element.track == trackIndex)
-        .toList()
-        .forEach((element) async {
-      await FbHelper().deleteTaskData(element.pickDocId!);
+        .toList();
+    await fbProvider.deleteAllTask(list).then((value){
+      currentTaskTabIndex = trackIndex-1;
+      notifyListeners();
     });
-    currentTaskTabIndex = trackIndex;
-    notifyListeners();
+    // taskList
+    //     .where((element) => element.track == trackIndex)
+    //     .toList()
+    //     .forEach((element) async {
+    //   await FbHelper().deleteTaskData(element.pickDocId!);
+    // });
+    // currentTaskTabIndex = trackIndex-1;
+    // notifyListeners();
   }
 
   getTrackList(int trackIndex) {
@@ -380,6 +390,7 @@ class TaskProvider with ChangeNotifier {
         return taskListTrack4;
       case 5:
         return taskListTrack5;
+
     }
   }
 
