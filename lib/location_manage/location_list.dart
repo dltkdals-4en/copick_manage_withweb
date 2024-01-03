@@ -1,12 +1,13 @@
-import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:copick_manage_withweb/location_manage/widgets/modify_location_dialog.dart';
+import 'package:copick_manage_withweb/utilitys/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/screen_size.dart';
+
 import '../main.dart';
 import '../provider/fb_helper.dart';
 import '../provider/task_provider.dart';
+import '../utilitys/colors.dart';
 
 class LocationList extends StatelessWidget {
   const LocationList({Key? key}) : super(key: key);
@@ -25,7 +26,7 @@ class LocationList extends StatelessWidget {
           children: [
             Text(
               '카페 목록',
-              style: makeTextStyle(20, AppColors.black, 'bold'),
+              style: kHeaderTextStyle.copyWith()
             ),
             Text('카페 개수 : ${locList.length}'),
           ],
@@ -49,7 +50,7 @@ class LocationList extends StatelessWidget {
                       child: Text(
                         '수정',
                         style: TextStyle(
-                          color: AppColors.lightPrimary,
+                          color: KColors.lightPrimary,
                         ),
                       ),
                       onPressed: () {
@@ -67,14 +68,14 @@ class LocationList extends StatelessWidget {
                         );
                       },
                       style: ElevatedButton.styleFrom(
-                        backgroundColor: AppColors.white,
+                        backgroundColor: KColors.white,
                         side: BorderSide(
-                          color: AppColors.lightPrimary,
+                          color: KColors.lightPrimary,
                           width: 1,
                         ),
                       ),
                     ),
-                    SmW,
+                    kSmW,
                     ElevatedButton(
                       onPressed: () {
                         taskProvider
@@ -89,10 +90,10 @@ class LocationList extends StatelessWidget {
                                 ),
                                     (route) => false));
                       },
-                      child: Text('삭제'),
+                      child: Text('삭제', style: kBtnTextStyle.copyWith(fontSize: 14),),
                       style: ElevatedButton.styleFrom(
                           backgroundColor:
-                          AppColors.lightPrimary),
+                         KColors.lightPrimary),
                     ),
                   ],
                 ),

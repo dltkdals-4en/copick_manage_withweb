@@ -1,4 +1,5 @@
 import 'package:copick_manage_withweb/provider/manage_provider.dart';
+import 'package:copick_manage_withweb/utilitys/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -93,7 +94,7 @@ class AddTask extends StatelessWidget {
                           },
                           style: ElevatedButton.styleFrom(
                               backgroundColor: AppColors.lightPrimary),
-                          child: Text('태스크 추가하기'),
+                          child: Text('태스크 추가하기', style: kBtnTextStyle.copyWith(),),
                         ),
                       ),
                     ],

@@ -6,6 +6,8 @@ import 'package:copick_manage_withweb/location_manage/location_manage_page.dart'
 import 'package:copick_manage_withweb/provider/task_provider.dart';
 
 import 'package:copick_manage_withweb/task_record/record_page.dart';
+import 'package:copick_manage_withweb/utilitys/colors.dart';
+import 'package:copick_manage_withweb/utilitys/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -30,8 +32,8 @@ class SelectMenuPage extends StatelessWidget {
               taskProvider.changeTabIndex(value);
             },
             tabs: [
-              Text('매장 관리'),
-              Text('태스크 관리'),
+              Text('매장 관리',style: kLabelTextStyle.copyWith(color: KColors.white),),
+              Text('태스크 관리',style: kLabelTextStyle.copyWith(color: KColors.white),),
             ],
           ),
           actions: [
