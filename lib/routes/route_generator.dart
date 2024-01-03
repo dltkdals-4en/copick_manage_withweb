@@ -34,10 +34,10 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => const TaskManagePage(),
         );
-      // case Routes.taskAdd:
-      //   return MaterialPageRoute(
-      //     builder: (context) => const TaskAddPage(),
-      //   );
+      case Routes.taskAdd:
+        return MaterialPageRoute(
+          builder: (context) => const TaskAddPage(),
+        );
       case Routes.testPage:
         return MaterialPageRoute(
           builder: (context) => const TaskAddPage(),

@@ -87,7 +87,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      initialRoute: Routes.testPage,
+      initialRoute: Routes.splash,
       onGenerateRoute: RouteGenerator.generateRoute,
     );
   }

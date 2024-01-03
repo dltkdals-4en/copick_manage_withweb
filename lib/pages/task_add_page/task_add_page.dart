@@ -1,4 +1,4 @@
-import 'package:copick_manage_withweb/constants/screen_size.dart';
+import 'package:copick_manage_withweb/utilitys/constants.dart';
 import 'package:flutter/material.dart';
 
 class TaskAddPage extends StatelessWidget {
@@ -12,26 +12,49 @@ class TaskAddPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(NORMALGAP),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 3,
-              crossAxisSpacing: NORMALGAP,
-              mainAxisSpacing: NORMALGAP),
-          itemCount: 50,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              child: Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(NORMALGAP),
-                  child: Text('$index'),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('요일 선택'),
+                    Text('월'),
+                  ],
                 ),
+                kBigW,
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('팀 선택'),
+                    Text('A'),
+                  ],
+                ),
+              ],
+            ),
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 3,
+                    childAspectRatio: 3,
+                    crossAxisSpacing: NORMALGAP,
+                    mainAxisSpacing: NORMALGAP),
+                itemCount: 50,
+                itemBuilder: (context, index) {
+                  return CheckboxListTile(
+                    value: false,
+                    onChanged: (value) {},
+                    title: Text('$index'),
+                    controlAffinity: ListTileControlAffinity.leading,
+
+                  );
+                },
               ),
-              onTap: () {
-                print(index);
-              },
-            );
-          },
+            ),
+          ],
         ),
       ),
     );

@@ -75,7 +75,7 @@ class TaskOrderPage extends StatelessWidget {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: KColors.lightPrimary,
                             ),
-                            child: const Text('삭제'),
+                            child: Text('삭제', style: kBtnTextStyle.copyWith(),),
                           ),
                         ],
                       ),

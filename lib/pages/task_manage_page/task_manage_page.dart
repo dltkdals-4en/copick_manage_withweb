@@ -79,8 +79,51 @@ class TaskManagePage extends StatelessWidget {
                           itemCount: tmProvider.searchList!.length,
                           itemBuilder: (context, index) {
                             var items = tmProvider.searchList!;
-
-                            return Text('${items[index].locationName}// ${items[index].team}');
+                            var item = items[index];
+                            return Card(
+                              elevation: 3,
+                              child: Padding(
+                                padding: const EdgeInsets.all(NORMALGAP),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment: CrossAxisAlignment.end,
+                                      children: [
+                                        Text(
+                                          '${index + 1}',
+                                          style: kLabelTextStyle.copyWith(),
+                                        ),
+                                        kNorW,
+                                        Text(
+                                          item.locationName??'',
+                                          style: kLabelTextStyle.copyWith(),
+                                        ),
+                                        kSmW,
+                                        Text(
+                                          '${item.locationId}',
+                                          style: kContentTextStyle.copyWith(),
+                                        ),
+                                        kSmW,
+                                        Text(
+                                          '수거 ${item.team}팀',
+                                          style: kContentTextStyle.copyWith(),
+                                        ),
+                                      ],
+                                    ),
+                                    ElevatedButton(
+                                      onPressed: () {},
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: KColors.lightPrimary,
+                                      ),
+                                      child: const Text('삭제'),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ):Text('검색 결과가 없습니다.'),
