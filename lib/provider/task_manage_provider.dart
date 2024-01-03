@@ -23,6 +23,14 @@ class TaskManageProvider with ChangeNotifier {
   String? searchText;
   List<TaskModel>? searchList = [];
   List<List<TaskModel>>? teamList =[[],[],[],[]];
+  List<String> weekDay=['월','화','수','목','금'];
+  String selectedWeek ='월';
+
+  List<String> team = ['A','B','C','추가'];
+  String selectedTeam= 'A';
+  List<Map<String,dynamic>> addList = [];
+  List<Map<String,dynamic>> addTList = [];
+  List<Map<String,dynamic>> addFList = [];
 
   void changeLocList(String? value) {
     if (value == null) {
@@ -161,7 +169,41 @@ class TaskManageProvider with ChangeNotifier {
     notifyListeners();
   }
 
+  void makeAddList(){
+    if(addList.isNotEmpty){
 
+    }else{
+      wasteList?.forEach((element) {
+        Map<String,dynamic> e= {'waste': element, 'state': false};
+        addList.add(e);
+        addList.sort((a, b) => a['waste'].locationName.compareTo(b['waste'].locationName));
+        getAddList();
+        notifyListeners();
+      });
+    }
+  }
+  void getAddList() {
+    addFList = addList.where((element) => element['state']== false).toList();
+    addTList = addList.where((element) => element['state']== true).toList();
+
+  }
+
+
+  void changeWeek(Object? value) {
+    selectedWeek = value.toString();
+    notifyListeners();
+  }
+
+  void changeTeam(Object? value) {
+    selectedTeam = value.toString();
+    notifyListeners();
+  }
+
+  void changeState(Map<String, dynamic> item) {
+    item['state'] =!item['state'];
+    getAddList();
+    notifyListeners();
+  }
 
 // void search(String value) {
 //   print(value);

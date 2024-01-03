@@ -31,7 +31,8 @@ class HomeTaskAddWidget extends StatelessWidget {
             kNorW,
             ElevatedButton(
               onPressed: () {
-                // Navigator.of(context).pushNamed(Routes.taskAdd);
+                ui.makeAddList();
+                Navigator.of(context).pushNamed(Routes.taskAdd);
               },
               style: ElevatedButton.styleFrom(),
               child: const Text('태스크 일괄 추가'),
