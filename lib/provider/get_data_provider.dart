@@ -72,7 +72,20 @@ class GetDataProvider with ChangeNotifier {
 
   Future<void> updateTaskData() async {}
 
-  Future<void> deleteTaskData() async {}
+  Future<void> deleteTaskData(String docId) async {
+    await FbHelper().deleteTaskData(docId).then((value) async {
+      await FbHelper().getTaskData(areaInfo!.task).then((value) {
+        taskList.clear();
+        for (var element in value.docs) {
+          String locName  = locList.firstWhere((e) => e.locationId == element.data()['location_id']).locationName??'';
+          taskList.add(TaskModel.fromJson(element.data(), locName, element.id));
+        }
+        print('tasklist -> ${taskList.length}');
+        haveTask = true;
+        notifyListeners();
+      });
+    });
+  }
 
   void error() {}
 
@@ -80,5 +93,19 @@ class GetDataProvider with ChangeNotifier {
     haveLoc = false;
     haveTask = false;
     areaInfo = null;
+    notifyListeners();
+  }
+  Future<void> initTask() async {
+    await FbHelper().getTaskData(areaInfo!.task).then((value) {
+      taskList.clear();
+      for (var element in value.docs) {
+        String locName  = locList.firstWhere((e) => e.locationId == element.data()['location_id']).locationName??'';
+        taskList.add(TaskModel.fromJson(element.data(), locName, element.id));
+      }
+      print('tasklist -> ${taskList.length}');
+      haveTask = true;
+      notifyListeners();
+    });
+    notifyListeners();
   }
 }

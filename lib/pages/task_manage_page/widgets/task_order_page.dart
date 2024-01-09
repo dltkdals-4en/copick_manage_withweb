@@ -1,7 +1,9 @@
+import 'package:copick_manage_withweb/provider/get_data_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../../provider/task_manage_provider.dart';
+import '../../../routes/routes.dart';
 import '../../../utilitys/colors.dart';
 import '../../../utilitys/constants.dart';
 
@@ -11,6 +13,7 @@ class TaskOrderPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var tmProvider = Provider.of<TaskManageProvider>(context);
+    var getDataProvider = Provider.of<GetDataProvider>(context);
     var tabIndex = DefaultTabController.of(context).index;
     var items = tmProvider.teamList![tabIndex];
     return Padding(
@@ -23,7 +26,30 @@ class TaskOrderPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text('카페 개수 : ${items.length} 개'),
+                Row(
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        tmProvider.makeAddList(tabIndex);
 
+                        Navigator.of(context).pushNamed(Routes.taskAdd);
+                      },
+                      child: Text('${tmProvider.team[tabIndex]}팀 태스크 추가'),
+                    ),
+                    kNorW,
+                    ElevatedButton(
+                      onPressed: () async{
+                        await tmProvider.deleteWithWeekTeam(tabIndex).whenComplete(() async {
+                          await getDataProvider.initTask().whenComplete(() {
+                            tmProvider.taskList = getDataProvider.taskList;
+                            tmProvider.getDayList(tmProvider.selectedDay!);
+                          });
+                        });
+                      },
+                      child: Text('${tmProvider.team[tabIndex]}팀 태스크 삭제'),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),
@@ -55,7 +81,7 @@ class TaskOrderPage extends StatelessWidget {
                               ),
                               kNorW,
                               Text(
-                                item.locationName??'',
+                                item.locationName ?? '',
                                 style: kLabelTextStyle.copyWith(),
                               ),
                               kSmW,
@@ -65,17 +91,32 @@ class TaskOrderPage extends StatelessWidget {
                               ),
                               kSmW,
                               Text(
-                                '수거 ${item.team}팀',
+                                '수거 ${tmProvider.convertTeam(item.team!)}팀',
+                                style: kContentTextStyle.copyWith(),
+                              ),
+                              kSmW,
+                              Text(
+                                '수거 ${item.track} 트랙',
                                 style: kContentTextStyle.copyWith(),
                               ),
                             ],
                           ),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await getDataProvider
+                                  .deleteTaskData(item.pickDocId!)
+                                  .whenComplete(() {
+                                tmProvider.taskList = getDataProvider.taskList;
+                                tmProvider.getDayList(tmProvider.selectedDay!);
+                              });
+                            },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: KColors.lightPrimary,
                             ),
-                            child: Text('삭제', style: kBtnTextStyle.copyWith(),),
+                            child: Text(
+                              '삭제',
+                              style: kBtnTextStyle.copyWith(),
+                            ),
                           ),
                         ],
                       ),

@@ -20,6 +20,7 @@ class TaskManagePage extends StatelessWidget {
 
     return DefaultTabController(
       length: 4,
+
       child: Scaffold(
         appBar: AppBar(
           title: const TaskAppBarWidget(),
@@ -36,29 +37,33 @@ class TaskManagePage extends StatelessWidget {
             padding: const EdgeInsets.all(NORMALGAP),
             child: Column(
               children: [
-                Row(
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        tmProvider.deleteTask();
-                      },
-                      child: const Text('태스크 추가'),
-                    ),
-                    kNorW,
-                    ElevatedButton(
-                      onPressed: () {
-                        tmProvider.deleteAllTask();
-                      },
-                      child: const Text('추가 태스크 삭제'),
-                    ),
-                    kNorW,
-                    ElevatedButton(
-                      onPressed: () {
-                        tmProvider.deleteAllTask();
-                      },
-                      child: const Text('태스크 전체 삭제'),
-                    ),
-                  ],
+                // Row(
+                //   children: [
+                //     ElevatedButton(
+                //       onPressed: () {
+                //         tmProvider.deleteTask();
+                //       },
+                //       child: const Text('태스크 추가'),
+                //     ),
+                //     kNorW,
+                //     ElevatedButton(
+                //       onPressed: () {
+                //         tmProvider.deleteAllTask();
+                //       },
+                //       child: const Text('추가 태스크 삭제'),
+                //     ),
+                //     kNorW,
+                //     ElevatedButton(
+                //       onPressed: () {
+                //         tmProvider.deleteAllTask();
+                //       },
+                //       child: const Text('태스크 전체 삭제'),
+                //     ),
+                //   ],
+                // ),
+                // kBigH,
+                Container(
+                  child: Text('전체 태스크 수 : 00개'),
                 ),
                 kBigH,
                 Container(
@@ -74,68 +79,88 @@ class TaskManagePage extends StatelessWidget {
                       ),
                       kNorH,
                       // (tmProvider.)
-                      (items!.isNotEmpty)?Expanded(
-                        child: ListView.builder(
-                          itemCount: tmProvider.searchList!.length,
-                          itemBuilder: (context, index) {
-                            var items = tmProvider.searchList!;
-                            var item = items[index];
-                            return Card(
-                              elevation: 3,
-                              child: Padding(
-                                padding: const EdgeInsets.all(NORMALGAP),
-                                child: Row(
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment: CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          '${index + 1}',
-                                          style: kLabelTextStyle.copyWith(),
-                                        ),
-                                        kNorW,
-                                        Text(
-                                          item.locationName??'',
-                                          style: kLabelTextStyle.copyWith(),
-                                        ),
-                                        kSmW,
-                                        Text(
-                                          '${item.locationId}',
-                                          style: kContentTextStyle.copyWith(),
-                                        ),
-                                        kSmW,
-                                        Text(
-                                          '수거 ${item.team}팀',
-                                          style: kContentTextStyle.copyWith(),
-                                        ),
-                                      ],
-                                    ),
-                                    ElevatedButton(
-                                      onPressed: () {},
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: KColors.lightPrimary,
+                      (items!.isNotEmpty)
+                          ? Expanded(
+                              child: ListView.builder(
+                                itemCount: tmProvider.searchList!.length,
+                                itemBuilder: (context, index) {
+                                  var items = tmProvider.searchList!;
+                                  var item = items[index];
+                                  return Card(
+                                    elevation: 3,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(NORMALGAP),
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            mainAxisSize: MainAxisSize.min,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            children: [
+                                              Text(
+                                                '${index + 1}',
+                                                style:
+                                                    kLabelTextStyle.copyWith(),
+                                              ),
+                                              kNorW,
+                                              Text(
+                                                item.locationName ?? '',
+                                                style:
+                                                    kLabelTextStyle.copyWith(),
+                                              ),
+                                              kSmW,
+                                              Text(
+                                                '${item.locationId}',
+                                                style: kContentTextStyle
+                                                    .copyWith(),
+                                              ),
+                                              kSmW,
+                                              Text(
+                                                '수거 ${item.team}팀',
+                                                style: kContentTextStyle
+                                                    .copyWith(),
+                                              ),
+                                            ],
+                                          ),
+                                          ElevatedButton(
+                                            onPressed: () {},
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor:
+                                                  KColors.lightPrimary,
+                                            ),
+                                            child: const Text('삭제'),
+                                          ),
+                                        ],
                                       ),
-                                      child: const Text('삭제'),
                                     ),
-                                  ],
-                                ),
+                                  );
+                                },
                               ),
-                            );
-                          },
-                        ),
-                      ):Text('검색 결과가 없습니다.'),
+                            )
+                          : Text('검색 결과가 없습니다.'),
                     ],
                   ),
                 ),
                 TabBar(
-                  tabs: const [
-                    Text('A팀'),
-                    Text('B팀'),
-                    Text('C팀'),
-                    Text('추가 요청'),
+                  tabs: [
+                    Tab(
+                      text: tmProvider.team[0],
+
+                    ),
+                    Tab(
+                      text: tmProvider.team[1],
+                    ),
+                    Tab(
+                      text: tmProvider.team[2],
+                    ),
+                    Tab(
+                      text: tmProvider.team[3],
+
+                    ),
                   ],
                   labelStyle: makeTextStyle(18, KColors.lightPrimary, 'bold'),
                   unselectedLabelStyle:
@@ -144,6 +169,8 @@ class TaskManagePage extends StatelessWidget {
                   unselectedLabelColor: KColors.black,
                   labelPadding: const EdgeInsets.all(SMALLGAP),
                   indicatorColor: KColors.lightPrimary,
+                  indicatorSize: TabBarIndicatorSize.tab,
+
                 ),
                 const Expanded(
                   child: TabBarView(

@@ -23,15 +23,15 @@ class HomeTaskAddWidget extends StatelessWidget {
         kNorH,
         Row(
           children: [
-            ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(),
-              child: const Text('개별 태스크 추가'),
-            ),
-            kNorW,
+            // ElevatedButton(
+            //   onPressed: () {},
+            //   style: ElevatedButton.styleFrom(),
+            //   child: const Text('개별 태스크 추가'),
+            // ),
+            // kNorW,
             ElevatedButton(
               onPressed: () {
-                ui.makeAddList();
+                ui.makeAddList(null);
                 Navigator.of(context).pushNamed(Routes.taskAdd);
               },
               style: ElevatedButton.styleFrom(),
