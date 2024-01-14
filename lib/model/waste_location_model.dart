@@ -50,7 +50,17 @@ class WasteLocationModel {
         lastCallDate = dateFormat(json['last_call_date']),
         locationAdmin = json['location_admin'],
         locDocId = docId;
+
+  WasteLocationModel.fromHttpJson(Map<String, dynamic> json)
+      : locationId = formatId(json["cafe_code"]),
+        locationName = json['cafe_name'],
+// locationPostal = json['location_post'],
+        locationAddress = json['location_addr'],
+        locationGpsLat  = double.parse(json['location_gps_lat']),
+        locationGpsLong = double.parse(json['location_gps_lng']),
+        locationTel = json['manager_tel'];
 }
+
 
 String idFormat(data) {
   if (data.runtimeType == String) {
@@ -67,4 +77,18 @@ String dateFormat(Timestamp timestamp) {
   var stringToDate = DateFormat('yy-MM-dd HH:mm').parse(date);
   var format = DateFormat('yy/MM/dd HH:mm');
   return format.format(stringToDate);
+}
+String? formatId(json) {
+  var i = json.toString();
+  String? j;
+  if (i.startsWith('S')) {
+    j = i.substring(1);
+  }else if(i.startsWith('A0')){
+    j = i.replaceFirst("A0", '1');
+  }
+  else{
+    j = i;
+  }
+
+  return j;
 }

@@ -1,6 +1,7 @@
 import 'package:copick_manage_withweb/provider/fb_helper.dart';
 import 'package:flutter/material.dart';
 import '../data_helper/enum_helper.dart';
+import '../data_helper/http_helper.dart';
 import '../model/task_model.dart';
 import '../model/waste_location_model.dart';
 
@@ -21,7 +22,6 @@ class GetDataProvider with ChangeNotifier {
       if (areaInfo != null) {
         print('${areaInfo!.waste} data loading');
         if (!haveLoc) {
-
           await FbHelper().getLocData(areaInfo!.waste).then((value) {
             locList.clear();
             for (var element in value.docs) {
@@ -39,17 +39,42 @@ class GetDataProvider with ChangeNotifier {
     }
   }
 
+  Future<void> getHttpLocData() async {
+    if (!haveLoc) {
+      if (areaInfo != null) {
+        print('${areaInfo!.waste} data loading');
+        if (!haveLoc) {
+          await HttpHelper().getCafeInfo('anseong').then((value) async {
+            locList.clear();
+            for (var element in value) {
+              locList.add(WasteLocationModel.fromHttpJson(element));
+            }
+            print('loclist -> ${locList.length}');
+            haveLoc = true;
+            notifyListeners();
+          });
+        } else {
+          print('Area empty');
+        }
+      }
+    }
+  }
+
   Future<void> getTaskData() async {
     if (!haveTask) {
       if (areaInfo != null) {
         print('${areaInfo!.task} data loading');
         if (!haveTask) {
-
           await FbHelper().getTaskData(areaInfo!.task).then((value) {
             taskList.clear();
             for (var element in value.docs) {
-              String locName  = locList.firstWhere((e) => e.locationId == element.data()['location_id']).locationName??'';
-              taskList.add(TaskModel.fromJson(element.data(), locName, element.id));
+              String locName = locList
+                      .firstWhere(
+                          (e) => e.locationId == element.data()['location_id'])
+                      .locationName ??
+                  '';
+              taskList
+                  .add(TaskModel.fromJson(element.data(), locName, element.id));
             }
             print('tasklist -> ${taskList.length}');
             haveTask = true;
@@ -77,7 +102,11 @@ class GetDataProvider with ChangeNotifier {
       await FbHelper().getTaskData(areaInfo!.task).then((value) {
         taskList.clear();
         for (var element in value.docs) {
-          String locName  = locList.firstWhere((e) => e.locationId == element.data()['location_id']).locationName??'';
+          String locName = locList
+                  .firstWhere(
+                      (e) => e.locationId == element.data()['location_id'])
+                  .locationName ??
+              '';
           taskList.add(TaskModel.fromJson(element.data(), locName, element.id));
         }
         print('tasklist -> ${taskList.length}');
@@ -95,11 +124,16 @@ class GetDataProvider with ChangeNotifier {
     areaInfo = null;
     notifyListeners();
   }
+
   Future<void> initTask() async {
     await FbHelper().getTaskData(areaInfo!.task).then((value) {
       taskList.clear();
       for (var element in value.docs) {
-        String locName  = locList.firstWhere((e) => e.locationId == element.data()['location_id']).locationName??'';
+        String locName = locList
+                .firstWhere(
+                    (e) => e.locationId == element.data()['location_id'])
+                .locationName ??
+            '';
         taskList.add(TaskModel.fromJson(element.data(), locName, element.id));
       }
       print('tasklist -> ${taskList.length}');

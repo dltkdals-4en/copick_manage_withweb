@@ -1,183 +1,26 @@
 {
   "project_info": {
-    "project_number": "529322696116",
-    "project_id": "ctg-app-80208",
-    "storage_bucket": "ctg-app-80208.appspot.com"
+    "project_number": "391501046086",
+    "project_id": "copick-13aa2",
+    "storage_bucket": "copick-13aa2.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:529322696116:android:573757e9fc4a9e8feaa6e1",
-        "android_client_info": {
-          "package_name": "com.fouren.coPick"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "529322696116-tob3itp0du6roifr19nrj9oub2pcujsp.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.fouren.coPick",
-            "certificate_hash": "91cc178e2ac885acf0cbadb597f1bd7e7186784d"
-          }
-        },
-        {
-          "client_id": "529322696116-cfag6p0fpgqj9cn9qlg54qrsjc2k1ugn.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCtWu1ULcRHlXJObS8tVYYhx0tZAR66R4A"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "529322696116-cfag6p0fpgqj9cn9qlg54qrsjc2k1ugn.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "529322696116-8v4ce11joe90lfvl22lginne1h7ap3a0.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.fouren.ctgdelivery"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:529322696116:android:24e89c35d5beacdbeaa6e1",
-        "android_client_info": {
-          "package_name": "com.fouren.copick_demo_v220401"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "529322696116-nn2jjlv2hb7ht752balh6obtois54mid.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.fouren.copick_demo_v220401",
-            "certificate_hash": "91cc178e2ac885acf0cbadb597f1bd7e7186784d"
-          }
-        },
-        {
-          "client_id": "529322696116-cfag6p0fpgqj9cn9qlg54qrsjc2k1ugn.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCtWu1ULcRHlXJObS8tVYYhx0tZAR66R4A"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "529322696116-cfag6p0fpgqj9cn9qlg54qrsjc2k1ugn.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "529322696116-8v4ce11joe90lfvl22lginne1h7ap3a0.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.fouren.ctgdelivery"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:529322696116:android:eabf890526ba6062eaa6e1",
+        "mobilesdk_app_id": "1:391501046086:android:a824595e58fb615b54c547",
         "android_client_info": {
           "package_name": "com.fouren.copick_manage_withweb"
         }
       },
-      "oauth_client": [
-        {
-          "client_id": "529322696116-b7rn07g959thnbpq68vp4krgjfanckps.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.fouren.copick_manage_withweb",
-            "certificate_hash": "91cc178e2ac885acf0cbadb597f1bd7e7186784d"
-          }
-        },
-        {
-          "client_id": "529322696116-cfag6p0fpgqj9cn9qlg54qrsjc2k1ugn.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
+      "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyCtWu1ULcRHlXJObS8tVYYhx0tZAR66R4A"
+          "current_key": "AIzaSyAUWzKtsxRISH85B2_VKw7RYpAKD6gwLmE"
         }
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "529322696116-cfag6p0fpgqj9cn9qlg54qrsjc2k1ugn.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "529322696116-8v4ce11joe90lfvl22lginne1h7ap3a0.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.fouren.ctgdelivery"
-              }
-            }
-          ]
-        }
-      }
-    },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:529322696116:android:11f5a1fc02798ab4eaa6e1",
-        "android_client_info": {
-          "package_name": "com.fouren.ctgdeliver"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "529322696116-8aisvolggtf35l1bet5b6gfsgp0vp7cf.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.fouren.ctgdeliver",
-            "certificate_hash": "91cc178e2ac885acf0cbadb597f1bd7e7186784d"
-          }
-        },
-        {
-          "client_id": "529322696116-cfag6p0fpgqj9cn9qlg54qrsjc2k1ugn.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyCtWu1ULcRHlXJObS8tVYYhx0tZAR66R4A"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "529322696116-cfag6p0fpgqj9cn9qlg54qrsjc2k1ugn.apps.googleusercontent.com",
-              "client_type": 3
-            },
-            {
-              "client_id": "529322696116-8v4ce11joe90lfvl22lginne1h7ap3a0.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.fouren.ctgdelivery"
-              }
-            }
-          ]
+          "other_platform_oauth_client": []
         }
       }
     }

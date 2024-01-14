@@ -11,6 +11,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'firebase_options.dart';
 
 import 'isDebug.dart';
 
@@ -18,14 +19,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   await Firebase.initializeApp(
-    options: const FirebaseOptions(
-        apiKey: "AIzaSyBH7OPHLLl0rRhkVznXFOu15YV-mgWbk7s",
-        authDomain: "ctg-app-80208.firebaseapp.com",
-        projectId: "ctg-app-80208",
-        storageBucket: "ctg-app-80208.appspot.com",
-        messagingSenderId: "529322696116",
-        appId: "1:529322696116:web:ae76584e7a20aa8feaa6e1",
-        measurementId: "G-41XK5HCY5Q"),
+    options: DefaultFirebaseOptions.currentPlatform,
   );
 
   runApp(

@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "ctg-app-80208"
-  }
+    "default": "copick-13aa2",
+    "copick": "copick-13aa2"
+  },
+  "targets": {},
+  "etags": {}
 }

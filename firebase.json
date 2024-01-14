@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "site": "copickadminsd",
+
+    "site": "copickmanager",
     "public": "build/web",
     "ignore": [
       "firebase.json",

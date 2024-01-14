@@ -13,7 +13,7 @@ class RootPage extends StatelessWidget {
     var data = Provider.of<GetDataProvider>(context);
     var tmProvider = Provider.of<TaskManageProvider>(context);
     if (!data.haveLoc) {
-      data.getLocData();
+      data.getHttpLocData();
       return const LoadingScreen();
     } else if (!data.haveTask) {
       data.getTaskData();
