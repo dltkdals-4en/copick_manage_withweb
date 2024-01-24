@@ -1,6 +1,7 @@
 {
   "hosting": {
-    "public": "build web",
+    "site": "copickmanager-anseong",
+    "public": "build/web",
     "ignore": [
       "firebase.json",
       "**/.*",

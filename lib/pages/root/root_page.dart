@@ -1,9 +1,10 @@
-import 'package:copick_manage_withweb/constants/loading_screen.dart';
 import 'package:copick_manage_withweb/pages/home/home_page.dart';
 import 'package:copick_manage_withweb/provider/get_data_provider.dart';
 import 'package:copick_manage_withweb/provider/task_manage_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import '../../utilitys/loading_screen.dart';
 
 class RootPage extends StatelessWidget {
   const RootPage({super.key});

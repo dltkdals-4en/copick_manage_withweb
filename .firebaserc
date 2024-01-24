@@ -3,6 +3,14 @@
     "default": "copick-13aa2",
     "copick": "copick-13aa2"
   },
-  "targets": {},
+  "targets": {
+    "copick-13aa2": {
+      "hosting": {
+        "manager": [
+          "copickmnager-anseong"
+        ]
+      }
+    }
+  },
   "etags": {}
 }

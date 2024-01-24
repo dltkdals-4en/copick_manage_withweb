@@ -8,7 +8,7 @@ import 'package:gsheets/gsheets.dart';
 import '../isDebug.dart';
 import '../model/pick_task_model.dart';
 import '../model/waste_location_model.dart';
-import 'fb_helper.dart';
+import '../data_helper/fb_helper.dart';
 
 class TaskProvider with ChangeNotifier {
   TextEditingController dateTextController = TextEditingController();

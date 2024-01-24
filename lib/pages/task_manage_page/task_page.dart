@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class AddSingleTask extends StatelessWidget {
-  const AddSingleTask({super.key});
+class TaskPage extends StatelessWidget {
+  const TaskPage({super.key});
 
   @override
   Widget build(BuildContext context) {

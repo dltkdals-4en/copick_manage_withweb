@@ -1,10 +1,9 @@
-import 'package:copick_manage_withweb/task_manage/task_manage_page.dart';
-import 'package:copick_manage_withweb/constants/constants.dart';
-import 'package:copick_manage_withweb/location_manage/location_manage_page.dart';
 import 'package:copick_manage_withweb/provider/task_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+
+import 'utilitys/colors.dart';
 
 class SelectMenuPage extends StatelessWidget {
   const SelectMenuPage({Key? key}) : super(key: key);
@@ -17,11 +16,11 @@ class SelectMenuPage extends StatelessWidget {
       initialIndex: taskProvider.currentDefaultTabIndex,
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: AppColors.lightPrimary,
+          backgroundColor:KColors.lightPrimary,
           title: const Text('CO:PICK 관리'),
           bottom: TabBar(
             labelPadding: const EdgeInsets.all(10),
-            indicatorColor: AppColors.white,
+            indicatorColor:KColors.white,
             onTap: (value) {
               print(value);
               taskProvider.changeTabIndex(value);
@@ -55,8 +54,8 @@ class SelectMenuPage extends StatelessWidget {
         body: const Center(
           child: TabBarView(
             children: [
-              WasteLocationPage(),
-              TaskManagePage(),
+              // WasteLocationPage(),
+              // TaskManagePage(),
             ],
           ),
         ),
@@ -64,3 +63,4 @@ class SelectMenuPage extends StatelessWidget {
     );
   }
 }
+

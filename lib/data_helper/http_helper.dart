@@ -153,20 +153,20 @@ class HttpHelper {
   //   print(response.body);
   // }
   //
-  // Future<dynamic> getWasteInfo(int cafeCode, String date) async {
-  //   await http
-  //       .post(
-  //           Uri.parse(
-  //               'https://foureniotdata.cafe24.com/anseong/api/viewWasteInfo.php'),
-  //           headers: <String, String>{
-  //             'Content-Type': 'application/json',
-  //           },
-  //           body: jsonEncode({'cafeCode': cafeCode, 'pickDate': date}))
-  //       .then((value) {
-  //     var i = jsonDecode(value.body);
-  //     return i;
-  //   });
-  // }
+  Future<dynamic> getWasteInfo(int cafeCode, String date) async {
+    await http
+        .post(
+            Uri.parse(
+                'https://foureniotdata.cafe24.com/anseong/api/viewWasteInfo.php'),
+            headers: <String, String>{
+              'Content-Type': 'application/json',
+            },
+            body: jsonEncode({'cafeCode': cafeCode, 'pickDate': date}))
+        .then((value) {
+      var i = jsonDecode(value.body);
+      return i;
+    });
+  }
   //
   // Future<void> postApi(String url, Map<String, dynamic> data) async {
   //   var response = await http.post(

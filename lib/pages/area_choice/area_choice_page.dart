@@ -1,4 +1,3 @@
-import 'package:copick_manage_withweb/constants/constants.dart';
 import 'package:copick_manage_withweb/data_helper/enum_helper.dart';
 import 'package:copick_manage_withweb/provider/get_data_provider.dart';
 import 'package:copick_manage_withweb/routes/routes.dart';
@@ -20,7 +19,7 @@ class AreaChoicePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text('관리할 지역을 선택해주세요',style: kHeaderTextStyle,),
-            BigH,
+            kBigH,
             CustomBtn(
               onPressed: () {
                 server.changeArea(AreaInfo.Seongdong);
@@ -29,7 +28,7 @@ class AreaChoicePage extends StatelessWidget {
               title: '성동',
               size: const Size(150, 50),
             ),
-            NorH,
+            kNorH,
             CustomBtn(
               onPressed: () {
                 server.changeArea(AreaInfo.Anseong);

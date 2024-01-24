@@ -1,6 +1,6 @@
 import 'package:copick_manage_withweb/data_helper/enum_helper.dart';
 import 'package:copick_manage_withweb/model/pick_task_model.dart';
-import 'package:copick_manage_withweb/provider/fb_helper.dart';
+import 'package:copick_manage_withweb/data_helper/fb_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

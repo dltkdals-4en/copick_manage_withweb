@@ -1,5 +1,6 @@
 import 'package:copick_manage_withweb/pages/home/widgets/home_task_add_widget.dart';
 import 'package:copick_manage_withweb/pages/home/widgets/home_task_check_widget.dart';
+import 'package:copick_manage_withweb/pages/record/record_page/record_page.dart';
 import 'package:copick_manage_withweb/provider/get_data_provider.dart';
 import 'package:copick_manage_withweb/provider/task_manage_provider.dart';
 import 'package:copick_manage_withweb/routes/routes.dart';
@@ -90,6 +91,35 @@ class HomePage extends StatelessWidget {
                       const HomeTaskAddWidget(),
                       kBigH,
                       const HomeTaskCheckWidget(),
+                    ],
+                  ),
+                ),
+              ),
+              kBigH,
+              Container(
+                width: size.width,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    width: 1,
+                    color: KColors.lightPrimary,
+                  ),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(NORMALGAP),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        '수거 내역 관리',
+                        style: kHeaderTextStyle.copyWith(),
+                      ),
+                      kBigH,
+                      ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamed(Routes.record);
+                          },
+                          child: Text('수거 내역 보기')),
                     ],
                   ),
                 ),
