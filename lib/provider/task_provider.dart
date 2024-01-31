@@ -344,12 +344,12 @@ class TaskProvider with ChangeNotifier {
     list.insert(newIndex, item);
   }
 
-  Future<void> deleteTask(FbHelper fbProvider, String docId,
-      TabController taskTabController, int trackIndex) async {
-    await fbProvider.deleteTaskData(docId).then((value) {
-      currentTaskTabIndex = trackIndex;
-    });
-  }
+  // Future<void> deleteTask(FbHelper fbProvider, String docId,
+  //     TabController taskTabController, int trackIndex) async {
+  //   await fbProvider.deleteTaskData(docId, ).then((value) {
+  //     currentTaskTabIndex = trackIndex;
+  //   });
+  // }
 
   getTrackList(int trackIndex) {
     switch (trackIndex) {

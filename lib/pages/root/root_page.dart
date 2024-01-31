@@ -14,7 +14,7 @@ class RootPage extends StatelessWidget {
     var data = Provider.of<GetDataProvider>(context);
     var tmProvider = Provider.of<TaskManageProvider>(context);
     if (!data.haveLoc) {
-      data.getHttpLocData();
+      data.getLocData();
       return const LoadingScreen();
     } else if (!data.haveTask) {
       data.getTaskData();
@@ -23,6 +23,7 @@ class RootPage extends StatelessWidget {
       tmProvider.selectedArea = data.areaInfo;
       tmProvider.taskList = data.taskList;
       tmProvider.sortLocList(data.locList);
+
       // ui.wasteList = data.locList;
 
       return const HomePage();

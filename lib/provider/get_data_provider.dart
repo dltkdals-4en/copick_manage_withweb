@@ -21,20 +21,22 @@ class GetDataProvider with ChangeNotifier {
     if (!haveLoc) {
       if (areaInfo != null) {
         print('${areaInfo!.waste} data loading');
-        if (!haveLoc) {
-          await FbHelper().getLocData(areaInfo!.waste).then((value) {
-            locList.clear();
-            for (var element in value.docs) {
-              locList
-                  .add(WasteLocationModel.fromJson(element.data(), element.id));
-            }
-            print('loclist -> ${locList.length}');
-            haveLoc = true;
-            notifyListeners();
-          });
+        if (areaInfo == AreaInfo.Anseong) {
+          await getHttpLocData();
+        } else {
+          if (!haveLoc) {
+            await FbHelper().getLocData(areaInfo!.waste).then((value) {
+              locList.clear();
+              for (var element in value.docs) {
+                locList.add(
+                    WasteLocationModel.fromJson(element.data(), element.id));
+              }
+              print('loclist -> ${locList.length}');
+              haveLoc = true;
+              notifyListeners();
+            });
+          }
         }
-      } else {
-        print('Area empty');
       }
     }
   }
@@ -44,7 +46,7 @@ class GetDataProvider with ChangeNotifier {
       if (areaInfo != null) {
         print('${areaInfo!.waste} data loading');
         if (!haveLoc) {
-          await HttpHelper().getCafeInfo('anseong').then((value) async {
+          await HttpHelper().getCafeInfo(areaInfo!.api).then((value) async {
             locList.clear();
             for (var element in value) {
               locList.add(WasteLocationModel.fromHttpJson(element));
@@ -98,7 +100,7 @@ class GetDataProvider with ChangeNotifier {
   Future<void> updateTaskData() async {}
 
   Future<void> deleteTaskData(String docId) async {
-    await FbHelper().deleteTaskData(docId).then((value) async {
+    await FbHelper().deleteTaskData(docId, areaInfo).then((value) async {
       await FbHelper().getTaskData(areaInfo!.task).then((value) {
         taskList.clear();
         for (var element in value.docs) {
@@ -121,7 +123,6 @@ class GetDataProvider with ChangeNotifier {
   void init() {
     haveLoc = false;
     haveTask = false;
-    areaInfo = null;
     notifyListeners();
   }
 

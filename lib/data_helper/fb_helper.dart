@@ -55,7 +55,7 @@ class FbHelper {
 
 
 
-  Future<void> addTaskDataM(List<PickTaskModel> pickTask) async {
+  Future<void> addTaskDataM(List<PickTaskModel> pickTask, AreaInfo? selectedArea) async {
     for (var value in pickTask) {
       await _firestore
           .collection(selectedArea!.task)
@@ -85,7 +85,7 @@ class FbHelper {
         .delete();
   }
 
-  Future<void> deleteTaskData(String docId) async {
+  Future<void> deleteTaskData(String docId, AreaInfo? selectedArea) async {
     await _firestore
         .collection(selectedArea!.task)
         .doc(docId)

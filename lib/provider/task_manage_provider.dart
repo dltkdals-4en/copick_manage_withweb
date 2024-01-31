@@ -80,6 +80,10 @@ class TaskManageProvider with ChangeNotifier {
         .length
         .toString();
   }
+  void settingArea(AreaInfo areaInfo){
+    selectedArea = areaInfo;
+    notifyListeners();
+  }
 
   void saveTaskIndex(int index) {
     print('saveTaskINdex weekday -> $index');
@@ -183,9 +187,7 @@ class TaskManageProvider with ChangeNotifier {
         0;
   }
 
-  void deleteTask() {
-    notifyListeners();
-  }
+
 
   void makeAddList(int? tabIndex) {
     saveWeekAndTeam(tabIndex);
@@ -265,7 +267,7 @@ class TaskManageProvider with ChangeNotifier {
     }
   }
 
-  Future<void> addReserve(FbHelper fbHelper) async {
+  Future<void> addReserve() async {
     var track = weekDay.indexOf(selectedWeek!) + 1;
     var teamNum = (team.indexOf(selectedTeam!) + 1) * 10;
 
@@ -279,7 +281,7 @@ class TaskManageProvider with ChangeNotifier {
         pickOrder: 0,
       ));
     }
-    await fbHelper.addTaskDataM(reserveList).then((value) {
+    await FbHelper().addTaskDataM(reserveList,selectedArea).then((value) {
       selectedTeam = null;
       selectedWeek = null;
       initReserve();
@@ -302,7 +304,13 @@ class TaskManageProvider with ChangeNotifier {
       notifyListeners();
     }
   }
-
+  bool reserveValidation(){
+    if(selectedWeek == null || selectedTeam == null){
+      return false;
+    }else{
+      return true;
+    }
+  }
   bool overlapValidation(locationId) {
     var track = weekDay.indexOf(selectedWeek!) + 1;
     if (taskList!
@@ -330,7 +338,9 @@ class TaskManageProvider with ChangeNotifier {
     getAddList();
     notifyListeners();
   }
-
+  Future<void> deleteTask(String? pickDocId) async{
+    await FbHelper().deleteTaskData(pickDocId!,selectedArea);
+  }
   Future<void> deleteWithWeekTeam(tabIndex) async{
     saveWeekAndTeam(tabIndex);
     var track = weekDay.indexOf(selectedWeek!) + 1;
@@ -340,7 +350,7 @@ class TaskManageProvider with ChangeNotifier {
             element.team == teamNum.toString() && element.track == track)
         .toList();
     for (var value in deleteList) {
-      await FbHelper().deleteTaskData(value.pickDocId!);
+      await FbHelper().deleteTaskData(value.pickDocId!,selectedArea);
     }
     notifyListeners();
   }
