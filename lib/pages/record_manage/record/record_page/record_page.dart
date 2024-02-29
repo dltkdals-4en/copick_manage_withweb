@@ -2,7 +2,8 @@ import 'package:copick_manage_withweb/provider/record_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../utilitys/constants.dart';
+import '../../../../utilitys/constants.dart';
+
 
 class RecordPage extends StatelessWidget {
   const RecordPage({super.key});

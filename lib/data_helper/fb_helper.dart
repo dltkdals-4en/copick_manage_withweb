@@ -5,10 +5,12 @@ import 'package:copick_manage_withweb/model/pick_task_model.dart';
 import 'package:copick_manage_withweb/model/task_record_model.dart';
 import 'package:copick_manage_withweb/model/total_task_model.dart';
 import 'package:copick_manage_withweb/model/waste_location_model.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 class FbHelper {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
+  final FirebaseStorage storage = FirebaseStorage.instance;
   List<WasteLocationModel> locList = [];
   List<PickTaskModel> taskList = [];
   List<WeekdayTaskModel> weekdayList = [];
@@ -64,7 +66,7 @@ class FbHelper {
     }
   }
 
-  Future<void> addLocData(Map<String, dynamic> map) async {
+  Future<void> addLocData(Map<String, dynamic> map,AreaInfo? selectedArea) async {
     await _firestore
         .collection(selectedArea!.waste)
         .doc()
@@ -109,5 +111,11 @@ class FbHelper {
   Future<QuerySnapshot<Map<String, dynamic>>> getLocData(String locPath) async {
     print('fb get $locPath Data');
     return await _firestore.collection(locPath).get();
+  }
+
+  Future<void> uploadImage() async{
+     var i = storage.ref();
+     // i.child('').putData(data);
+
   }
 }

@@ -1,11 +1,7 @@
-import 'package:copick_manage_withweb/pages/task_add_page/widgets/add_item_widget.dart';
-import 'package:copick_manage_withweb/pages/task_add_page/widgets/task_add_cafelist_widget.dart';
-import 'package:copick_manage_withweb/pages/task_add_page/widgets/task_add_reservelist_widget.dart';
-import 'package:copick_manage_withweb/provider/task_manage_provider.dart';
-import 'package:copick_manage_withweb/utilitys/colors.dart';
 import 'package:copick_manage_withweb/utilitys/constants.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'widgets/task_add_cafelist_widget.dart';
+import 'widgets/task_add_reservelist_widget.dart';
 
 class TaskAddPage extends StatelessWidget {
   const TaskAddPage({super.key});

@@ -13,6 +13,70 @@ class RootPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var data = Provider.of<GetDataProvider>(context);
     var tmProvider = Provider.of<TaskManageProvider>(context);
+    return FutureBuilder(
+      future: data.getLocData(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.done) {
+          if (snapshot.hasError || !snapshot.data!) {
+            return const LoadingScreen(
+              text: "오류 발생",
+            );
+          } else if (snapshot.hasData) {
+            if (snapshot.data!) {
+              return FutureBuilder(
+                future: data.getTaskData(),
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done) {
+                    if (snapshot.hasError) {
+                      return const LoadingScreen(
+                        text: "오류 발생",
+                      );
+                    } else {
+                      tmProvider.selectedArea = data.areaInfo;
+                      tmProvider.taskList = data.taskList;
+                      tmProvider.sortLocList(data.locList);
+                      return const HomePage();
+                    }
+                  } else {
+                    return const LoadingScreen(
+                      text: '태스크 정보 불러오는 중',
+                    );
+                  }
+                },
+              );
+            } else {
+              return const LoadingScreen(
+                text: '매장 정보 불러오는 중',
+              );
+            }
+          } else {
+            return const LoadingScreen();
+          }
+        } else {
+          return const LoadingScreen(
+            text: '매장 정보 불러오는 중',
+          );
+        }
+
+        //   if (snapshot.hasData) {
+        //     return FutureBuilder(
+        //       future: data.getTaskData(),
+        //       builder: (context, snapshot) {
+        //         if (snapshot.hasData) {
+        //           tmProvider.selectedArea = data.areaInfo;
+        //           tmProvider.taskList = data.taskList;
+        //           tmProvider.sortLocList(data.locList);
+        //           return HomePage();
+        //         } else {
+        //           return const LoadingScreen(text: '태스크 정보 불러오는 중',);
+        //         }
+        //       },
+        //     );
+        //   } else {
+        //     return const LoadingScreen(text: '매장 정보 불러오는 중',);
+        //   }
+      },
+    );
     if (!data.haveLoc) {
       data.getLocData();
       return const LoadingScreen();

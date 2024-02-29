@@ -1,13 +1,13 @@
 import 'dart:ui';
 
-import 'package:copick_manage_withweb/pages/task_manage_page/widgets/task_app_bar_widget.dart';
-import 'package:copick_manage_withweb/pages/task_manage_page/widgets/task_order_page.dart';
 import 'package:copick_manage_withweb/provider/task_manage_provider.dart';
 import 'package:copick_manage_withweb/utilitys/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../utilitys/colors.dart';
+import '../../../utilitys/colors.dart';
+import 'widgets/task_app_bar_widget.dart';
+import 'widgets/task_order_page.dart';
 
 class TaskPage extends StatelessWidget {
   const TaskPage({super.key});

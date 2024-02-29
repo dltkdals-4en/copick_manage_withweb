@@ -1,9 +1,7 @@
 import 'package:copick_manage_withweb/provider/get_data_provider.dart';
-import 'package:copick_manage_withweb/provider/manage_provider.dart';
+import 'package:copick_manage_withweb/provider/location_manage_provider.dart';
 import 'package:copick_manage_withweb/provider/auth_provider.dart';
 import 'package:copick_manage_withweb/provider/record_provider.dart';
-import 'package:copick_manage_withweb/provider/task_provider.dart';
-import 'package:copick_manage_withweb/data_helper/fb_helper.dart';
 import 'package:copick_manage_withweb/provider/task_manage_provider.dart';
 import 'package:copick_manage_withweb/routes/route_generator.dart';
 import 'package:copick_manage_withweb/routes/routes.dart';
@@ -25,14 +23,12 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider<TaskProvider>(
-          create: (_) => TaskProvider(),
-        ),
+
         ChangeNotifierProvider<AuthProvider>(
           create: (_) => AuthProvider(),
         ),
-        ChangeNotifierProvider<ManageProvider>(
-          create: (_) => ManageProvider(),
+        ChangeNotifierProvider<LocationManageProvider>(
+          create: (_) => LocationManageProvider(),
         ),
         ChangeNotifierProvider<RecordProvider>(
           create: (_) => RecordProvider(),

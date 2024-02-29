@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../../provider/task_manage_provider.dart';
-import '../../../utilitys/colors.dart';
-import '../../../utilitys/constants.dart';
+
+import '../../../../provider/task_manage_provider.dart';
+import '../../../../utilitys/colors.dart';
+import '../../../../utilitys/constants.dart';
 import 'add_item_widget.dart';
 import 'check_dialog_widget.dart';
 

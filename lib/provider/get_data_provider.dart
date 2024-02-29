@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:copick_manage_withweb/data_helper/fb_helper.dart';
 import 'package:flutter/material.dart';
 import '../data_helper/enum_helper.dart';
@@ -11,34 +12,38 @@ class GetDataProvider with ChangeNotifier {
   bool haveTask = false;
   List<WasteLocationModel> locList = [];
   List<TaskModel> taskList = [];
-
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
   void changeArea(AreaInfo area) {
     areaInfo = area;
     notifyListeners();
   }
 
-  Future<void> getLocData() async {
+  Future<bool> getLocData() async {
+    print('1 -> $haveLoc');
     if (!haveLoc) {
-      if (areaInfo != null) {
-        print('${areaInfo!.waste} data loading');
-        if (areaInfo == AreaInfo.Anseong) {
-          await getHttpLocData();
-        } else {
-          if (!haveLoc) {
-            await FbHelper().getLocData(areaInfo!.waste).then((value) {
-              locList.clear();
-              for (var element in value.docs) {
-                locList.add(
-                    WasteLocationModel.fromJson(element.data(), element.id));
-              }
-              print('loclist -> ${locList.length}');
-              haveLoc = true;
-              notifyListeners();
-            });
-          }
+      //   if (areaInfo != null) {
+      print('${areaInfo!.waste} data loading');
+      if (areaInfo == AreaInfo.Anseong) {
+        print('http data');
+        await getHttpLocData();
+      } else {
+        print('firebase data ');
+        var i = await _firestore.collection(areaInfo!.waste).get();
+        if (i.size > 0) {
+          locList.clear();
+          await Future.forEach(i.docs, (element) {
+            locList
+                .add(WasteLocationModel.fromJson(element.data(), element.id));
+          });
+          print('loclist -> ${locList.length}');
+          haveLoc = true;
+          notifyListeners();
         }
       }
+      // }
     }
+    print('2 -> $haveLoc');
+    return haveLoc;
   }
 
   Future<void> getHttpLocData() async {
@@ -84,7 +89,7 @@ class GetDataProvider with ChangeNotifier {
           });
         }
       } else {
-        print('Area empty');
+        print('task empty');
       }
     }
   }
@@ -123,6 +128,7 @@ class GetDataProvider with ChangeNotifier {
   void init() {
     haveLoc = false;
     haveTask = false;
+    areaInfo = null;
     notifyListeners();
   }
 

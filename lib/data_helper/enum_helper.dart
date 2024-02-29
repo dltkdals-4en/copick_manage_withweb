@@ -14,7 +14,7 @@ enum AreaInfo {
       api: 'seongdong',
       task: 'pick_task_seongdong',
       record: 'pick_record_seongdong',
-      waste: 'waste_location'),
+      waste: 'waste_location_seongdong'),
   Test(
       title: '테스트',
       id: 'test',

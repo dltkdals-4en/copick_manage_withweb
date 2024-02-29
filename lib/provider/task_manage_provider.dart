@@ -1,9 +1,11 @@
 import 'package:copick_manage_withweb/data_helper/enum_helper.dart';
+import 'package:copick_manage_withweb/data_helper/gsheets_api_config.dart';
 import 'package:copick_manage_withweb/model/pick_task_model.dart';
 import 'package:copick_manage_withweb/data_helper/fb_helper.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:gsheets/gsheets.dart';
 
 import '../model/task_model.dart';
 import '../model/waste_location_model.dart';
@@ -194,7 +196,7 @@ class TaskManageProvider with ChangeNotifier {
     if (addList.isNotEmpty) {
     } else {
       wasteList?.forEach((element) {
-        Map<String, dynamic> e = {'waste': element, 'state': false};
+        Map<String, dynamic> e = {'waste': element, 'reserved': false};
         addList.add(e);
         addList.sort((a, b) =>
             a['waste'].locationName.compareTo(b['waste'].locationName));
@@ -217,16 +219,16 @@ class TaskManageProvider with ChangeNotifier {
 
   void getAddList() {
     if (reserveSearch == null || reserveSearch == '') {
-      addFList = addList.where((element) => element['state'] == false).toList();
+      addFList = addList.where((element) => element['reserved'] == false).toList();
     } else {
       addFList = addList
-          .where((element) => element['state'] == false)
+          .where((element) => element['reserved'] == false)
           .toList()
           .where((element) =>
               element['waste'].locationName.contains(reserveSearch))
           .toList();
     }
-    addTList = addList.where((element) => element['state'] == true).toList();
+    addTList = addList.where((element) => element['reserved'] == true).toList();
   }
 
   void changeWeek(Object? value) {
@@ -245,14 +247,14 @@ class TaskManageProvider with ChangeNotifier {
 
   void initReserve() {
     for (var value in addList) {
-      value['state'] = false;
+      value['reserved'] = false;
     }
     getAddList();
     notifyListeners();
   }
 
   void changeState(Map<String, dynamic> item) {
-    item['state'] = !item['state'];
+    item['reserved'] = !item['reserved'];
     getAddList();
     notifyListeners();
   }
@@ -293,11 +295,11 @@ class TaskManageProvider with ChangeNotifier {
     print('value = $value');
     reserveSearch = value;
     if (value == '' || value.isEmpty) {
-      addFList = addList.where((element) => element['state'] == false).toList();
+      addFList = addList.where((element) => element['reserved'] == false).toList();
       notifyListeners();
     } else {
       addFList = addList
-          .where((element) => element['state'] == false)
+          .where((element) => element['reserved'] == false)
           .toList()
           .where((element) => element['waste'].locationName.contains(value))
           .toList();
@@ -332,7 +334,7 @@ class TaskManageProvider with ChangeNotifier {
           .where((element) =>
               value['waste'].locationId.contains(element.locationId))
           .isNotEmpty) {
-        value['state'] = false;
+        value['reserved'] = false;
       }
     }
     getAddList();
@@ -354,11 +356,33 @@ class TaskManageProvider with ChangeNotifier {
     }
     notifyListeners();
   }
+  int getMaxCode(){
+    return int.parse(locList!.reduce((a, b) => int.parse(a.locationId!)>int.parse(b.locationId!)?a:b).locationId!);
 
+  }
   String convertTeam(String teamName) {
     int teamNum = (double.parse(teamName)/10 -1).toInt();
 
     return team[teamNum];
+  }
+  Spreadsheet? spreadsheet;
+Worksheet? worksheet;
+  void getGsheets() async{
+    // final gsheets = GsheetsApiConfig.gsheets;
+    // spreadsheet = await gsheets.spreadsheet('1fhax62kIyddAu6J8Dqu3OAw1j1E8kqZgh4gxXvQ0uJM');
+    // worksheet = await spreadsheet!.worksheetByTitle('시트5');
+    // for(var i = 1; i<60; i ++){
+    // var data = await worksheet!.values.row(i);
+    var data1 = WasteLocationModel(
+      locationId: '1074',
+      locationName: '이마트24(본점)',
+      locationGpsLat: 37.54787,
+      locationGpsLong: 127.06431,
+    ).toMap();
+    await FbHelper().addLocData(data1,selectedArea);
+    // }
+
+    // print(worksheet);
   }
 // void search(String value) {
 //   print(value);

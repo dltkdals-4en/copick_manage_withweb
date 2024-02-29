@@ -10,7 +10,7 @@ class WasteLocationModel {
   double? locationGpsLong;
   String? locDocId;
   String? locationTel;
-  String? lastCallDate;
+
   String? locationAdmin;
 
   WasteLocationModel(
@@ -21,33 +21,30 @@ class WasteLocationModel {
       this.locationGpsLat,
       this.locationGpsLong,
       this.locationTel,
-      this.lastCallDate,
+
       this.locDocId,
       this.locationAdmin});
 
   Map<String, dynamic> toMap() {
     return {
       'location_id': locationId,
-      'location_name': locationName,
-      'location_postal': locationPostal,
-      'location_address': locationAddress,
+      'cafe_name': locationName,
+      'location_addr': locationAddress,
       'location_gps_lat': locationGpsLat,
       'location_gps_long': locationGpsLong,
-      'location_tel': locationTel,
-      'last_call_date': Timestamp.fromDate(DateTime.now()),
-      'location_admin': locationAdmin,
+      'manager_tel': locationTel,
     };
   }
 
   WasteLocationModel.fromJson(Map<String, dynamic> json, String docId)
       : locationId = idFormat(json['location_id']),
-        locationName = json['location_name'],
+        locationName = json['cafe_name'],
         locationPostal = json['location_postal'],
         locationAddress = json['location_address'],
         locationGpsLat = json['location_gps_lat'],
         locationGpsLong = json['location_gps_long'],
         locationTel = json['location_tel'],
-        lastCallDate = dateFormat(json['last_call_date']),
+
         locationAdmin = json['location_admin'],
         locDocId = docId;
 
@@ -56,11 +53,10 @@ class WasteLocationModel {
         locationName = json['cafe_name'],
 // locationPostal = json['location_post'],
         locationAddress = json['location_addr'],
-        locationGpsLat  = double.parse(json['location_gps_lat']),
+        locationGpsLat = double.parse(json['location_gps_lat']),
         locationGpsLong = double.parse(json['location_gps_lng']),
         locationTel = json['manager_tel'];
 }
-
 
 String idFormat(data) {
   if (data.runtimeType == String) {
@@ -78,15 +74,15 @@ String dateFormat(Timestamp timestamp) {
   var format = DateFormat('yy/MM/dd HH:mm');
   return format.format(stringToDate);
 }
+
 String? formatId(json) {
   var i = json.toString();
   String? j;
   if (i.startsWith('S')) {
     j = i.substring(1);
-  }else if(i.startsWith('A0')){
+  } else if (i.startsWith('A0')) {
     j = i.replaceFirst("A0", '1');
-  }
-  else{
+  } else {
     j = i;
   }
 

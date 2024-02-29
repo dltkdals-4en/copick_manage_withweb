@@ -17,18 +17,14 @@ class HomeTaskAddWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '태스크 추가',
+          '팀 설정',
           style: kLabelTextStyle.copyWith(),
         ),
         kNorH,
-        Row(
+        Column(
           children: [
-            // ElevatedButton(
-            //   onPressed: () {},
-            //   style: ElevatedButton.styleFrom(),
-            //   child: const Text('개별 태스크 추가'),
-            // ),
-            // kNorW,
+            Text('현재 팀'),
+            kNorH,
             ElevatedButton(
               onPressed: () {
                 ui.makeAddList(null);

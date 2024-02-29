@@ -1,6 +1,5 @@
 import 'package:copick_manage_withweb/pages/home/widgets/home_task_add_widget.dart';
 import 'package:copick_manage_withweb/pages/home/widgets/home_task_check_widget.dart';
-import 'package:copick_manage_withweb/pages/record/record_page/record_page.dart';
 import 'package:copick_manage_withweb/provider/get_data_provider.dart';
 import 'package:copick_manage_withweb/provider/task_manage_provider.dart';
 import 'package:copick_manage_withweb/routes/routes.dart';

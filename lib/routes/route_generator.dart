@@ -1,17 +1,17 @@
 import 'package:copick_manage_withweb/main.dart';
 import 'package:copick_manage_withweb/pages/area_choice/area_choice_page.dart';
 import 'package:copick_manage_withweb/pages/home/home_page.dart';
-import 'package:copick_manage_withweb/pages/loc_manage_page/loc_manage_page.dart';
+import 'package:copick_manage_withweb/pages/location_manage/location_add_page/location_add_page.dart';
 import 'package:copick_manage_withweb/pages/login/login_page.dart';
-import 'package:copick_manage_withweb/pages/record/record_page/record_page.dart';
 import 'package:copick_manage_withweb/pages/splash/splash_page.dart';
-import 'package:copick_manage_withweb/pages/task_add_page/task_add_page.dart';
 import 'package:copick_manage_withweb/routes/routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../pages/location_manage/loc_manage_page/loc_manage_page.dart';
+import '../pages/record_manage/record/record_page/record_page.dart';
 import '../pages/root/root_page.dart';
-import '../pages/task_manage_page/task_page.dart';
+import '../pages/task_manage/task_add_page/task_add_page.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
@@ -37,6 +37,10 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => const LocManagePage(),
         );
+      case Routes.locationAdd:
+        return MaterialPageRoute(
+          builder: (context) => const LocationAddPage(),
+        );
 
       case Routes.taskAdd:
         return MaterialPageRoute(
@@ -50,15 +54,11 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (context) => const AreaChoicePage(),
         );
-      case Routes.task:
-        return MaterialPageRoute(
-          builder: (context) => const TaskPage(),
-        );
+
       default:
         return MaterialPageRoute(
           builder: (context) => const MyApp(),
         );
-
     }
   }
 
