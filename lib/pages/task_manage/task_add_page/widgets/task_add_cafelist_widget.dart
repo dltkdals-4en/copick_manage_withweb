@@ -37,7 +37,7 @@ class TaskAddCafelistWidget extends StatelessWidget {
             child: Center(
               child: Text(
                 '추가하실 카페를 클릭해주세요.',
-                style: kLabelTextStyle.copyWith(
+                style: cLabelTextStyle.copyWith(
                   color: KColors.white,
                 ),
               ),
@@ -57,7 +57,7 @@ class TaskAddCafelistWidget extends StatelessWidget {
                       },
                     ),
                   ),
-                  kNorH,
+                  cNorH,
                   Expanded(
                     child: ListView.separated(
                       separatorBuilder: (context, index) => Divider(),

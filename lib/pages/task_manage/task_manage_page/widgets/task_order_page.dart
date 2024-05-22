@@ -36,7 +36,7 @@ class TaskOrderPage extends StatelessWidget {
                       },
                       child: Text('${tmProvider.team[tabIndex]}팀 태스크 추가'),
                     ),
-                    kNorW,
+                    cNorW,
                     ElevatedButton(
                       onPressed: () async{
                         await tmProvider.deleteWithWeekTeam(tabIndex).whenComplete(() async {
@@ -53,7 +53,7 @@ class TaskOrderPage extends StatelessWidget {
               ],
             ),
           ),
-          kBigH,
+          cBigH,
           Expanded(
             child: ReorderableListView.builder(
               buildDefaultDragHandles: false,
@@ -77,27 +77,27 @@ class TaskOrderPage extends StatelessWidget {
                             children: [
                               Text(
                                 '${index + 1}',
-                                style: kLabelTextStyle.copyWith(),
+                                style: cLabelTextStyle.copyWith(),
                               ),
-                              kNorW,
+                              cNorW,
                               Text(
                                 item.locationName ?? '',
-                                style: kLabelTextStyle.copyWith(),
+                                style: cLabelTextStyle.copyWith(),
                               ),
-                              kSmW,
+                              cSmW,
                               Text(
                                 '${item.locationId}',
-                                style: kContentTextStyle.copyWith(),
+                                style: cContentTextStyle.copyWith(),
                               ),
-                              kSmW,
+                              cSmW,
                               Text(
                                 '수거 ${tmProvider.convertTeam(item.team!)}팀',
-                                style: kContentTextStyle.copyWith(),
+                                style: cContentTextStyle.copyWith(),
                               ),
-                              kSmW,
+                              cSmW,
                               Text(
                                 '수거 ${item.track} 트랙',
-                                style: kContentTextStyle.copyWith(),
+                                style: cContentTextStyle.copyWith(),
                               ),
                             ],
                           ),
@@ -115,7 +115,7 @@ class TaskOrderPage extends StatelessWidget {
                             ),
                             child: Text(
                               '삭제',
-                              style: kBtnTextStyle.copyWith(),
+                              style: cBtnTextStyle.copyWith(),
                             ),
                           ),
                         ],

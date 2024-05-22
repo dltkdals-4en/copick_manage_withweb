@@ -63,7 +63,7 @@ class TaskPage extends StatelessWidget {
                 Container(
                   child: Text('전체 태스크 수 : 00개'),
                 ),
-                kBigH,
+                cBigH,
                 Container(
                   height: 200,
                   child: Column(
@@ -75,7 +75,7 @@ class TaskPage extends StatelessWidget {
                         },
                         onSubmitted: (value) {},
                       ),
-                      kNorH,
+                      cNorH,
                       // (tmProvider.)
                       (items!.isNotEmpty)
                           ? Expanded(
@@ -102,24 +102,24 @@ class TaskPage extends StatelessWidget {
                                               Text(
                                                 '${index + 1}',
                                                 style:
-                                                    kLabelTextStyle.copyWith(),
+                                                    cLabelTextStyle.copyWith(),
                                               ),
-                                              kNorW,
+                                              cNorW,
                                               Text(
                                                 item.locationName ?? '',
                                                 style:
-                                                    kLabelTextStyle.copyWith(),
+                                                    cLabelTextStyle.copyWith(),
                                               ),
-                                              kSmW,
+                                              cSmW,
                                               Text(
                                                 '${item.locationId}',
-                                                style: kContentTextStyle
+                                                style: cContentTextStyle
                                                     .copyWith(),
                                               ),
-                                              kSmW,
+                                              cSmW,
                                               Text(
                                                 '수거 ${item.team}팀',
-                                                style: kContentTextStyle
+                                                style: cContentTextStyle
                                                     .copyWith(),
                                               ),
                                             ],
@@ -159,8 +159,8 @@ class TaskPage extends StatelessWidget {
                     ),
                   ],
                   labelStyle:
-                      kLabelTextStyle.copyWith(color: KColors.lightPrimary),
-                  unselectedLabelStyle: kLabelTextStyle.copyWith(),
+                      cLabelTextStyle.copyWith(color: KColors.lightPrimary),
+                  unselectedLabelStyle: cLabelTextStyle.copyWith(),
                   labelColor: KColors.lightPrimary,
                   unselectedLabelColor: KColors.black,
                   labelPadding: const EdgeInsets.all(SMALLGAP),

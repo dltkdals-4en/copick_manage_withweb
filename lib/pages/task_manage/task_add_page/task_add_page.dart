@@ -22,7 +22,7 @@ class TaskAddPage extends StatelessWidget {
               child: Row(
                 children: [
                   TaskAddCafelistWidget(),
-                  kBigW,
+                  cBigW,
                   TaskAddReservelistWidget(),
                 ],
               ),

@@ -1,6 +1,7 @@
 import 'package:copick_manage_withweb/pages/home/widgets/home_task_add_widget.dart';
 import 'package:copick_manage_withweb/pages/home/widgets/home_task_check_widget.dart';
 import 'package:copick_manage_withweb/provider/get_data_provider.dart';
+import 'package:copick_manage_withweb/provider/location_manage_provider.dart';
 import 'package:copick_manage_withweb/provider/task_manage_provider.dart';
 import 'package:copick_manage_withweb/routes/routes.dart';
 import 'package:copick_manage_withweb/utilitys/colors.dart';
@@ -16,12 +17,13 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var tmProvider = Provider.of<TaskManageProvider>(context);
     var dataProvider = Provider.of<GetDataProvider>(context);
+    var locProvider = Provider.of<LocationManageProvider>(context);
     var size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: Text(
           '${tmProvider.selectedArea!.title} 지역 정보 관리',
-          style: kAppbarTitle.copyWith(),
+          style: cAppbarTitle.copyWith(),
         ),
         centerTitle: true,
         leading: BackButton(
@@ -53,10 +55,11 @@ class HomePage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.end,
                     children: [
                       Text('총 매장 개수 : ${tmProvider.wasteList!.length}'),
-                      kNorH,
+                      cNorH,
                       CustomBtn(
                         onPressed: () {
                           tmProvider.changeLocList(null);
+                          locProvider.selectedArea = tmProvider.selectedArea;
                           Navigator.pushNamed(context, Routes.location);
                         },
                         title: '매장 관리',
@@ -67,7 +70,7 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              kBigH,
+              cBigH,
               Container(
                 width: size.width,
                 decoration: BoxDecoration(
@@ -84,17 +87,17 @@ class HomePage extends StatelessWidget {
                     children: [
                       Text(
                         '태스크 관리',
-                        style: kHeaderTextStyle.copyWith(),
+                        style: cHeaderTextStyle.copyWith(),
                       ),
-                      kBigH,
+                      cBigH,
                       const HomeTaskAddWidget(),
-                      kBigH,
+                      cBigH,
                       const HomeTaskCheckWidget(),
                     ],
                   ),
                 ),
               ),
-              kBigH,
+              cBigH,
               Container(
                 width: size.width,
                 decoration: BoxDecoration(
@@ -111,9 +114,9 @@ class HomePage extends StatelessWidget {
                     children: [
                       Text(
                         '수거 내역 관리',
-                        style: kHeaderTextStyle.copyWith(),
+                        style: cHeaderTextStyle.copyWith(),
                       ),
-                      kBigH,
+                      cBigH,
                       ElevatedButton(
                           onPressed: () {
                             Navigator.of(context).pushNamed(Routes.record);

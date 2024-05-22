@@ -50,9 +50,9 @@ class TaskAddReservelistWidget extends StatelessWidget {
                         children: [
                           Text(
                             '요일',
-                            style: kLabelTextStyle.copyWith(),
+                            style: cLabelTextStyle.copyWith(),
                           ),
-                          kSmW,
+                          cSmW,
                           DropdownButton(
                             value: taskProvider.selectedWeek,
                             hint: Text('선택 안됨'),
@@ -66,15 +66,15 @@ class TaskAddReservelistWidget extends StatelessWidget {
                           ),
                         ],
                       ),
-                      kBigW,
+                      cBigW,
                       Row(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           Text(
                             '팀',
-                            style: kLabelTextStyle.copyWith(),
+                            style: cLabelTextStyle.copyWith(),
                           ),
-                          kSmW,
+                          cSmW,
                           DropdownButton(
                             value: taskProvider.selectedTeam,
                             hint: Text('선택 안됨'),
@@ -99,7 +99,7 @@ class TaskAddReservelistWidget extends StatelessWidget {
                         },
                         child: Text('초기화하기'),
                       ),
-                      kSmW,
+                      cSmW,
                       ElevatedButton(
                         onPressed: () async {
                           if(taskProvider.reserveValidation()){

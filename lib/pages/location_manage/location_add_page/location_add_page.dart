@@ -1,3 +1,4 @@
+import 'package:copick_manage_withweb/data_helper/enum_helper.dart';
 import 'package:copick_manage_withweb/provider/location_manage_provider.dart';
 import 'package:copick_manage_withweb/utilitys/colors.dart';
 import 'package:copick_manage_withweb/utilitys/constants.dart';
@@ -26,23 +27,23 @@ class LocationAddPage extends StatelessWidget {
                   children: [
                     Text(
                       '카페명',
-                      style: kLabelTextStyle.copyWith(),
+                      style: cLabelTextStyle.copyWith(),
                     ),
                     TextField(
                       onChanged: (value) {
-                        locProvider.changeCafeName(value);
+                        locProvider.changeValue(valueCase.cafeName, value);
                       },
                     ),
                   ],
                 ),
-                kNorH,
+                cNorH,
                 Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '위/경도',
-                      style: kLabelTextStyle.copyWith(),
+                      '위도',
+                      style: cLabelTextStyle.copyWith(),
                     ),
                     TextField(
                       keyboardType: TextInputType.number,
@@ -50,12 +51,25 @@ class LocationAddPage extends StatelessWidget {
                         FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'))
                       ],
                       onChanged: (value) {
-                        locProvider.changeGps(value);
+                        locProvider.changeValue(valueCase.gpsLat, value);
+                      },
+                    ),
+                    Text(
+                      '경도',
+                      style: cLabelTextStyle.copyWith(),
+                    ),
+                    TextField(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.allow(RegExp(r'[0-9.,]'))
+                      ],
+                      onChanged: (value) {
+                        locProvider.changeValue(valueCase.gpsLong, value);
                       },
                     ),
                   ],
                 ),
-                kNorH,
+                cNorH,
                 Container(
                   width: size.width,
                   decoration: BoxDecoration(
@@ -72,9 +86,9 @@ class LocationAddPage extends StatelessWidget {
                       children: [
                         Text(
                           '주차위치',
-                          style: kLabelTextStyle.copyWith(),
+                          style: cLabelTextStyle.copyWith(),
                         ),
-                        kSmH,
+                        cSmH,
                         (locProvider.parkingData == null)
                             ? Text('등록된 이미지가 없습니다.')
                             : Container(
@@ -85,7 +99,7 @@ class LocationAddPage extends StatelessWidget {
                                         image: locProvider.parkingImage!.image,
                                         fit: BoxFit.contain)),
                               ),
-                        kSmH,
+                        cSmH,
                         ElevatedButton(
                           onPressed: () async {
                             await locProvider.uploadParckingImage();
@@ -96,7 +110,7 @@ class LocationAddPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                kNorH,
+                cNorH,
                 Container(
                   width: size.width,
                   decoration: BoxDecoration(
@@ -113,9 +127,9 @@ class LocationAddPage extends StatelessWidget {
                       children: [
                         Text(
                           '수거장소',
-                          style: kLabelTextStyle.copyWith(),
+                          style: cLabelTextStyle.copyWith(),
                         ),
-                        kSmH,
+                        cSmH,
                         (locProvider.collectData == null)
                             ? Text('등록된 이미지가 없습니다.')
                             : Container(
@@ -126,7 +140,7 @@ class LocationAddPage extends StatelessWidget {
                                         image: locProvider.collectImage!.image,
                                         fit: BoxFit.contain)),
                               ),
-                        kSmH,
+                        cSmH,
                         ElevatedButton(
                           onPressed: () async {
                             await locProvider.uploadCollectImage();
@@ -137,14 +151,16 @@ class LocationAddPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                kBigH,
+                cBigH,
                 ElevatedButton(
                   onPressed: () {
-                    locProvider.addCafe();
+                    locProvider.addCafe().then((value) {
+                      Navigator.pop(context);
+                    });
                   },
                   child: Text(
                     '카페 등록하기',
-                    style: kLabelTextStyle.copyWith(),
+                    style: cLabelTextStyle.copyWith(),
                   ),
                 ),
               ],

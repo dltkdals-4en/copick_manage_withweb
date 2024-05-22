@@ -21,7 +21,7 @@ class RecordPage extends StatelessWidget {
             Row(
               children: [
                 Text(record.dateFormat(record.selectedDate),),
-                kNorW,
+                cNorW,
                 ElevatedButton(
                   onPressed: () async {
                     await record.changeDate(context);
@@ -30,7 +30,7 @@ class RecordPage extends StatelessWidget {
                 ),
               ],
             ),
-            kBigH,
+            cBigH,
             Expanded(
               child: ListView.builder(
                 itemCount: 50,

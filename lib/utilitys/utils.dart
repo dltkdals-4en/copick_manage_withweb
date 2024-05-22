@@ -63,7 +63,7 @@ makeFToast(BuildContext context,  String s) {
     child: Center(
       child: Text(
         s,
-        style: kContentTextStyle.copyWith(fontSize: 20,color: KColors.white),
+        style: cContentTextStyle.copyWith(fontSize: 20,color: KColors.white),
       ),
     ),
   );

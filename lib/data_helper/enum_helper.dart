@@ -42,3 +42,7 @@ enum AreaInfo {
   final String task;
   final String waste;
 }
+
+enum valueCase{
+  cafeName, gpsLat, gpsLong,
+}

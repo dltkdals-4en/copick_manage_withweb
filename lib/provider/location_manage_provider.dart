@@ -1,19 +1,25 @@
-import 'dart:convert';
 import 'dart:html' as html;
 import 'dart:io';
+import 'dart:typed_data';
+import 'dart:ui' as ui;
+
+import 'package:copick_manage_withweb/data_helper/enum_helper.dart';
+import 'package:copick_manage_withweb/data_helper/fb_helper.dart';
+import 'package:copick_manage_withweb/model/waste_location_model.dart';
 import 'package:firebase_storage/firebase_storage.dart';
-import 'package:path/path.dart' as Path;
+
 import 'package:flutter/material.dart';
 import 'package:image_picker_web/image_picker_web.dart';
 
 class LocationManageProvider with ChangeNotifier {
+  AreaInfo? selectedArea;
   final reader = html.FileReader();
   int? newCode;
 
-  html.File? collectData;
+  Uint8List? collectData;
 
   Image? collectImage;
-  html.File? parkingData;
+  Uint8List? parkingData;
 
   Image? parkingImage;
   String? cafeName;
@@ -21,28 +27,19 @@ class LocationManageProvider with ChangeNotifier {
   double? gpsLat;
   double? gpsLong;
   String? address;
-  final FirebaseStorage _firebaseStorage = FirebaseStorage.instance;
+  String? collectUrl;
 
   Future<void> uploadCollectImage() async {
-    var i;
-    var j;
+    collectData = await ImagePickerWeb.getImageAsBytes();
+    collectImage = Image.memory(collectData!);
 
-    i = await ImagePickerWeb.getImageInfo;
-    collectImage = Image.memory(i.data);
-    String mimeType = Path.basename(i.fileName);
-    collectData = html.File(i.data, i.fileName, {'type': mimeType});
     notifyListeners();
   }
 
   Future<void> uploadParckingImage() async {
-    var i;
-    var j;
+    parkingData = await ImagePickerWeb.getImageAsBytes();
+    parkingImage = Image.memory(parkingData!);
 
-    i = await ImagePickerWeb.getImageInfo;
-
-    String mimeType = Path.basename(i.fileName);
-    parkingData = html.File(i.data, i.fileName, {'type': mimeType});
-    parkingImage = Image.memory(i.data);
     notifyListeners();
   }
 
@@ -58,32 +55,69 @@ class LocationManageProvider with ChangeNotifier {
   }
 
   getCafeCode(int maxNum) {
-    newCode ??= maxNum;
+    newCode ??= maxNum + 1;
     notifyListeners();
   }
 
-  convertData(data){
-    var converted ;
-
+  convertData(data) {
+    var converted;
   }
-  void addCafe() async {
+
+  void changeValue(valueCase input, String value) {
+    switch (input) {
+      case valueCase.cafeName:
+        cafeName = value;
+        notifyListeners();
+      case valueCase.gpsLat:
+        gpsLat = double.parse(value);
+        notifyListeners();
+      // TODO: Handle this case.
+      case valueCase.gpsLong:
+        gpsLong = double.parse(value);
+        notifyListeners();
+      // TODO: Handle this case.
+    }
+  }
+
+  Future<void> addCafe() async {
     var gpsList = gps?.split(',') ?? ['0', '0'];
     gpsLat = double.parse(gpsList[0].trim());
     gpsLong = double.parse(gpsList[1].trim());
-    File file = new File('');
-    reader.readAsDataUrl(collectData!);
-    reader.onLoad.first.then((value) {
-      final encoded = reader.result as String;
-      final imageBase64 = encoded.replaceFirst(
-          RegExp(r'data:image/[^;]+;base64,'),
-          ''); // this is to remove some non necessary stuff
-      file=  File.fromRawPath(base64Decode(imageBase64));
+    var map = WasteLocationModel(
+      locationId: newCode.toString(),
+      locationName: cafeName,
+      locationGpsLong: gpsLong,
+      locationGpsLat: gpsLat,
+      locationAddress: address,
+    ).toMap();
+    // print(map);
+    print(selectedArea);
+    print(newCode);
+    await FbHelper().addLocData(map, selectedArea);
+    await FbHelper().uploadCollectImage(newCode.toString(), collectData!);
+    await FbHelper().uploadParkingImage(newCode.toString(), parkingData!);
+    init();
+    notifyListeners();
+  }
 
-    });
-    if (collectData != null) {
-      await _firebaseStorage.ref('collect_location/${newCode}').putFile(file);
+  void init() {
+    collectData = null;
+    collectImage = null;
+    parkingData = null;
+    parkingImage = null;
+    cafeName = null;
+    gps = null;
+    notifyListeners();
+  }
+
+  void updateCafe() async {}
+
+  Future<void> getImage(String locationId) async {
+    var i = await FbHelper().getImage(locationId);
+    if (i !=null) {
+      collectUrl = i;
     }
-    print(
-        '$newCode//$cafeName//$gpsLat//$gpsLong//${collectData}//${parkingData}');
+
+    notifyListeners();
   }
 }

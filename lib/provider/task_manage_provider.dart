@@ -36,7 +36,7 @@ class TaskManageProvider with ChangeNotifier {
   List<Map<String, dynamic>> addList = [];
   List<Map<String, dynamic>> addTList = [];
   List<Map<String, dynamic>> addFList = [];
-
+  int? selectedIndex;
   String? reserveSearch;
 
   void changeLocList(String? value) {

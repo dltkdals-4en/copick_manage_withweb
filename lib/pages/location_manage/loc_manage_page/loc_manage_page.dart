@@ -1,3 +1,4 @@
+import 'package:copick_manage_withweb/pages/location_manage/loc_manage_page/widgets/loc_view_details.dart';
 import 'package:copick_manage_withweb/provider/location_manage_provider.dart';
 import 'package:copick_manage_withweb/routes/routes.dart';
 import 'package:copick_manage_withweb/utilitys/constants.dart';
@@ -14,8 +15,9 @@ class LocManagePage extends StatelessWidget {
   Widget build(BuildContext context) {
     var tmProvider = Provider.of<TaskManageProvider>(context);
     var locProvider = Provider.of<LocationManageProvider>(context);
+
     return Scaffold(
-      appBar: AppBar(),
+      // appBar: AppBar(),
       body: Stack(
         children: [
           Padding(
@@ -31,11 +33,11 @@ class LocManagePage extends StatelessWidget {
                             locProvider.getCafeCode(tmProvider.getMaxCode());
                             Navigator.of(context).pushNamed(Routes.locationAdd);
                           },
-                          child: Text('카페 추가하기')),
+                          child: const Text('카페 추가하기')),
                     ],
                   ),
                 ),
-                kNorH,
+                cNorH,
                 TextField(
                   onChanged: (value) {
                     tmProvider.changeLocList(value);
@@ -50,16 +52,21 @@ class LocManagePage extends StatelessWidget {
                     itemBuilder: (context, index) {
                       var item = tmProvider.locList![index];
                       return ListTile(
+
                         title: Text(
                           '${item.locationName}',
                         ),
                         subtitle: Text('${item.locationId}'),
                         trailing: CustomBtn(
-                          onPressed: () {},
+                          onPressed: () async{
+                            await locProvider.getImage(item.locationId!);
+                            await showDialog(context: context, builder: (context) => const LocViewDetails() ,);
+                          },
                           title: '상세보기',
                           fontSize: 10,
                           size: const Size(100, 40),
                         ),
+
                       );
                     },
                   ),
@@ -67,16 +74,16 @@ class LocManagePage extends StatelessWidget {
               ],
             ),
           ),
-          Positioned(
-            bottom: 40,
-            right: 40,
-            child: ElevatedButton(
-              onPressed: () async {
-                // tmProvider.getGsheets();
-              },
-              child: const Text('카페 추가'),
-            ),
-          )
+          // Positioned(
+          //   bottom: 40,
+          //   right: 40,
+          //   child: ElevatedButton(
+          //     onPressed: () async {
+          //       // tmProvider.getGsheets();
+          //     },
+          //     child: const Text('카페 추가'),
+          //   ),
+          // )
         ],
       ),
     );

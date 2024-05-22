@@ -55,13 +55,13 @@ class CustomBtn extends StatelessWidget {
                       height: 32,
                       width: 20,
                     ),
-                    kSmW,
+                    cSmW,
                   ],
                 )
               : const SizedBox(),
           Text(
             title,
-            style: kBtnTextStyle.copyWith(
+            style: cBtnTextStyle.copyWith(
               color: (txtColor == null) ? KColors.white : txtColor,
               fontSize: (fontSize == null)?28:fontSize,
             ),

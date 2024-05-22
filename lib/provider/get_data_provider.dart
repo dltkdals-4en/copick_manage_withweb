@@ -13,13 +13,13 @@ class GetDataProvider with ChangeNotifier {
   List<WasteLocationModel> locList = [];
   List<TaskModel> taskList = [];
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   void changeArea(AreaInfo area) {
     areaInfo = area;
     notifyListeners();
   }
 
-  Future<bool> getLocData() async {
-    print('1 -> $haveLoc');
+  Future<void> getLocData() async {
     if (!haveLoc) {
       //   if (areaInfo != null) {
       print('${areaInfo!.waste} data loading');
@@ -28,22 +28,22 @@ class GetDataProvider with ChangeNotifier {
         await getHttpLocData();
       } else {
         print('firebase data ');
-        var i = await _firestore.collection(areaInfo!.waste).get();
-        if (i.size > 0) {
-          locList.clear();
-          await Future.forEach(i.docs, (element) {
-            locList
-                .add(WasteLocationModel.fromJson(element.data(), element.id));
-          });
-          print('loclist -> ${locList.length}');
-          haveLoc = true;
-          notifyListeners();
-        }
+        _firestore.collection(areaInfo!.waste).get().then((value) async {
+          if (value.size > 0) {
+            locList.clear();
+            await Future.forEach(value.docs, (element) {
+              locList
+                  .add(WasteLocationModel.fromJson(element.data(), element.id));
+            }).then((value) {
+              print('loclist -> ${locList.length}');
+              haveLoc = true;
+              notifyListeners();
+            });
+          }
+        });
       }
       // }
     }
-    print('2 -> $haveLoc');
-    return haveLoc;
   }
 
   Future<void> getHttpLocData() async {
@@ -67,31 +67,29 @@ class GetDataProvider with ChangeNotifier {
     }
   }
 
-  Future<void> getTaskData() async {
+  Future<bool> getTaskData() async {
     if (!haveTask) {
-      if (areaInfo != null) {
-        print('${areaInfo!.task} data loading');
-        if (!haveTask) {
-          await FbHelper().getTaskData(areaInfo!.task).then((value) {
-            taskList.clear();
-            for (var element in value.docs) {
-              String locName = locList
-                      .firstWhere(
-                          (e) => e.locationId == element.data()['location_id'])
-                      .locationName ??
-                  '';
-              taskList
-                  .add(TaskModel.fromJson(element.data(), locName, element.id));
-            }
-            print('tasklist -> ${taskList.length}');
-            haveTask = true;
-            notifyListeners();
-          });
-        }
-      } else {
-        print('task empty');
+      print('${areaInfo!.task} data loading');
+      if (!haveTask) {
+        await FbHelper().getTaskData(areaInfo!.task).then((value) {
+          taskList.clear();
+          for (var element in value.docs) {
+            print(element.data());
+            String locName = locList
+                    .firstWhere(
+                        (e) => e.locationId == element.data()['location_id'])
+                    .locationName ??
+                '';
+            taskList
+                .add(TaskModel.fromJson(element.data(), locName, element.id));
+          }
+          print('tasklist -> ${taskList.length}');
+          haveTask = true;
+          notifyListeners();
+        });
       }
     }
+    return haveTask;
   }
 
   Future<void> insertLocData() async {}

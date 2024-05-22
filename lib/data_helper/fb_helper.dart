@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:copick_manage_withweb/data_helper/enum_helper.dart';
 import 'package:copick_manage_withweb/isDebug.dart';
@@ -10,7 +12,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 
 class FbHelper {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final FirebaseStorage storage = FirebaseStorage.instance;
+  final FirebaseStorage _storage = FirebaseStorage.instance;
   List<WasteLocationModel> locList = [];
   List<PickTaskModel> taskList = [];
   List<WeekdayTaskModel> weekdayList = [];
@@ -26,10 +28,12 @@ class FbHelper {
   String? locData;
   String? taskData;
 
-  Future<DocumentSnapshot?> getUserInfo(String username, String password) async{
+  Future<DocumentSnapshot?> getUserInfo(
+      String username, String password) async {
     try {
-      QuerySnapshot querySnapshot = await _firestore.collection('users').where(
-          'name', isEqualTo: username)
+      QuerySnapshot querySnapshot = await _firestore
+          .collection('users')
+          .where('name', isEqualTo: username)
           .where('password', isEqualTo: password)
           .get();
 
@@ -38,69 +42,46 @@ class FbHelper {
       } else {
         return null;
       }
-    }catch (e) {
+    } catch (e) {
       print("Error getting user data: $e");
       return null;
     }
   }
 
-  void settingArea(AreaInfo areaInfo){
+  void settingArea(AreaInfo areaInfo) {
     selectedArea = areaInfo;
   }
 
   Future<void> addTaskData(Map<String, dynamic> data) async {
-    await _firestore
-        .collection(selectedArea!.task)
-        .doc()
-        .set(data);
+    await _firestore.collection(selectedArea!.task).doc().set(data);
   }
 
-
-
-  Future<void> addTaskDataM(List<PickTaskModel> pickTask, AreaInfo? selectedArea) async {
+  Future<void> addTaskDataM(
+      List<PickTaskModel> pickTask, AreaInfo? selectedArea) async {
     for (var value in pickTask) {
-      await _firestore
-          .collection(selectedArea!.task)
-          .doc()
-          .set(value.toAdd());
+      await _firestore.collection(selectedArea!.task).doc().set(value.toAdd());
     }
   }
 
-  Future<void> addLocData(Map<String, dynamic> map,AreaInfo? selectedArea) async {
-    await _firestore
-        .collection(selectedArea!.waste)
-        .doc()
-        .set(map);
+  Future<void> addLocData(
+      Map<String, dynamic> map, AreaInfo? selectedArea) async {
+    await _firestore.collection(selectedArea!.waste).doc().set(map);
   }
 
   Future<void> modifyLocData(Map<String, dynamic> map, String docId) async {
-    await _firestore
-        .collection(selectedArea!.waste)
-        .doc(docId)
-        .update(map);
+    await _firestore.collection(selectedArea!.waste).doc(docId).update(map);
   }
 
   Future<void> deleteLocData(String docId) async {
-    await _firestore
-        .collection(selectedArea!.waste)
-        .doc(docId)
-        .delete();
+    await _firestore.collection(selectedArea!.waste).doc(docId).delete();
   }
 
   Future<void> deleteTaskData(String docId, AreaInfo? selectedArea) async {
-    await _firestore
-        .collection(selectedArea!.task)
-        .doc(docId)
-        .delete();
+    await _firestore.collection(selectedArea!.task).doc(docId).delete();
   }
 
-
-
   Future<void> updatePickOrder(Map<String, dynamic> map, String docId) async {
-    await _firestore
-        .collection(selectedArea!.task)
-        .doc(docId)
-        .update(map);
+    await _firestore.collection(selectedArea!.task).doc(docId).update(map);
   }
 
   Future<QuerySnapshot<Map<String, dynamic>>> getTaskData(String path) async {
@@ -113,9 +94,33 @@ class FbHelper {
     return await _firestore.collection(locPath).get();
   }
 
-  Future<void> uploadImage() async{
-     var i = storage.ref();
-     // i.child('').putData(data);
+  Future<void> uploadCollectImage(String path, Uint8List data) async {
+    await _storage.ref('collect_location/$path').putData(
+        data,
+        SettableMetadata(
+          contentType: "image/png",
+        ));
 
+    // i.child('').putData(data);
+  }
+
+  Future<void> uploadParkingImage(String path, Uint8List data) async {
+    await _storage.ref('parking_location/$path').putData(
+        data,
+        SettableMetadata(
+          contentType: "image/png",
+        ));
+  }
+
+  Future<String?> getImage(String locationId) async {
+    try {
+      return await _storage
+          .ref()
+          .child('parking_location/$locationId')
+          .getDownloadURL();
+    } on FirebaseException catch (e) {
+      print('e-> $e');
+      return null;
+    }
   }
 }

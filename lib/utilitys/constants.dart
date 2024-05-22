@@ -15,38 +15,38 @@ enum UseCase {
   FAILEMPTY,
 }
 
-const TextStyle kAppbarTitle =
+const TextStyle cAppbarTitle =
     TextStyle(fontWeight: FontWeight.w700, fontSize: 24, color: KColors.black);
-const TextStyle kHeaderTextStyle =
+const TextStyle cHeaderTextStyle =
     TextStyle(fontWeight: FontWeight.w700, fontSize: 20, color: KColors.black);
-const TextStyle kLabelTextStyle =
+const TextStyle cLabelTextStyle =
     TextStyle(fontWeight: FontWeight.w700, fontSize: 18, color: KColors.black);
-const TextStyle kContentTextStyle =
+const TextStyle cContentTextStyle =
     TextStyle(fontWeight: FontWeight.w500, fontSize: 16, color: KColors.black);
-const TextStyle kBtnTextStyle =
+const TextStyle cBtnTextStyle =
     TextStyle(fontWeight: FontWeight.w700, fontSize: 16, color: KColors.white);
-const TextStyle kTagTextStyle =
+const TextStyle cTagTextStyle =
     TextStyle(fontWeight: FontWeight.w500, fontSize: 14, color: KColors.white);
 
  ButtonStyle bigBtn = ElevatedButton.styleFrom(
 
  );
-const SizedBox kBigH = SizedBox(
+const SizedBox cBigH = SizedBox(
   height: 30,
 );
-const SizedBox kBigW = SizedBox(
+const SizedBox cBigW = SizedBox(
   width: 30,
 );
-const SizedBox kNorH = SizedBox(
+const SizedBox cNorH = SizedBox(
   height: 20,
 );
-const SizedBox kNorW = SizedBox(
+const SizedBox cNorW = SizedBox(
   width: 20,
 );
-const SizedBox kSmH = SizedBox(
+const SizedBox cSmH = SizedBox(
   height: 10,
 );
-const SizedBox kSmW = SizedBox(
+const SizedBox cSmW = SizedBox(
   width: 10,
 );
 

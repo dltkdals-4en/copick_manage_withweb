@@ -21,13 +21,13 @@ class HomeTaskCheckWidget extends StatelessWidget {
         children: [
           Text(
             '요일별 태스크 관리',
-            style: kLabelTextStyle.copyWith(),
+            style: cLabelTextStyle.copyWith(),
           ),
-          kNorH,
+          cNorH,
           Expanded(
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              separatorBuilder: (context, index) => kSmW,
+              separatorBuilder: (context, index) => cSmW,
               itemCount: 5,
               itemBuilder: (context, index) {
                 // if (index == 5) {
@@ -48,9 +48,9 @@ class HomeTaskCheckWidget extends StatelessWidget {
                           children: [
                             Text(
                               '${tmProvider.getWeekDay(index)}요일',
-                              style: kLabelTextStyle.copyWith(),
+                              style: cLabelTextStyle.copyWith(),
                             ),
-                            kNorH,
+                            cNorH,
                             Text(
                               '태스크 수 : ${tmProvider.getTaskLength(index)}',
                               overflow: TextOverflow.ellipsis,
@@ -61,7 +61,7 @@ class HomeTaskCheckWidget extends StatelessWidget {
                               overflow: TextOverflow.ellipsis,
                               maxLines: 1,
                             ),
-                            kSmH,
+                            cSmH,
                             ElevatedButton(
                               onPressed: () {
                                 tmProvider.saveTaskIndex(index);
@@ -75,7 +75,7 @@ class HomeTaskCheckWidget extends StatelessWidget {
                                 padding: const EdgeInsets.all(SMALLGAP),
                                 child: Text(
                                   '태스크 관리',
-                                  style: kContentTextStyle.copyWith(
+                                  style: cContentTextStyle.copyWith(
                                       fontWeight: FontWeight.w600,
                                       color: KColors.white),
                                   overflow: TextOverflow.ellipsis,

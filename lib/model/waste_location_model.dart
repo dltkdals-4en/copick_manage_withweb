@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -8,10 +10,10 @@ class WasteLocationModel {
   String? locationAddress;
   double? locationGpsLat;
   double? locationGpsLong;
+
   String? locDocId;
   String? locationTel;
 
-  String? locationAdmin;
 
   WasteLocationModel(
       {this.locationId,
@@ -21,9 +23,9 @@ class WasteLocationModel {
       this.locationGpsLat,
       this.locationGpsLong,
       this.locationTel,
-
       this.locDocId,
-      this.locationAdmin});
+
+     });
 
   Map<String, dynamic> toMap() {
     return {
@@ -33,6 +35,8 @@ class WasteLocationModel {
       'location_gps_lat': locationGpsLat,
       'location_gps_long': locationGpsLong,
       'manager_tel': locationTel,
+
+
     };
   }
 
@@ -45,7 +49,7 @@ class WasteLocationModel {
         locationGpsLong = json['location_gps_long'],
         locationTel = json['location_tel'],
 
-        locationAdmin = json['location_admin'],
+
         locDocId = docId;
 
   WasteLocationModel.fromHttpJson(Map<String, dynamic> json)

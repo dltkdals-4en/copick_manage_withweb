@@ -22,8 +22,8 @@ class AreaChoicePage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('관리할 지역을 선택해주세요',style: kHeaderTextStyle,),
-              kBigH,
+              const Text('관리할 지역을 선택해주세요',style: cHeaderTextStyle,),
+              cBigH,
               CustomBtn(
                 onPressed: () {
                   server.changeArea(AreaInfo.Seongdong);
@@ -32,7 +32,7 @@ class AreaChoicePage extends StatelessWidget {
                 title: '성동',
                 size: const Size(150, 50),
               ),
-              kNorH,
+              cNorH,
               CustomBtn(
                 onPressed: () {
                   server.changeArea(AreaInfo.Anseong);

@@ -18,13 +18,13 @@ class HomeTaskAddWidget extends StatelessWidget {
       children: [
         Text(
           '팀 설정',
-          style: kLabelTextStyle.copyWith(),
+          style: cLabelTextStyle.copyWith(),
         ),
-        kNorH,
+        cNorH,
         Column(
           children: [
             Text('현재 팀'),
-            kNorH,
+            cNorH,
             ElevatedButton(
               onPressed: () {
                 ui.makeAddList(null);
