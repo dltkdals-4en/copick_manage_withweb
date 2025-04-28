@@ -16,7 +16,7 @@ class TaskAddReservelistWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     var taskProvider = Provider.of<TaskManageProvider>(context);
     var getDataProvider = Provider.of<GetDataProvider>(context);
-    var fbHelper = Provider.of<FbHelper>(context);
+
     var size = MediaQuery.of(context).size;
     var tItems = taskProvider.addTList;
     var fItems = taskProvider.addFList;
@@ -101,7 +101,8 @@ class TaskAddReservelistWidget extends StatelessWidget {
                       kSmW,
                       ElevatedButton(
                         onPressed: () async {
-                          await taskProvider.addReserve(fbHelper).then((value) {
+                          // taskProvider.test();
+                          await taskProvider.addReserve().then((value) {
                             getDataProvider.init();
                             Navigator.pushNamedAndRemoveUntil(context, Routes.splash, (route) => false);
 

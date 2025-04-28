@@ -55,10 +55,11 @@ class FbHelper {
 
 
 
-  Future<void> addTaskDataM(List<PickTaskModel> pickTask) async {
+  Future<void> addTaskDataM(List<PickTaskModel> pickTask, AreaInfo? selectedArea) async {
+    print('${selectedArea!.task} add data');
     for (var value in pickTask) {
       await _firestore
-          .collection(selectedArea!.task)
+          .collection(selectedArea.task)
           .doc()
           .set(value.toAdd());
     }

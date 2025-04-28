@@ -28,6 +28,7 @@ void main() async {
         ChangeNotifierProvider<TaskProvider>(
           create: (_) => TaskProvider(),
         ),
+
         ChangeNotifierProvider<AuthProvider>(
           create: (_) => AuthProvider(),
         ),

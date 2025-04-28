@@ -44,7 +44,7 @@ class GetDataProvider with ChangeNotifier {
       if (areaInfo != null) {
         print('${areaInfo!.waste} data loading');
         if (!haveLoc) {
-          await HttpHelper().getCafeInfo('anseong').then((value) async {
+          await HttpHelper().getCafeInfo(areaInfo!.api).then((value) async {
             locList.clear();
             for (var element in value) {
               locList.add(WasteLocationModel.fromHttpJson(element));

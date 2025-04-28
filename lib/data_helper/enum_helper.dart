@@ -15,6 +15,14 @@ enum AreaInfo {
       task: 'pick_task_seongdong',
       record: 'pick_record_seongdong',
       waste: 'waste_location'),
+  Hwaseong(
+      title: '화성',
+      id: 'adminHs',
+      pw: 'admin1234',
+      api: 'hwaseong',
+      task: 'pick_task_hwaseong',
+      record: 'pick_record_hwaseong',
+      waste: 'waste_location_hwaseong'),
   Test(
       title: '테스트',
       id: 'test',

@@ -265,7 +265,7 @@ class TaskManageProvider with ChangeNotifier {
     }
   }
 
-  Future<void> addReserve(FbHelper fbHelper) async {
+  Future<void> addReserve() async {
     var track = weekDay.indexOf(selectedWeek!) + 1;
     var teamNum = (team.indexOf(selectedTeam!) + 1) * 10;
 
@@ -279,13 +279,33 @@ class TaskManageProvider with ChangeNotifier {
         pickOrder: 0,
       ));
     }
-    await fbHelper.addTaskDataM(reserveList).then((value) {
+    print( selectedArea!.task);
+    await FbHelper().addTaskDataM(reserveList, selectedArea).then((value) {
       selectedTeam = null;
       selectedWeek = null;
       initReserve();
       notifyListeners();
     });
   }
+  void test() {
+    var track = weekDay.indexOf(selectedWeek!) + 1;
+    var teamNum = (team.indexOf(selectedTeam!) + 1) * 10;
+
+    List<PickTaskModel> reserveList = [];
+    if (reserveList.isNotEmpty) reserveList.clear();
+    for (var value in addTList) {
+      reserveList.add(PickTaskModel(
+        locationId: value['waste'].locationId,
+        track: track,
+        team: teamNum.toString(),
+        pickOrder: 0,
+      ));
+      print(value['waste'].locationId);
+      print(track);
+      print(teamNum);
+    }
+  }
+
 
   void searchCafe(String value) {
     print('value = $value');
@@ -350,6 +370,8 @@ class TaskManageProvider with ChangeNotifier {
 
     return team[teamNum];
   }
+
+
 // void search(String value) {
 //   print(value);
 //   wasteList = wasteList!.where((element) => element.locationName!.contains(value)).toList();

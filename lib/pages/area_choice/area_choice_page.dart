@@ -37,6 +37,15 @@ class AreaChoicePage extends StatelessWidget {
               title: '안성',
               size: const Size(150, 50),
             ),
+            kNorH,
+            CustomBtn(
+              onPressed: () {
+                server.changeArea(AreaInfo.Hwaseong);
+                Navigator.pushNamed(context, Routes.root);
+              },
+              title: '화성',
+              size: const Size(150, 50),
+            ),
           ],
         ),
       ),
