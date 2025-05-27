@@ -86,9 +86,10 @@ class FbHelper {
         .delete();
   }
 
-  Future<void> deleteTaskData(String docId) async {
+  Future<void> deleteTaskData(String docId, AreaInfo? selectedArea) async {
+    print('selectedArea -> ${selectedArea!.task}');
     await _firestore
-        .collection(selectedArea!.task)
+        .collection(selectedArea.task)
         .doc(docId)
         .delete();
   }

@@ -98,7 +98,7 @@ class GetDataProvider with ChangeNotifier {
   Future<void> updateTaskData() async {}
 
   Future<void> deleteTaskData(String docId) async {
-    await FbHelper().deleteTaskData(docId).then((value) async {
+    await FbHelper().deleteTaskData(docId, areaInfo).then((value) async {
       await FbHelper().getTaskData(areaInfo!.task).then((value) {
         taskList.clear();
         for (var element in value.docs) {

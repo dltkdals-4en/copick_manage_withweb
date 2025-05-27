@@ -360,7 +360,7 @@ class TaskManageProvider with ChangeNotifier {
             element.team == teamNum.toString() && element.track == track)
         .toList();
     for (var value in deleteList) {
-      await FbHelper().deleteTaskData(value.pickDocId!);
+      await FbHelper().deleteTaskData(value.pickDocId!,selectedArea);
     }
     notifyListeners();
   }
